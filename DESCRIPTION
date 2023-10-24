@@ -1,0 +1,25 @@
+Package: ASpediaR
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Depends:
+  R(>= 4.2)
+Imports: 
+    BSgenome.Hsapiens.UCSC.hg18,
+    BSgenome.Hsapiens.UCSC.hg19,
+    BSgenome.Hsapiens.UCSC.hg38,
+    epitools,
+    ggbio,
+    ggraph,
+    igraph,
+    RSQLite,
+    rtracklayer,
+    stringr,
+    valr
