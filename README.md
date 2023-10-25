@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ASpediaR
+# ASpedia-R
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -15,7 +15,7 @@ You can install the development version of ASpediaR from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ncc-bioinfo/ASpedia-R")
+devtools::install_github("ncc-bioinfo/ASpediaR")
 ```
 
 ## Example
