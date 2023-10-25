@@ -13,7 +13,7 @@ library(stringr)
 #'
 #' @examples
 asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsva.gene.list="") {
-  gene.list.file.name <- paste0("./data/", gene.model, ".", genome.version, ".gene.txt")
+  gene.list.file.name <- paste0(rappdirs::user_data_dir(), "/data/", gene.model, ".", genome.version, ".gene.txt")
   
   if(gsva.gene.list == "") {
     if(!file.exists(gene.list.file.name)) {
@@ -269,7 +269,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   }
   
   #GSEA
-  source("R/mining_gsea.R")
+  #source("R/mining_gsea.R")
   print(length(unique(annotation.result$gene_symbol)))
   mining_gsea(unique(annotation.result$gene_symbol), whole.gene)
   #mining_gsea(unique(annotation.result$gene_symbol), unique(gtf.data$gene_name))
