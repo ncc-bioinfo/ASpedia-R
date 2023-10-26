@@ -12,7 +12,13 @@ library(ggplot2)
 #'
 #' @examples
 mining_gsea <- function(gene.list, whole.gene.list) {
-  db.file.name <- paste0(system.file(packages="ASpediaR"), "/data/mining.sqlite")
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
+  
+  if(file.exists(data.dir) == FALSE) {
+    dir.create(data.dir)
+  }
+  
+  db.file.name <- paste0(data.dir, "/mining.sqlite")
 
   if(!file.exists(db.file.name)) {
     url =  "http://combio.hanyang.ac.kr/aspedia_v2/data/sqlite/mining.sqlite"

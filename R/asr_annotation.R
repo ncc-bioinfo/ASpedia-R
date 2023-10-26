@@ -13,7 +13,13 @@ library(stringr)
 #'
 #' @examples
 asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsva.gene.list="") {
-  gene.list.file.name <- paste0(system.file(packages="ASpediaR"), "/data/", gene.model, ".", genome.version, ".gene.txt")
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
+  
+  if(file.exists(data.dir) == FALSE) {
+    dir.create(data.dir)
+  }
+  
+  gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
   
   if(gsva.gene.list == "") {
     if(!file.exists(gene.list.file.name)) {
@@ -27,7 +33,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
     whole.gene <- gava.gene.list
   }
   
-  db.file.name <- paste0(system.file(packages="ASpediaR"), "/data/", gene.model, "_", genome.version, ".sqlite")
+  db.file.name <- paste0(data.dir, "/", gene.model, "_", genome.version, ".sqlite")
   
   start.time <- Sys.time()
   
