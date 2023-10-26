@@ -39,7 +39,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   
   if(!file.exists(db.file.name)) {
     url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/sqlite/", gene.model, "_", genome.version, ".sqlite")
-    download.file(url, db.file.name, method="auto", mode="wb", header=options(timeout=600))
+    download.file(url, db.file.name, method="auto", mode="wb", header=options(timeout=6000))
   }
   
   end.time <- Sys.time()
