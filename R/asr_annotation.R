@@ -20,8 +20,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   }
   
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
-  print(gene.list.file.name)
-  
+
   if(gsva.gene.list == "") {
     if(!file.exists(gene.list.file.name)) {
       url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
@@ -40,7 +39,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   
   if(!file.exists(db.file.name)) {
     url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/sqlite/", gene.model, "_", genome.version, ".sqlite")
-    download.file(url, db.file.name, method="auto", mode="wb")
+    download.file(url, db.file.name, method="auto", mode="wb", header=options(timeout=600))
   }
   
   end.time <- Sys.time()
