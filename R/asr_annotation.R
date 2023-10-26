@@ -20,6 +20,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   }
   
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
+  print(gene.list.file.name)
   
   if(gsva.gene.list == "") {
     if(!file.exists(gene.list.file.name)) {
