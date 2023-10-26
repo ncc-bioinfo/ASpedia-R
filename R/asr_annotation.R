@@ -12,7 +12,7 @@ library(stringr)
 #' @export
 #'
 #' @examples
-asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsva.gene.list="") {
+asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsva.gene.list="", result.dir="") {
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   if(file.exists(data.dir) == FALSE) {
@@ -275,8 +275,8 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   }
   
   #GSEA
-  print(length(unique(annotation.result$gene_symbol)))
-  mining_gsea(unique(annotation.result$gene_symbol), whole.gene)
+  #print(length(unique(annotation.result$gene_symbol)))
+  mining_gsea(unique(annotation.result$gene_symbol), whole.gene, result.dir)
   #mining_gsea(unique(annotation.result$gene_symbol), unique(gtf.data$gene_name))
 
   dbDisconnect(db.connection)

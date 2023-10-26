@@ -1,7 +1,3 @@
-library(epitools)
-library(stringr)
-library(ggplot2)
-
 #' Title
 #'
 #' @param gene.list 
@@ -11,7 +7,21 @@ library(ggplot2)
 #' @export
 #'
 #' @examples
-mining_gsea <- function(gene.list, whole.gene.list) {
+mining_gsea <- function(gene.list, whole.gene.list, result.dir) {
+  loaded.packages <- tolower((.packages()))
+  
+  if(("epitools" %in% loaded.packages) == FALSE) {
+    library(epitools)
+  }
+  
+  if(("stringr" %in% loaded.packages) == FALSE) {
+    library(stringr)
+  }
+  
+  if(("ggplot2" %in% loaded.packages) == FALSE) {
+    library(ggplot2)
+  }
+  
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   if(file.exists(data.dir) == FALSE) {
@@ -58,6 +68,9 @@ mining_gsea <- function(gene.list, whole.gene.list) {
   #result.data <- cbind(result.data, "log_CP"=(-log10(as.numeric(result.data$CP))))
   result.data <- cbind(result.data, "log_CP"=(-log10(as.numeric(result.data$adjP))))
   result.data <- result.data[order(result.data$log_CP, decreasing=TRUE), ]
+  
+  write.table(result.data, paste0(result.dir, "/GSEA_result.tsv"), col.names=TRUE, row.names=FALSE, sep="\t", quote=FALSE)
+  
   result.data <- result.data[1:7, ]
 
   gsea.result.plot <- ggplot(result.data, aes(x=log_CP, y=reorder(pathway, log_CP))) + geom_bar(stat="identity") + theme_light() + theme(axis.title.x = element_text(colour="black", size=20, face="bold"), panel.border = element_blank(), panel.grid.major.x = element_line(colour = "black"), panel.grid.minor.x = element_blank(), panel.grid.major.y = element_blank(), axis.line = element_line(colour="black"), axis.text.x = element_text(colour="black", size=16), axis.text.y = element_text(colour="black", size=16, face="bold", vjust=0), axis.ticks = element_blank(), plot.margin.x = NULL, legend.position='none') + xlab("-log10(Pvalue)") + ylab('') + labs(fill='') + scale_x_continuous(expand=c(0, 0), limits=c(0, max(result.data$log_CP) + 1))
@@ -67,4 +80,6 @@ mining_gsea <- function(gene.list, whole.gene.list) {
   #y=reorder(pathway, -log_CP)
   
   print(gsea.result.plot)
+  
+  
 }
