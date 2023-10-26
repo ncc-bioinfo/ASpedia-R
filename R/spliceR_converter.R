@@ -21,8 +21,14 @@ spliceR.converter <- function(input.file.name, gene.model, genome.version, pvalu
     print(paste0("*** ERROR MESSAGE: No such input file. ", input.file.name))
     return()
   }
+  
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
+  
+  if(file.exists(data.dir) == FALSE) {
+    dir.create(data.dir)
+  }
 
-  asdb.prefix <- paste0("./data/", gene.model, ".", genome.version, ".AS")
+  asdb.prefix <- paste0(data.dir, "/", gene.model, ".", genome.version, ".AS")
 
   spliceR.result <- read.table(input.file.name, header=TRUE, stringsAsFactor=FALSE, sep="\t")
   spliceR.result <- spliceR.result[spliceR.result$spliceR.iso_p_value < pvalue.cutoff, ]
