@@ -32,17 +32,14 @@
 
 asr_converter <- function(input.file.name="", program="", pvalue.cutoff=0.05, das.cutoff=0.1, gene.model="Ensembl", genome.version="hg38", as.type="", gtf.file.name="", ioe.file.name="") {
   if(tolower(program) == "rmats") {
-    #source("R/rMATS_converter.R")
     converter.result <- rMATS.converter(input.file.name, as.type, pvalue.cutoff, das.cutoff)
 
     return(converter.result)
   } else if(tolower(program) == "suppa") {
-    #source("R/SUPPA_converter.R")
     converter.result <- SUPPA.converter(input.file.name, gtf.file.name, ioe.file.name, pvalue.cutoff, das.cutoff)
 
     return(converter.result)
   } else if(tolower(program) == "splicer") {
-    #source("R/spliceR_converter.R")
     converter.result <- spliceR.converter(input.file.name, gene.model, genome.version, pvalue.cutoff)
 
     return(converter.result)
