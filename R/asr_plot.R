@@ -793,7 +793,7 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     }
     
     #RBP
-    
+    #if(tmp.anno$)
     as.track <- as.track + theme_tracks_sunset(bg="white") + theme(legend.position="none", axis.title.y=element_text(angle=0, vjust=0.5))
     
     if(heights.list != "") {

@@ -45,11 +45,11 @@ asr_converter <- function(das.analysis.result="", program="", pvalue.cutoff=0.05
 
     return(converter.result)
   } else if(tolower(program) == "suppa") {
-    converter.result <- SUPPA.converter(das.analysis.result, gtf.file.name, ioe.file.name, pvalue.cutoff, das.cutoff)
+    converter.result <- SUPPA.converter(das.analysis.result, pvalue.cutoff, das.cutoff, gtf.file.name, ioe.file.name)
 
     return(converter.result)
   } else if(tolower(program) == "splicer") {
-    converter.result <- spliceR.converter(das.analysis.result, gene.model, genome.version, pvalue.cutoff)
+    converter.result <- spliceR.converter(das.analysis.result, pvalue.cutoff, gene.model, genome.version)
 
     return(converter.result)
   } else {
