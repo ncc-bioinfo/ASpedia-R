@@ -1,27 +1,40 @@
-library(RSQLite)
-library(stringr)
-
-#' Title
+#' converting result mapping to ASDB
 #'
-#' @param converter.result 
-#' @param gene.model 
-#' @param genome.version 
-#' @param gsva.gene.list 
+#' @param converter.result
+#' asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result
+#' @param gene.model
+#' gene model of reference.
+#' @param genome.version
+#' genome version of reference.
+#' @param gsea.gene.list
+#' optional. reference gene list for gene enrichment test with annotation result gene list and knowledge-based database gene list. If gene list is empty, use all genes in reference.
 #'
-#' @return
+#' @return annotation result
 #' @export
 #'
 #' @examples
-asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsva.gene.list="", result.dir="") {
+#' annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”)
+
+asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsea.gene.list="", result.dir="") {
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   if(file.exists(data.dir) == FALSE) {
     dir.create(data.dir)
   }
   
+  loaded.packages <- tolower((.packages()))
+  
+  if(("RSQLite" %in% loaded.packages) == FALSE) {
+    library(RSQLite)
+  }
+  
+  if(("stringr" %in% loaded.packages) == FALSE) {
+    library(stringr)
+  }
+  
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
 
-  if(gsva.gene.list == "") {
+  if(gsea.gene.list == "") {
     if(!file.exists(gene.list.file.name)) {
       url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
       download.file(url, gene.list.file.name, method="auto")

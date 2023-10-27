@@ -1,25 +1,37 @@
-#library(bedtoolsr)
-library(valr)
-library(stringr)
-
 #spliceR result file, gene model, genome version, pvalue cutoff, dIF(delta Isoform fraction (IF) value) cutoff
-
-#spliceR.converter <- function(input.file.name, asdb.dir, gene.model, genome.version, pvalue.cutoff, dif.cutoff) {
-#' Title
+#' spliceR result convert to ASpedia-R input format.
 #'
-#' @param input.file.name 
-#' @param gene.model 
+#' @param spliceR.result
+#' name of spliceR result file.
+#' @param pvalue.cutoff
+#' value of pvalue cutoff. default value is 0.05
+#' @param gene.model
+#' gene model of reference.
 #' @param genome.version 
-#' @param pvalue.cutoff 
-#'
+#' genome version of reference.
+#' 
 #' @return
+#' converting.result
 #' @export
 #'
 #' @examples
-spliceR.converter <- function(input.file.name, gene.model, genome.version, pvalue.cutoff) {
-  if(file.exists(input.file.name) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such input file. ", input.file.name))
+#' spliceR.result.file <- “examples/spliceR_test.txt”
+#' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”, gene.model=”Ensembl’”, genome.version=”GRCh38”)
+
+spliceR.converter <- function(spliceR.result, pvalue.cutoff, gene.model, genome.version) {
+  if(file.exists(spliceR.result) == FALSE) {
+    print(paste0("*** ERROR MESSAGE: No such input file. ", spliceR.result))
     return()
+  }
+  
+  loaded.packages <- tolower((.packages()))
+  
+  if(("valr" %in% loaded.packages) == FALSE) {
+    library(valr)
+  }
+  
+  if(("stringr" %in% loaded.packages) == FALSE) {
+    library(stringr)
   }
   
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
@@ -30,9 +42,9 @@ spliceR.converter <- function(input.file.name, gene.model, genome.version, pvalu
 
   asdb.prefix <- paste0(data.dir, "/", gene.model, ".", genome.version, ".AS")
 
-  spliceR.result <- read.table(input.file.name, header=TRUE, stringsAsFactor=FALSE, sep="\t")
-  spliceR.result <- spliceR.result[spliceR.result$spliceR.iso_p_value < pvalue.cutoff, ]
-  #spliceR.result <- spliceR.result[spliceR.result$spliceR.iso_p_value < pvalue.cutoff & abs(spliceR.result$spliceR.dIF) > dif.cutoff, ]
+  spliceR.input <- read.table(spliceR.result, header=TRUE, stringsAsFactor=FALSE, sep="\t")
+  spliceR.input <- spliceR.input[spliceR.input$spliceR.iso_p_value < pvalue.cutoff, ]
+  #spliceR.input <- spliceR.input[spliceR.input$spliceR.iso_p_value < pvalue.cutoff & abs(spliceR.input$spliceR.dIF) > dif.cutoff, ]
 
   total.a3ss.count <- 0
   total.a5ss.count <- 0
@@ -50,8 +62,8 @@ spliceR.converter <- function(input.file.name, gene.model, genome.version, pvalu
   af.exon.list <- data.frame()
   al.exon.list <- data.frame()
 
-  for (i in 1:nrow(spliceR.result)) {
-    tmp.result <- spliceR.result[i, ]
+  for (i in 1:nrow(spliceR.input)) {
+    tmp.result <- spliceR.input[i, ]
 
     a3ss.count <- tmp.result$spliceR.A3
     a5ss.count <- tmp.result$spliceR.A5

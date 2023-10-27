@@ -1,25 +1,31 @@
 #rMATS result file, AS type, P-value cutoff, DPSI cutoff
-library(stringr)
-
-#' Title
+#' Generate ASpedia-R input format from rMATS result.
 #'
-#' @param input.file.name 
-#' @param as.type 
-#' @param pvalue.cutoff 
-#' @param dpsi.cutoff 
+#' @param rMATS.result
+#' name of rMATS result file.
+#' @param as.type
+#' AS event type. One of A3SS, A5SS, SE, MXE, and RI.
+#' @param pvalue.cutoff
+#' value of pvalue cutoff. default value is 0.05
+#' @param dpsi.cutoff
+#' value of dPSI cutoff. default value is 0.1
 #'
-#' @return
+#' @return converting.result
+#' 
 #' @export
 #'
 #' @examples
-rMATS.converter <- function(input.file.name, as.type, pvalue.cutoff, dpsi.cutoff)
+#' rmats.result.file.name <- “examples/rMATS_test.txt”
+#' rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=”rMATS”, as.type=”SE”)
+
+rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
 {
-  if(file.exists(input.file.name) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such input file. ", input.file.name))
+  if(file.exists(rMATS.result) == FALSE) {
+    print(paste0("*** ERROR MESSAGE: No such input file. ", rMATS.result))
     return()
   }
 
-  rMATS.input <- read.table(input.file.name, header=TRUE, sep="\t", stringsAsFactors=FALSE)
+  rMATS.input <- read.table(rMATS.result, header=TRUE, sep="\t", stringsAsFactors=FALSE)
 
   if(nrow(rMATS.input) == 0)
   {
@@ -31,7 +37,13 @@ rMATS.converter <- function(input.file.name, as.type, pvalue.cutoff, dpsi.cutoff
     print("*** ERROR MESSAGE: Input AS type is wrong. Please check AS.type option. We only support A5SS, A3SS, SE, MXE, RI.")
     return()
   }
-
+  
+  loaded.packages <- tolower((.packages()))
+  
+  if(("stringr" %in% loaded.packages) == FALSE) {
+    library(stringr)
+  }
+  
   #"chr", "strand", "as_type", "upstream_exon", "splicing exon", "downstream exon", "gene_id", "gene_name", "P-value", "dPSI"
 
   if(as.type == "A3SS") {

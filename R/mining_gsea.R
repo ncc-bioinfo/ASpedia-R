@@ -1,13 +1,22 @@
-#' Title
+#' gene enrichment test between annotation gene list and knowledge-based database gene list.
 #'
-#' @param gene.list 
+#' @param annotation.gene.list
+#' gene list from asr_annotation function result
 #' @param whole.gene.list 
+#' gene list from reference
 #'
 #' @return
 #' @export
 #'
 #' @examples
-mining_gsea <- function(gene.list, whole.gene.list, result.dir) {
+#' library(rtracklayer)
+#' gtf.file.name <- “examples/test_gtf.gtf”
+#' gtf.data <- import(gtf.file.name)
+#' reference.gene.list <- unique(gtf.data$gene_name)
+#' annotation.gene.list <- unique(annotation.result$gene_symbol)
+#' mining_gsea(annotation.gene.list, reference.gene.list)
+
+mining_gsea <- function(annotation.gene.list, whole.gene.list, result.dir) {
   loaded.packages <- tolower((.packages()))
   
   if(("epitools" %in% loaded.packages) == FALSE) {
@@ -56,7 +65,7 @@ mining_gsea <- function(gene.list, whole.gene.list, result.dir) {
     split_pathway <- (str_split(pathway, "_")[[1]])
     mining.pathway <- paste(split_pathway[2:length(split_pathway)], collapse="_")
 
-    stat_CP <- chisq.test(t(contigency_table(mining.gene, gene.list, whole.gene.list)))$p.value
+    stat_CP <- chisq.test(t(contigency_table(mining.gene, annotation.gene.list, whole.gene.list)))$p.value
 
     result.data <- rbind(result.data, c(pathway, mining.pathway, stat_CP))
   }

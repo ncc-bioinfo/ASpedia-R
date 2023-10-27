@@ -1,29 +1,61 @@
-library(ggbio)
-library(RSQLite)
-library(rtracklayer)
-library(stringr)
-library(ggraph)
-library(igraph)
-
-#' Title
+#' visualization of annotation result
 #'
-#' @param annotation.result 
-#' @param gtf.file.name 
-#' @param gene.model 
-#' @param genome.version 
-#' @param gene.name 
-#' @param as.id 
-#' @param heights.list 
+#' @param annotation.result
+#' asr_annotation function result.
+#' @param gtf.file.name
+#' a GTF format file of reference.
+#' @param gene.model
+#' gene model of reference.
+#' @param genome.version
+#' genome version of reference. 
+#' @param gene.name
+#' gene name to be visualization. 
+#' @param as.id
+#' list of AS ID to be visualization.
+#' @param heights.list
+#' positive integer vectors for track heights include height of ideogram and gene track.
 #' @param plot.data.list 
+#' list of DNA or RNA feature to be visualization.choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, and “RBP”.
 #'
 #' @return 
 #' @export
 #'
-#' @examples 
+#' @examples
+#' gtf.file.name <- “examples/test_gtf.gtf”
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="FGFR2")
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 3), list.of.plot=c(“conservation”, “NMD”, “RBP”))
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",  as.id="")
+
 asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="") {
   if(gene.name == "" || as.id == "") {
     print("*** ERROR MESSAGE: Input gene name or AS ID is empty.")
     return()
+  }
+  
+  loaded.packages <- tolower((.packages()))
+  
+  if(("ggbio" %in% loaded.packages) == FALSE) {
+    library(ggbio)
+  }
+  
+  if(("RSQLite" %in% loaded.packages) == FALSE) {
+    library(RSQLite)
+  }
+  
+  if(("rtracklayer" %in% loaded.packages) == FALSE) {
+    library(rtracklayer)
+  }
+  
+  if(("stringr" %in% loaded.packages) == FALSE) {
+    library(stringr)
+  }
+  
+  if(("ggraph" %in% loaded.packages) == FALSE) {
+    library(ggraph)
+  }
+  
+  if(("igraph" %in% loaded.packages) == FALSE) {
+    library(igraph)
   }
   
   if(!file.exists(gene.list.file.name)) {

@@ -4,13 +4,13 @@
 
 #' Generate ASpedia-R input format from DAS analysis tools result.
 #'
-#' @param input.file.name
+#' @param das.analysis.result
 #' name of DAS analysis tools result file.
 #' @param program
 #' name of DAS analysis tool. (one of rMATS, SUPPA, and spliceR)
 #' @param pvalue.cutoff
 #' value of pvalue cutoff. default value is 0.05
-#' @param das.cutoff
+#' @param dpsi.cutoff
 #' value of dPSI cutoff. default value is 0.1
 #' @param gene.model
 #' gene model of reference (SUPPA and spliceR).
@@ -27,20 +27,29 @@
 #' @export
 #'
 #' @examples 
+#' ## rMATS
 #' das.file.name <- “examples/rMATS_test.txt”
 #' rmats.converter.result <- asr_converter(das.file.name, program=”rMATS”, as.type=”SE”)
+#' ##SUPPA
+#' das.file.name <- “examples/SUPPA_test.txt”
+#' gtf.file.name <- “examples/test_gtf.gtf”
+#' ioe.file.name <- “examples/SUPPA_test.ioe”
+#' suppa.converter.result <- asr_converter(das.file.name, program=”SUPPA”, gtf.file=gtf.file.name, ioe.file=ioe.file.name)
+#' ##spliceR
+#' das.file.name <- “examples/spliceR_test.txt”
+#' splilcer.converter.result <- asr_converter(das.file.name, program=”spliceR”, gene.model=”Ensembl’”, genome.version=”GRCh38”)
 
-asr_converter <- function(input.file.name="", program="", pvalue.cutoff=0.05, das.cutoff=0.1, gene.model="Ensembl", genome.version="hg38", as.type="", gtf.file.name="", ioe.file.name="") {
+asr_converter <- function(das.analysis.result="", program="", pvalue.cutoff=0.05, dpsi.cutoff=0.1, gene.model="Ensembl", genome.version="hg38", as.type="", gtf.file.name="", ioe.file.name="") {
   if(tolower(program) == "rmats") {
-    converter.result <- rMATS.converter(input.file.name, as.type, pvalue.cutoff, das.cutoff)
+    converter.result <- rMATS.converter(das.analysis.result, as.type, pvalue.cutoff, das.cutoff)
 
     return(converter.result)
   } else if(tolower(program) == "suppa") {
-    converter.result <- SUPPA.converter(input.file.name, gtf.file.name, ioe.file.name, pvalue.cutoff, das.cutoff)
+    converter.result <- SUPPA.converter(das.analysis.result, gtf.file.name, ioe.file.name, pvalue.cutoff, das.cutoff)
 
     return(converter.result)
   } else if(tolower(program) == "splicer") {
-    converter.result <- spliceR.converter(input.file.name, gene.model, genome.version, pvalue.cutoff)
+    converter.result <- spliceR.converter(das.analysis.result, gene.model, genome.version, pvalue.cutoff)
 
     return(converter.result)
   } else {
