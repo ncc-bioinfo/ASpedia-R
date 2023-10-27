@@ -2,7 +2,6 @@
 #SUPPA result file, gtf file, ioe file, gene model, P-value cutoff, DPSI cutoff
 #spliceR result file, gene model, genome version, pvalue cutoff
 
-#' @name asr_converter
 #' Generate ASpedia-R input format from DAS analysis tools result.
 #'
 #' @param das.analysis.result
