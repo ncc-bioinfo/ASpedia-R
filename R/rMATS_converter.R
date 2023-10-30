@@ -16,8 +16,8 @@
 #'
 #' @examples
 #' rmats.result.file.name <- “examples/rMATS_test.txt”
-#' rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=”rMATS”,
-#'                                             as.type=”SE”)
+#' rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
+#'                                             as.type=“SE”)
 
 rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
 {

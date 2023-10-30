@@ -20,8 +20,8 @@
 #' suppa.result.file <- “examples/SUPPA_test.txt”
 #' gtf.file.name <- “examples/test_gtf.gtf”
 #' suppa.ioe.file.name <- “examples/SUPPA_test.ioe”
-#' suppa.converter.result <- SUPPA_converter(suppa.result.file, gtf.file=gtf.file.name
-#' , ioe.file=suppa.ioe.file.name)
+#' suppa.converter.result <- SUPPA_converter(suppa.result.file, gtf.file=gtf.file.name,
+#'                                           ioe.file=suppa.ioe.file.name)
 
 SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.name, ioe.file.name) {
   if(file.exists(SUPPA.result) == FALSE) {
