@@ -9,7 +9,7 @@ rMATS.converter(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
 \arguments{
 \item{rMATS.result}{name of rMATS result file.}
 
-\item{as.type}{AS event type. One of A3SS, A5SS, SE, MXE, and RI.}
+\item{as.type}{AS event type. One of A3SS, A5SS, SE, MXE, or RI.}
 
 \item{pvalue.cutoff}{value of pvalue cutoff. default value is 0.05}
 
@@ -22,7 +22,7 @@ converting.result
 Generate ASpedia-R input format from rMATS result.
 }
 \examples{
-rmats.result.file.name <- “examples/rMATS_test.txt”
+rmats.result.file.name <- system.file(“extdata”, “rMATS_test.txt”, package=“ASpediaR”)
 rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
                                             as.type=“SE”)
 }

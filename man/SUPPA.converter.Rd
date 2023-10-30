@@ -30,9 +30,9 @@ converting.result
 Generate ASpedia-R input format from SUPPA result.
 }
 \examples{
-suppa.result.file <- “examples/SUPPA_test.txt”
-gtf.file.name <- “examples/test_gtf.gtf”
-suppa.ioe.file.name <- “examples/SUPPA_test.ioe”
+suppa.result.file <- system.file(“extdata”, “SUPPA_test.txt”, package=“ASpediaR”)
+gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
+suppa.ioe.file.name <- system.file(“extdata”, “SUPPA_test.ioe”, package=“ASpediaR”)
 suppa.converter.result <- SUPPA_converter(suppa.result.file, gtf.file=gtf.file.name,
                                           ioe.file=suppa.ioe.file.name)
 }

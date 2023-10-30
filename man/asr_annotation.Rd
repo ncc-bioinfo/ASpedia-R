@@ -15,11 +15,13 @@ asr_annotation(
 \arguments{
 \item{converter.result}{asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result}
 
-\item{gene.model}{gene model of reference.}
+\item{gene.model}{gene model of reference. One of Refseq, Ensembl, or GENCODE.}
 
-\item{genome.version}{genome version of reference.}
+\item{genome.version}{genome version of reference. One of hg18, GRCh19, or GRCh38.}
 
 \item{gsea.gene.list}{optional. reference gene list for gene enrichment test with annotation result gene list and knowledge-based database gene list. If gene list is empty, use all genes in reference.}
+
+\item{result.dir}{directory where annotation result(.tsv file) is saved}
 }
 \value{
 annotation result
@@ -28,5 +30,7 @@ annotation result
 converting result mapping to ASDB
 }
 \examples{
-annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”)
+annotation.result.dir <- system.file(“extdata/annotation_result”, package=“ASpediaR”)
+annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”,
+                                      result.dir=annotation.result.dir)
 }

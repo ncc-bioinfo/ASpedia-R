@@ -11,9 +11,9 @@ spliceR.converter(spliceR.result, pvalue.cutoff, gene.model, genome.version)
 
 \item{pvalue.cutoff}{value of pvalue cutoff. default value is 0.05}
 
-\item{gene.model}{gene model of reference.}
+\item{gene.model}{gene model of reference. One of Refseq, Ensembl, or GENCODE.}
 
-\item{genome.version}{genome version of reference.}
+\item{genome.version}{genome version of reference. One of hg18, GRCh19, or GRCh38.}
 }
 \value{
 converting.result
@@ -22,7 +22,7 @@ converting.result
 spliceR result convert to ASpedia-R input format.
 }
 \examples{
-spliceR.result.file <- “examples/spliceR_test.txt”
-splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”,
-                                         gene.model=”Ensembl’”, genome.version=”GRCh38”)
+spliceR.result.file <- system.file(“extdata”, “spliceR_test.txt”, package=“ASpediaR”)
+splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=“spliceR”,
+                                         gene.model=“Ensembl”, genome.version=“GRCh38”)
 }
