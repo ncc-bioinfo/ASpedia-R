@@ -16,7 +16,8 @@
 #'
 #' @examples
 #' spliceR.result.file <- “examples/spliceR_test.txt”
-#' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”, gene.model=”Ensembl’”, genome.version=”GRCh38”)
+#' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”,
+#'                                          gene.model=”Ensembl’”, genome.version=”GRCh38”)
 
 spliceR.converter <- function(spliceR.result, pvalue.cutoff, gene.model, genome.version) {
   if(file.exists(spliceR.result) == FALSE) {
