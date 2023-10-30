@@ -6,18 +6,18 @@
 #' @param pvalue.cutoff
 #' value of pvalue cutoff. default value is 0.05
 #' @param gene.model
-#' gene model of reference.
+#' gene model of reference. One of Refseq, Ensembl, or GENCODE.
 #' @param genome.version 
-#' genome version of reference.
+#' genome version of reference. One of hg18, GRCh19, or GRCh38.
 #' 
 #' @return
 #' converting.result
 #' @export
 #'
 #' @examples
-#' spliceR.result.file <- “examples/spliceR_test.txt”
-#' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”,
-#'                                          gene.model=”Ensembl’”, genome.version=”GRCh38”)
+#' spliceR.result.file <- system.file(“extdata”, “spliceR_test.txt”, package=“ASpediaR”)
+#' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=“spliceR”,
+#'                                          gene.model=“Ensembl”, genome.version=“GRCh38”)
 
 spliceR.converter <- function(spliceR.result, pvalue.cutoff, gene.model, genome.version) {
   if(file.exists(spliceR.result) == FALSE) {

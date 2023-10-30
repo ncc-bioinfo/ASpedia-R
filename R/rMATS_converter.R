@@ -4,7 +4,7 @@
 #' @param rMATS.result
 #' name of rMATS result file.
 #' @param as.type
-#' AS event type. One of A3SS, A5SS, SE, MXE, and RI.
+#' AS event type. One of A3SS, A5SS, SE, MXE, or RI.
 #' @param pvalue.cutoff
 #' value of pvalue cutoff. default value is 0.05
 #' @param dpsi.cutoff
@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' rmats.result.file.name <- “examples/rMATS_test.txt”
+#' rmats.result.file.name <- system.file(“extdata”, “rMATS_test.txt”, package=“ASpediaR”)
 #' rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
 #'                                             as.type=“SE”)
 

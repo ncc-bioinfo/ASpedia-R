@@ -1,36 +1,29 @@
-#' visualization of annotation result
+#' visualization of PPI network
 #'
 #' @param annotation.result
 #' asr_annotation function result.
-#' @param gtf.file.name
-#' a GTF format file of reference.
-#' @param gene.model
-#' gene model of reference.
-#' @param genome.version
-#' genome version of reference. 
 #' @param gene.name
 #' gene name to be visualization. 
 #' @param as.id
 #' list of AS ID to be visualization.
-#' @param heights.list
-#' positive integer vectors for track heights include height of ideogram and gene track.
-#' @param plot.data.list 
-#' list of DNA or RNA feature to be visualization.choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, and “RBP”.
-#'
+#' @param result.dir 
+#' directory where PPI plots(.png files) are saved
+#' 
 #' @return 
 #' @export
 #'
 #' @examples
-#' gtf.file.name <- “examples/test_gtf.gtf”
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
-#'           gene.name="FGFR2")
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
-#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 3),
-#'           list.of.plot=c(“conservation”, “NMD”, “RBP”))
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
-#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319")
+#' ppi.result.dir <- system.file(“extdata/ppi_result”, package=“ASpediaR”)
+#' 
+#' ##using gene name
+#' asr_plot_ppi(annotation.result, gene.name="FGFR2", result.dir=ppi.result.dir)
+#' 
+#' ##using AS ID
+#' asr_plot_ppi(annotation.result, 
+#'             as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319",
+#'             result.dir=ppi.result.dir)
 
-asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="") {
+asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="") {
   if(gene.name == "" || as.id == "") {
     print("*** ERROR MESSAGE: Input gene name or AS ID is empty.")
     return()

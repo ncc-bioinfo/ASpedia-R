@@ -5,9 +5,9 @@
 #' @param gtf.file.name
 #' a GTF format file of reference.
 #' @param gene.model
-#' gene model of reference.
+#' gene model of reference. One of Refseq, Ensembl, or GENCODE.
 #' @param genome.version
-#' genome version of reference. 
+#' genome version of reference. One of hg18, GRCh19, or GRCh38.
 #' @param gene.name
 #' gene name to be visualization. 
 #' @param as.id
@@ -15,22 +15,33 @@
 #' @param heights.list
 #' positive integer vectors for track heights include height of ideogram and gene track.
 #' @param plot.data.list 
-#' list of DNA or RNA feature to be visualization.choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, and “RBP”.
+#' list of DNA or RNA feature to be visualization. choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, or “RBP”.
+#' @param result.dir
+#' directory where plots(.png files) are saved
 #'
 #' @return 
 #' @export
 #'
 #' @examples
-#' gtf.file.name <- “examples/test_gtf.gtf”
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
-#'           gene.name="FGFR2")
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
-#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 3),
-#'           list.of.plot=c(“conservation”, “NMD”, “RBP”))
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
-#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319")
+#' gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
+#' plot.result.dir <- system.file(“extdata/plot_result”, package=“ASpediaR”)
+#' 
+#' ##using gene name
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
+#'           gene.name="FGFR2", result.dir=plot.result.dir)
+#'
+#' ##using AS ID
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
+#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319",
+#'           result.dir=plot.result.dir)
+#' 
+#' ##track lists and track heights are change
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
+#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 1, 1, 2),
+#'           list.of.plot=c(“conservation”, "domain", "PTM", "repeats", “RBP”), result.dir=plot.result.dir)
 
-asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="") {
+
+asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
   if(gene.name == "" || as.id == "") {
     print("*** ERROR MESSAGE: Input gene name or AS ID is empty.")
     return()

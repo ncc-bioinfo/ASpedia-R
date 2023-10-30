@@ -3,17 +3,21 @@
 #' @param converter.result
 #' asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result
 #' @param gene.model
-#' gene model of reference.
+#' gene model of reference. One of Refseq, Ensembl, or GENCODE.
 #' @param genome.version
-#' genome version of reference.
+#' genome version of reference. One of hg18, GRCh19, or GRCh38.
 #' @param gsea.gene.list
 #' optional. reference gene list for gene enrichment test with annotation result gene list and knowledge-based database gene list. If gene list is empty, use all genes in reference.
+#' @param result.dir
+#' directory where annotation result(.tsv file) is saved
 #'
 #' @return annotation result
 #' @export
 #'
 #' @examples
-#' annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”)
+#' annotation.result.dir <- system.file(“extdata/annotation_result”, package=“ASpediaR”)
+#' annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”,
+#'                                       result.dir=annotation.result.dir)
 
 asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsea.gene.list="", result.dir="") {
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")

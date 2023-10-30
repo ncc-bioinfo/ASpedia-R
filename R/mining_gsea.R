@@ -4,17 +4,29 @@
 #' gene list from asr_annotation function result
 #' @param gsea.gene.list 
 #' gene list from reference
-#'
+#' @param result.dir
+#' directory where GSEA result(.tsv and .png file) are saved
+#' 
 #' @return
 #' @export
 #'
 #' @examples
+#' ## reference gene list from GTF
 #' library(rtracklayer)
-#' gtf.file.name <- “examples/test_gtf.gtf”
+#' gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
 #' gtf.data <- import(gtf.file.name)
-#' reference.gene.list <- unique(gtf.data$gene_name)
+#' gtf.gene.list <- unique(gtf.data$gene_name)
 #' annotation.gene.list <- unique(annotation.result$gene_symbol)
-#' mining_gsea(annotation.gene.list, reference.gene.list)
+#' gsea.result.dir <- system.file(“extdata/gsea_result”, package=“ASpediaR”)
+#' mining_gsea(annotation.gene.list, gsea.gene.list=reference.gene.list,
+#'               result.dir=gsea.result.dir)
+#' 
+#' ## reference gene list from user input
+#' test.gene.list.file.name <- system.file(“extdata”, “test_whole_gene.txt”, package=“ASpediaR”)
+#' test.gene.list <- read.table(test.gene.list.file.name, header=FALSE, stringsAsFactors=FALSE)
+#' gsea.result.dir <- system.file(“extdata/gsea_result”, package=“ASpediaR”)
+#' mining_gsea(annotation.gene.list, gsea.gene.list=test.gene.list, result.dir=gsea.result.dir)
+
 
 mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
   loaded.packages <- tolower((.packages()))
