@@ -1,4 +1,6 @@
 #' converting result mapping to ASDB
+#' 
+#' DNA and RNA annotation related to aliternative splicing from ASpedia DB(ASDB) add to asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result. And gene enrichment test result are provided between annotation result gene list and knowledge-based database gene list
 #'
 #' @param converter.result
 #' asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result
@@ -19,7 +21,7 @@
 #' annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”,
 #'                                       result.dir=annotation.result.dir)
 
-asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="hg38", gsea.gene.list="", result.dir="") {
+asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   if(file.exists(data.dir) == FALSE) {

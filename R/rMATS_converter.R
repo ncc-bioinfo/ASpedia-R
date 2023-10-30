@@ -1,5 +1,7 @@
 #rMATS result file, AS type, P-value cutoff, DPSI cutoff
 #' Generate ASpedia-R input format from rMATS result.
+#' 
+#' rMSTS result convert to ASpedia-R input format.
 #'
 #' @param rMATS.result
 #' name of rMATS result file.

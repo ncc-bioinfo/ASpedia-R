@@ -7,7 +7,7 @@
 asr_annotation(
   converter.result,
   gene.model = "Ensembl",
-  genome.version = "hg38",
+  genome.version = "GRCh38",
   gsea.gene.list = "",
   result.dir = ""
 )
@@ -27,7 +27,7 @@ asr_annotation(
 annotation result
 }
 \description{
-converting result mapping to ASDB
+DNA and RNA annotation related to aliternative splicing from ASpedia DB(ASDB) add to asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result. And gene enrichment test result are provided between annotation result gene list and knowledge-based database gene list
 }
 \examples{
 annotation.result.dir <- system.file(“extdata/annotation_result”, package=“ASpediaR”)

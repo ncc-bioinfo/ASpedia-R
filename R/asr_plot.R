@@ -1,4 +1,6 @@
 #' visualization of annotation result
+#' 
+#' DNA and RNA features in result of asr_annotation function to be visualize.
 #'
 #' @param annotation.result
 #' asr_annotation function result.

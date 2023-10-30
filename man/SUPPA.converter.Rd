@@ -27,7 +27,7 @@ SUPPA.converter(
 converting.result
 }
 \description{
-Generate ASpedia-R input format from SUPPA result.
+SUPPA result convert to ASpedia-R input format.
 }
 \examples{
 suppa.result.file <- system.file(“extdata”, “SUPPA_test.txt”, package=“ASpediaR”)

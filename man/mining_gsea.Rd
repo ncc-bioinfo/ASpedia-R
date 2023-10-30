@@ -14,7 +14,7 @@ mining_gsea(annotation.gene.list, gsea.gene.list, result.dir)
 \item{result.dir}{directory where GSEA result(.tsv and .png file) are saved}
 }
 \description{
-gene enrichment test between annotation gene list and knowledge-based database gene list.
+Gene enrichment test result are provided to tsv and plot format between annotation gene list and knowledge-based database gene list.
 }
 \examples{
 ## reference gene list from GTF

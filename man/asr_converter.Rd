@@ -10,7 +10,7 @@ asr_converter(
   pvalue.cutoff = 0.05,
   dpsi.cutoff = 0.1,
   gene.model = "Ensembl",
-  genome.version = "hg38",
+  genome.version = "GRCh38",
   as.type = "",
   gtf.file.name = "",
   ioe.file.name = ""
@@ -19,7 +19,7 @@ asr_converter(
 \arguments{
 \item{das.analysis.result}{name of DAS analysis tools result file.}
 
-\item{program}{name of DAS analysis tool. (one of rMATS, SUPPA, or spliceR)}
+\item{program}{name of DAS analysis tool. one of rMATS, SUPPA, or spliceR}
 
 \item{pvalue.cutoff}{value of pvalue cutoff. default value is 0.05}
 
@@ -39,7 +39,7 @@ asr_converter(
 converter.result
 }
 \description{
-Generate ASpedia-R input format from DAS analysis tools result.
+result of DAS analysis tools convert to ASpedia-R input format.
 }
 \examples{
 ## rMATS

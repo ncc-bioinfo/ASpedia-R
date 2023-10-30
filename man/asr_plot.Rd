@@ -36,7 +36,7 @@ asr_plot(
 \item{result.dir}{directory where plots(.png files) are saved}
 }
 \description{
-visualization of annotation result
+DNA and RNA features in result of asr_annotation function to be visualize.
 }
 \examples{
 gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)

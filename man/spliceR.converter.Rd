@@ -2,7 +2,7 @@
 % Please edit documentation in R/spliceR_converter.R
 \name{spliceR.converter}
 \alias{spliceR.converter}
-\title{spliceR result convert to ASpedia-R input format.}
+\title{Generate ASpedia-R input format from spliceR result.}
 \usage{
 spliceR.converter(spliceR.result, pvalue.cutoff, gene.model, genome.version)
 }

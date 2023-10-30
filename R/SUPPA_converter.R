@@ -1,5 +1,7 @@
 #SUPPA result file, gtf file, ioe file, gene model, P-value cutoff, DPSI cutoff
 #' Generate ASpedia-R input format from SUPPA result.
+#' 
+#' SUPPA result convert to ASpedia-R input format.
 #'
 #' @param SUPPA.result
 #' name of SUPPA result file.

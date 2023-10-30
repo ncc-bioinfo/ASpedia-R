@@ -1,4 +1,6 @@
 #spliceR result file, gene model, genome version, pvalue cutoff, dIF(delta Isoform fraction (IF) value) cutoff
+#' Generate ASpedia-R input format from spliceR result.
+#' 
 #' spliceR result convert to ASpedia-R input format.
 #'
 #' @param spliceR.result

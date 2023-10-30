@@ -19,7 +19,7 @@ rMATS.converter(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
 converting.result
 }
 \description{
-Generate ASpedia-R input format from rMATS result.
+rMSTS result convert to ASpedia-R input format.
 }
 \examples{
 rmats.result.file.name <- system.file(“extdata”, “rMATS_test.txt”, package=“ASpediaR”)
