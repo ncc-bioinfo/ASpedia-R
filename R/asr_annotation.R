@@ -1,8 +1,6 @@
 #' converting result mapping to ASDB
 #' 
-#' DNA and RNA annotation related to aliternative splicing from ASpedia DB(ASDB) add to 
-#' asr_converter(rMATS_converter, SUPPA_converter, or spliceR_converter) result. 
-#' And gene enrichment test result are provided between annotation result gene list and 
+#' DNA and RNA annotation related to aliternative splicing from ASpedia DB(ASDB) add to asr_converter (rMATS_converter, SUPPA_converter, or spliceR_converter) result. And gene enrichment test result are provided between annotation result gene list and 
 #' knowledge-based database gene list
 #'
 #' @param converter.result

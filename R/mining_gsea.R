@@ -1,7 +1,6 @@
 #' gene enrichment test between annotation gene list and knowledge-based database gene list.
 #' 
-#' Gene enrichment test result are provided to tsv and plot format between annotation gene list and 
-#' knowledge-based database gene list.
+#' Gene enrichment test result are provided to tsv and plot format between annotation gene list and knowledge-based database gene list.
 #'
 #' @param annotation.gene.list
 #' gene list from asr_annotation function result
