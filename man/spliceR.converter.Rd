@@ -23,5 +23,6 @@ spliceR result convert to ASpedia-R input format.
 }
 \examples{
 spliceR.result.file <- “examples/spliceR_test.txt”
-splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”, gene.model=”Ensembl’”, genome.version=”GRCh38”)
+splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=”spliceR”,
+                                         gene.model=”Ensembl’”, genome.version=”GRCh38”)
 }

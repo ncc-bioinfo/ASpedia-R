@@ -23,5 +23,6 @@ Generate ASpedia-R input format from rMATS result.
 }
 \examples{
 rmats.result.file.name <- “examples/rMATS_test.txt”
-rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=”rMATS”, as.type=”SE”)
+rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
+                                            as.type=“SE”)
 }
