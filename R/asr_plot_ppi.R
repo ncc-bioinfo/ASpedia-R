@@ -1,6 +1,7 @@
 #' visualization of PPI network
 #' 
-#' If asr_annotation function result has protein protein interaction(PPI) information, we provide PPI network plot.
+#' If asr_annotation function result has protein protein interaction(PPI) information, 
+#' we provide PPI network plot.
 #'
 #' @param annotation.result
 #' asr_annotation function result.
