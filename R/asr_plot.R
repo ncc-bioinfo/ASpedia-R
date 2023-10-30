@@ -22,9 +22,13 @@
 #'
 #' @examples
 #' gtf.file.name <- “examples/test_gtf.gtf”
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="FGFR2")
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 3), list.of.plot=c(“conservation”, “NMD”, “RBP”))
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",  as.id="")
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
+#'           gene.name="FGFR2")
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
+#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 3),
+#'           list.of.plot=c(“conservation”, “NMD”, “RBP”))
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38",
+#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319")
 
 asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="") {
   if(gene.name == "" || as.id == "") {

@@ -34,10 +34,12 @@
 #' das.file.name <- “examples/SUPPA_test.txt”
 #' gtf.file.name <- “examples/test_gtf.gtf”
 #' ioe.file.name <- “examples/SUPPA_test.ioe”
-#' suppa.converter.result <- asr_converter(das.file.name, program=”SUPPA”, gtf.file=gtf.file.name, ioe.file=ioe.file.name)
+#' suppa.converter.result <- asr_converter(das.file.name, program=”SUPPA”,
+#'                                         gtf.file=gtf.file.name, ioe.file=ioe.file.name)
 #' ##spliceR
 #' das.file.name <- “examples/spliceR_test.txt”
-#' splilcer.converter.result <- asr_converter(das.file.name, program=”spliceR”, gene.model=”Ensembl’”, genome.version=”GRCh38”)
+#' splilcer.converter.result <- asr_converter(das.file.name, program=”spliceR”,
+#'                                           gene.model=”Ensembl”, genome.version=”GRCh38”)
 
 asr_converter <- function(das.analysis.result="", program="", pvalue.cutoff=0.05, dpsi.cutoff=0.1, gene.model="Ensembl", genome.version="hg38", as.type="", gtf.file.name="", ioe.file.name="") {
   if(tolower(program) == "rmats") {
