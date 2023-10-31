@@ -26,8 +26,8 @@
 #'             result.dir=ppi.result.dir)
 
 asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="") {
-  if(gene.name == "" || as.id == "") {
-    print("*** ERROR MESSAGE: Input gene name or AS ID is empty.")
+  if(gene.name == "" && as.id == "") {
+    print("*** ERROR MESSAGE: Input gene name or AS ID is not found. We required gene name or AS ID")
     return()
   }
   
@@ -110,7 +110,7 @@ asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="
       
       result.file.name <- paste0(result.dir, "/", str_replace_all(as.id, ":", "_"), "_PPI.png")
       
-      png(file=result.file.name, width=800, height=600)
+      png(file=result.file.name, width=1024, height=768)
       print(ppi.plot)
       dev.off()
     } else {

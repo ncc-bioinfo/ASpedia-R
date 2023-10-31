@@ -45,8 +45,8 @@
 
 
 asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
-  if(gene.name == "" || as.id == "") {
-    print("*** ERROR MESSAGE: Input gene name or AS ID is empty.")
+  if(gene.name == "" && as.id == "") {
+    print("*** ERROR MESSAGE: Input gene name or AS ID is not found. We required gene name or AS ID")
     return()
   }
   
@@ -749,90 +749,64 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     #repeats
     if((tmp.anno$repeats != "") && (has.repeats == TRUE)) {
       tmp.anno$repeats <- str_replace_all(tmp.anno$repeats, ", ", " ")
-      tmp.repeats.data.list <-str_split(str_split(tmp.anno$repeats, ";")[[1]], ",")
-      #tmp.domain.data <- as.data.frame(matrix(unlist(str_split(str_split(tmp.anno$protein_domain, ";")[[1]], ",")), ncol=5, byrow=TRUE))
-      tmp.domain.data <- data.frame()
+      tmp.repeats.data.list <-str_split(tmp.anno$repeats, ";")[[1]]
+      repeats.data <- data.frame()
+      repeats.text.data <- data.frame()
       
-      for(domain.index in 1:length(tmp.domain.data.list)){
-        tmp.domain <- tmp.domain.data.list[[domain.index]]
-        tmp.domain.length <- length(tmp.domain)
+      for(repeats.index in 1:length(tmp.repeats.data.list)){
+        tmp.repeats <- tmp.repeats.data.list[repeats.index]
+        tmp.repeats.length <- length(tmp.repeats)
+        tmp.repeats.list <- str_split(tmp.repeats, ",")
+        repeats.start <- ""
+        repeats.end <- ""
+        repeats.name <- ""
         
-        if(tmp.domain.length > 5) {
-          diff.length <- tmp.domain.length - 5
-          tmp.domain.desc <- paste(tmp.domain[3:(3 + diff.length)], collapse=",")
-          tmp.domain.data <- rbind(tmp.domain.data, c(tmp.domain[1:2], tmp.domain.desc, tmp.domain[(3 + diff.length + 1):tmp.domain.length]))
+        if(length(tmp.repeats.list) == 3) {
+          tmp.repeats.position <- str_split(str_split(tmp.repeats.[3], ":")[[1]][2], "-")[[1]]
+          repeats.start <- as.numeric(tmp.repeats.position[1])
+          repeats.end <- as.numeric(tmp.repeats.position[2])
+          repeats.name <- paste0(tmp.repeats.list[1], ",", tmp.repeats.list[2])
+        } else if(length(tmp.repeats.list) == 2) {
+          tmp.repeats.position <- str_split(str_split(tmp.repeats.[2], ":")[[1]][2], "-")[[1]]
+          repeats.start <- as.numeric(tmp.repeats.position[1])
+          repeats.end <- as.numeric(tmp.repeats.position[2])
+          repeats.name <- tmp.repeats.list[1]
+        }
+        
+        rbind(repeats.data, data.frame(xmin=repeats.start, xmax=repeats.end, ymin=(repeats.index - 1), ymax=(repeats.index - 1 + 0.5), repeats_name=repeats.name))
+        
+        if(repeat.start < exon.region[1]) {
+          repeats.text.data <- rbind(repeats.text.data, data.frame(x=exon.region[1], y=(repeats.index - 1 + 0.6), repeats_name=repeats.name))
         } else {
-          tmp.domain.data <- rbind(tmp.domain.data, tmp.domain)
+          repeats.text.data <- rbind(repeats.text.data, data.frame(x=repeats.start, y=(repeats.index - 1 + 0.6), repeats_name=repeats.name))
         }
       }
+
+      colnames(repeats.data) <- c("xmin", "xmax", "ymin", "ymax","repeats_name")
+      colnames(repeats.text.data) <- c("x", "y","repeats_name")
       
-      domain.position.list <- as.data.frame(matrix(unlist(str_split(tmp.domain.data[, 5], "-")), ncol=2, byrow=TRUE))
-      domain.data <- cbind(tmp.domain.data[, 1:4], domain.position.list)
-      colnames(domain.data) <- c("transcript_id", "pfam_id", "desc", "protein_position", "start", "end")
-      
-      domain.data <- domain.data[domain.data$transcript_id %in% transcript.id.list, ]
-      
-      if(nrow(domain.data) > 0) {
-        pfam.id.list <- unique(domain.data$pfam_id)
-        domain.plot.data <- data.frame()
-        domain.text.data <- data.frame()
+      repeats.data$xmin <- as.numeric(repeats.data$xmin)
+      repeats.data$xmax <- as.numeric(repeats.data$xmax)
+      repeats.data$ymin <- as.numeric(repeats.data$ymin)
+      repeats.data$ymax <- as.numeric(repeats.data$ymax)
         
-        for(pfam.id in pfam.id.list) {
-          tmp.domain.plot.data <- domain.data[domain.data$pfam_id == pfam.id, ]
-          pfam.desc <- tmp.domain.plot.data[1, "desc"]
-          
-          domain.region <- IRanges(start=as.numeric(tmp.domain.plot.data$start), end=as.numeric(tmp.domain.plot.data$end))
-          domain.plot.region <- reduce(domain.region)
-          
-          for(i in 1:length(domain.plot.region)) {
-            tmp.domain.region <- domain.plot.region[i]
-            
-            domain.plot.data <- rbind(domain.plot.data, c(start(tmp.domain.region), end(tmp.domain.region), (i - 1), (i - 1 + 0.5), "domain"))
-            as.inter <- intersect(tmp.domain.region, as.region)
-            exon.inter <- intersect(tmp.domain.region, as.exon.region)
-            
-            if(length(as.inter) > 0) {
-              for(j in 1:length(as.inter)) {
-                domain.plot.data <- rbind(domain.plot.data, c(start(as.inter[j]), end(as.inter[j]), (i - 1), (i - 1 + 0.5), "as"))
-              }
-            }
-            
-            if(length(exon.inter) > 0) {
-              for(j in 1:length(exon.inter)) {
-                domain.plot.data <- rbind(domain.plot.data, c(start(exon.inter[j]), end(exon.inter[j]), (i - 1), (i - 1 + 0.5), "exon"))
-              }
-            }
-            
-            if(start(tmp.domain.region) < exon.region[1]) {
-              domain.text.data <- rbind(domain.text.data, c(exon.region[1], (i - 1 + 0.6), pfam.desc))
-            } else {
-              domain.text.data <- rbind(domain.text.data, c(start(tmp.domain.region), (i - 1 + 0.6), pfam.desc))
-            }
-          }
-        }
+      repeats.text.data$x <- as.numeric(repeats.text.data$x)
+      repeats.text.data$y <- as.numeric(repeats.text.data$y)
         
-        colnames(domain.plot.data) <- c("xmin", "xmax", "ymin", "ymax", "domain_type")
-        colnames(domain.text.data) <- c("x", "y", "domain_desc")
+      repeats.plot <- ggplot() + geom_rect(data=repeats.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=I("pink"))) + geom_text(data=repeats.text.data, mapping=aes(x=x, y=y, label=repeats_name), hjust=0, vjust=0) + ylab("Repeats") + guides(y="none")
+      repeats.track <- tracks(repeats.plot)
         
-        domain.plot.data$xmin <- as.numeric(domain.plot.data$xmin)
-        domain.plot.data$xmax <- as.numeric(domain.plot.data$xmax)
-        domain.plot.data$ymin <- as.numeric(domain.plot.data$ymin)
-        domain.plot.data$ymax <- as.numeric(domain.plot.data$ymax)
-        
-        domain.text.data$x <- as.numeric(domain.text.data$x)
-        domain.text.data$y <- as.numeric(domain.text.data$y)
-        
-        domain.plot <- ggplot() + geom_rect(data=domain.plot.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=domain_type)) + geom_text(data=domain.text.data, mapping=aes(x=x, y=y, label=domain_desc), hjust=0, vjust=0) + scale_fill_manual(values=c("domain"="#CAC7ED", "exon"="#9590FF", "as"=I("pink"))) + xlim(exon.region) + ylim(0, max(domain.plot.data$ymax) + 0.5) + ylab("Protein domain") + guides(y="none")
-        domain.track <- tracks(domain.plot)
-        
-        prev.track.height <- as.track@heights
-        as.track <- as.track + domain.track
-        as.track@heights <- c(prev.track.height, 1)
-      }
+      prev.track.height <- as.track@heights
+      as.track <- as.track + repeats.track
+      as.track@heights <- c(prev.track.height, 1)
     }
     
     #RBP
-    #if(tmp.anno$)
+    if(tmp.anno$RBP != "" && has.rbp == TRUE){
+      
+    }
+    
+    
     as.track <- as.track + theme_tracks_sunset(bg="white") + theme(legend.position="none", axis.title.y=element_text(angle=0, vjust=0.5))
     
     if(heights.list != "") {
