@@ -36,6 +36,10 @@ mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
     return()
   }
   
+  if(!file.exists(result.dir)) {
+    dir.create(result.dir)
+  }
+  
   loaded.packages <- tolower((.packages()))
   
   if(("epitools" %in% loaded.packages) == FALSE) {
@@ -48,10 +52,6 @@ mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
   
   if(("ggplot2" %in% loaded.packages) == FALSE) {
     library(ggplot2)
-  }
-  
-  if(!file.exists(result.dir)) {
-    dir.create(result.dir)
   }
   
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")

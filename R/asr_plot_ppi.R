@@ -36,6 +36,10 @@ asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="
     return()
   }
   
+  if(!file.exists(result.dir)) {
+    dir.create(result.dir)
+  }
+  
   loaded.packages <- tolower((.packages()))
   
   if(("stringr" %in% loaded.packages) == FALSE) {
@@ -48,10 +52,6 @@ asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="
   
   if(("igraph" %in% loaded.packages) == FALSE) {
     library(igraph)
-  }
-  
-  if(!file.exists(result.dir)) {
-    dir.create(result.dir)
   }
   
   #annotation result filtered by gene name or as ID

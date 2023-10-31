@@ -28,6 +28,10 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
     return()
   }
   
+  if(!file.exists(result.dir)) {
+    dir.create(result.dir)
+  }
+  
   loaded.packages <- tolower((.packages()))
   
   if(("RSQLite" %in% loaded.packages) == FALSE) {
@@ -38,15 +42,11 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
     library(stringr)
   }
   
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
+  
   if(file.exists(data.dir) == FALSE) {
     dir.create(data.dir)
   }
-  
-  if(!file.exists(result.dir)) {
-    dir.create(result.dir)
-  }
-  
-  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
 
