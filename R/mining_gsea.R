@@ -114,8 +114,6 @@ mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
   print(gsea.result.plot)
   
   png(file=paste0(result.dir, "/GSEA_result.png"), width=800, height=600)
-  gsea.result.plot
+  print(gsea.result.plot)
   dev.off()
-  
-  return()
 }

@@ -844,9 +844,7 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     result.file.name <- paste0(result.dir, "/", str_replace_all(as.id, ":", "_"), ".png")
     
     png(file=result.file.name, width=1280, height=1024)
-    as.track
+    print(as.track)
     dev.off()
   }
-  
-  return()
 }
