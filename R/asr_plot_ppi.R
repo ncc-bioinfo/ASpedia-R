@@ -117,4 +117,6 @@ asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="
       print(paste0(gene.name, "\t", as.id, " has not PPI."))
     }
   }
+  
+  return()
 }

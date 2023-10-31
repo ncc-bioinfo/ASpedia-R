@@ -47,11 +47,11 @@
 
 asr_converter <- function(das.analysis.result="", program="", pvalue.cutoff=0.05, dpsi.cutoff=0.1, gene.model="Ensembl", genome.version="GRCh38", as.type="", gtf.file.name="", ioe.file.name="") {
   if(tolower(program) == "rmats") {
-    converter.result <- rMATS.converter(das.analysis.result, as.type, pvalue.cutoff, das.cutoff)
+    converter.result <- rMATS.converter(das.analysis.result, as.type, pvalue.cutoff, dpsi.cutoff)
 
     return(converter.result)
   } else if(tolower(program) == "suppa") {
-    converter.result <- SUPPA.converter(das.analysis.result, pvalue.cutoff, das.cutoff, gtf.file.name, ioe.file.name)
+    converter.result <- SUPPA.converter(das.analysis.result, pvalue.cutoff, dpsi.cutoff, gtf.file.name, ioe.file.name)
 
     return(converter.result)
   } else if(tolower(program) == "splicer") {

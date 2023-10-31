@@ -847,4 +847,6 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     as.track
     dev.off()
   }
+  
+  return()
 }
