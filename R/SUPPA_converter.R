@@ -68,7 +68,6 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
 
   colnames(suppa.result) <- c("dPSI", "pvalue")
   suppa.result <- suppa.result[(abs(suppa.result$dPSI) > dpsi.cutoff) & (suppa.result$pvalue < pvalue.cutoff), ]
-  print(nrow(suppa.result))
   suppa.event.id.list <- rownames(suppa.result)
   rownames(suppa.result) <- NULL
 
