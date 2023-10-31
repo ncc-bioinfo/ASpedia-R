@@ -57,8 +57,7 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
     }
 
     rMATS.input.filtering <- rMATS.input[abs(rMATS.input$IncLevelDifference) > dpsi.cutoff & rMATS.input$FDR < pvalue.cutoff, ]
-    print(nrow(rMATS.input.filtering))
-
+    
     if(str_length(tmp.line$chr) <= 2) {
       rMATS.input.filtering$chr <- paste0("chr", rMATS.input.filtering$chr)
     }
@@ -90,8 +89,7 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
     }
 
     rMATS.input.filtering <- rMATS.input[abs(rMATS.input$IncLevelDifference) > dpsi.cutoff & rMATS.input$FDR < pvalue.cutoff, ]
-    print(nrow(rMATS.input.filtering))
-
+    
     if(str_length(tmp.line$chr) <= 2) {
       rMATS.input.filtering$chr <- paste0("chr", rMATS.input.filtering$chr)
     }
@@ -123,8 +121,7 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
     }
 
     rMATS.input.filtering <- rMATS.input[abs(rMATS.input$IncLevelDifference) > dpsi.cutoff & rMATS.input$FDR < pvalue.cutoff, ]
-    print(nrow(rMATS.input.filtering))
-
+    
     if(str_length(tmp.line$chr) <= 2) {
       rMATS.input.filtering$chr <- paste0("chr", rMATS.input.filtering$chr)
     }
@@ -156,8 +153,7 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
     }
 
     rMATS.input.filtering <- rMATS.input[abs(rMATS.input$IncLevelDifference) > dpsi.cutoff & rMATS.input$FDR < pvalue.cutoff, ]
-    print(nrow(rMATS.input.filtering))
-
+  
     if(str_length(tmp.line$chr) <= 2) {
       rMATS.input.filtering$chr <- paste0("chr", rMATS.input.filtering$chr)
     }
@@ -189,8 +185,7 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
     }
 
     rMATS.input.filtering <- rMATS.input[abs(rMATS.input$IncLevelDifference) > dpsi.cutoff & rMATS.input$FDR < pvalue.cutoff, ]
-    print(nrow(rMATS.input.filtering))
-
+    
     if(str_length(tmp.line$chr) <= 2) {
       rMATS.input.filtering$chr <- paste0("chr", rMATS.input.filtering$chr)
     }

@@ -64,7 +64,7 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
   suppa.ioe <- read.table(ioe.file.name, header=TRUE, stringsAsFactor=FALSE, sep="\t")
 
   #load suppa result file
-  suppa.result <- read.table(input.file.name, header=TRUE, stringsAsFactor=FALSE, sep="\t")
+  suppa.result <- read.table(SUPPA.result, header=TRUE, stringsAsFactor=FALSE, sep="\t")
 
   colnames(suppa.result) <- c("dPSI", "pvalue")
   suppa.result <- suppa.result[(abs(suppa.result$dPSI) > dpsi.cutoff) & (suppa.result$pvalue < pvalue.cutoff), ]
