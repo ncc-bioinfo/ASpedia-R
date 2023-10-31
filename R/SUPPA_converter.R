@@ -48,23 +48,8 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
   }
   
   #load gtf
-  #gtf.data <- data.frame()
-  #gtf.data <- import(gtf.file.name)
-  reference.start.time <- Sys.time()
   gtf.data <- readGFF(gtf.file.name)
-  reference.end.time <- Sys.time()
-  print("SUPPA reference load...")
-  print(reference.end.time - reference.start.time)
-
-  #if (gene.model == "GENCODE" | gene.model == "Refseq" | gene.model == "UCSC") {
-  #  gtf.data <- readGFF(gtf.file.name)
-  #}else {
-  #  library(refGenome)
-  #  genome.gtf <- ensemblGenome()
-  #  read.gtf(genome.gtf, gtf.file.name, useBasedir=FALSE, sep="\t")
-  #  gtf.data <- getGtf(genome.gtf)
-  #}
-
+  
   gtf.gene.id <- sapply(gtf.data$gene_id, function(x) {
     strsplit(x, split="[.]")[[1]][1] })
 
@@ -74,8 +59,6 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
     strsplit(x, split="[.]")[[1]][1] })
 
   gtf.data$transcript_id <- gtf.transcript.id
-
-  #head(gtf.data)
 
   #load suppa .ioe file
   suppa.ioe <- read.table(ioe.file.name, header=TRUE, stringsAsFactor=FALSE, sep="\t")
@@ -130,12 +113,6 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
   gtf.as.gene <- data.frame()
   gtf.as.gene <- gtf.data[(gtf.data$gene_id %in% as.gene.id.list & gtf.data$type == "exon"), ]
 
-  #if (gene.model == "GENCODE" | gene.model == "Refseq" | gene.model == "UCSC") {
-  #  gtf.as.gene <- gtf.data[(gtf.data$gene_id %in% as.gene.id.list & gtf.data$type == "exon"), ]
-  #} else {
-  #  gtf.as.gene <- gtf.data[(gtf.data$gene_id %in% as.gene.id.list & gtf.data$feature == "exon"), ]
-  #}
-
   as.dump.result <- data.frame()
 
   for (i in 1:nrow(suppa.result)) {
@@ -150,7 +127,6 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
 
     if(nrow(tmp.ioe) == 0)
     {
-      #print(tmp.ioe)
       next
     }
 
@@ -183,8 +159,6 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
     as.id <- ""
     as.id.list <- data.frame()
     as.id.result <- data.frame()
-
-    #print(as.type)
 
     if(as.type == "A3") {
       #event id => e1-s2:e1-s3(+) , e2-s3:e1-s3(-)
@@ -472,15 +446,7 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
         }
 
         as.id.result <- rbind(as.id.result, data.frame(as_id = tmp.as.id, tid_set = tid.set, upstream_exon=tmp.upstream.exon, splicing_exon=tmp.splicing.exon, downstream_exon=tmp.downstream.exon))
-      } #else if (length(tmp.in.as.id) == 0)
-      #		{
-      #			tid.set <- paste(tmp.out.as.id, collapse="/")
-      #			as.id.result <- rbind(as.id.result, data.frame(as_id = tmp.as.id, tid_set = tid.set))
-      #		} else if (length(tmp.out.as.id) == 0)
-      #		{
-      #			tid.set <- paste(tmp.in.as.id, collapse="/")
-      #			as.id.result <- rbind(as.id.result, data.frame(as_id = tmp.as.id, tid_set = tid.set))
-      #		}
+      }
     }
 
     if (length(as.id.result) == 0) {
@@ -491,19 +457,9 @@ SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.n
     for (as.index in 1:length(as.id.result$as_id))
     {
       tmp.as <- as.id.result[as.index,]
-      #print(tmp.as)
-
-      #as.dump.result <- rbind(as.dump.result, data.frame(gene_model=gene.model, genome_version=genome.version, chr=chrom, gene_id=gene.id, strand=strand, as_type=result.as.type, as_id=tmp.as$as_id, tid_set=tmp.as$tid_set, event_id=suppa.event.id))
-      #as.dump.result <- rbind(as.dump.result, data.frame(gene_model=gene.model, chr=chrom, gene_id=gene.id, strand=strand, as_type=result.as.type, as_id=tmp.as$as_id, tid_set=tmp.as$tid_set, event_id=suppa.event.id, gene_name=gene.name, pvalue=tmp.pvalue, dPSI=tmp.dpsi))
       as.dump.result <- rbind(as.dump.result, data.frame(chr=chrom, strand=strand, as_type=result.as.type, upstream_exon=tmp.as$upstream_exon, splicing_exon=tmp.as$splicing_exon, downstream_exon=tmp.as$downstream_exon, gene_name=gene.name, pvalue=tmp.pvalue, dPSI=tmp.dpsi, as_id=tmp.as$as_id, gene_id=gene.id, tid_set=tmp.as$tid_set, suppa_id=suppa.event.id))
     }
-
-    #print(as.id)
-    #print(i)
   }
 
-  #result.file.path <- paste("/comm/home/bond0709/project/06.ASDB.update/03.AS.ID/", gene.model, ".", genome.version, "/", gene.model, ".", genome.version, ".", result.as.type, ".asid.txt", sep="")
-  #write.table(as.dump.result, result.file.name, col.names=TRUE, row.names=FALSE, quote=FALSE, sep="\t")
-  #as.dump.result <- as.dump.result[, 1:9]
   return(as.dump.result)
 }

@@ -186,30 +186,8 @@ spliceR.converter <- function(spliceR.result, pvalue.cutoff, gene.model, genome.
     }
   }
 
-  #spliceR.colname <- c("spliceR.chr", "spliceR.start", "spliceR.end", "spliceR.transcript_id", "spliceR.tmp", "spliceR.strand", "spliceR.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF")
   spliceR.inter.colname <- c("chrom", "start", "end", "transcript_id", "tmp", "strand", "as_type", "gene", "iso.pvalue", "dIF")
 
-  #colnames(a3ss.exon.list) <- spliceR.colname
-  #colnames(a5ss.exon.list) <- spliceR.colname
-  #colnames(se.exon.list) <- spliceR.colname
-  #colnames(mxe.exon.list) <- spliceR.colname
-  #colnames(ri.exon.list) <- spliceR.colname
-  #colnames(af.exon.list) <- spliceR.colname
-  #colnames(al.exon.list) <- spliceR.colname
-
-  #print(total.a3ss.count)
-  print(paste0("A3SS : ", total.a3ss.count))
-  print(paste0("A5SS : ", total.a5ss.count))
-  print(paste0("SE : ", total.se.count))
-  print(paste0("MXE : ", total.mxe.count))
-  print(paste0("RI : ", total.ri.count))
-  print(paste0("AF : ", total.af.count))
-  print(paste0("AL : ", total.al.count))
-
-  #result.file.path <- paste("/comm/home/bond0709/project/06.ASDB.update/03.AS.ID/", gene.model, ".", genome.version, "/", gene.model, ".", genome.version, ".", result.as.type, ".asid.txt", sep="")
-  #write.table(as.dump.result, result.file.name, col.names=TRUE, row.names=FALSE, quote=FALSE, sep="\t")
-
-  #asdb.colname <- c("asdb.chr", "asdb.start", "asdb.end", "asdb.asid", "asdb.tmp", "asdb.strand", "asdb.as_type", "asdb.gene_model", "asdb.genome_version")
   asdb.inter.colname <- c("chrom", "start", "end", "asid", "tmp", "strand", "as_type", "gene_model", "genome_version")
 
   a3ss.as.file.name <- paste0(asdb.prefix, ".A3SS.exon.region.sorted.bed")
@@ -433,7 +411,5 @@ spliceR.converter <- function(spliceR.result, pvalue.cutoff, gene.model, genome.
 
   result.data$spliceR.strand <- result.data$asdb.strand
 
-  #write.table(result.data, result.file.name, sep="\t", row.names=FALSE, col.names=FALSE, quote=FALSE)
-  #result.data <- result.data[, 1:9]
   return(result.data)
 }

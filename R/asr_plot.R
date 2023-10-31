@@ -50,6 +50,23 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     return()
   }
   
+  if(result.dir == "") {
+    print("*** ERROR MESSAGE: No such output directory.")
+    return()
+  }
+  
+  if(plot.data != "" && heigths.list != "") {
+    if((length(plot.data) + 2) != length(heights.list)) {
+      print("*** ERROR MESSAGE: Input heights list is wrong. Please check your input heights list.")
+      return()
+    }
+  }
+  
+  if(gtf.file.name == "" || file.exists(gtf.file.name) == FALSE) {
+    print(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
+    return()
+  }
+  
   loaded.packages <- tolower((.packages()))
   
   if(("ggbio" %in% loaded.packages) == FALSE) {
@@ -74,6 +91,10 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
   
   if(("igraph" %in% loaded.packages) == FALSE) {
     library(igraph)
+  }
+  
+  if(!file.exists(result.dir)) {
+    dir.create(result.dir)
   }
   
   if(!file.exists(gene.list.file.name)) {
@@ -819,38 +840,11 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     }
     
     print(as.track)
-  
-    #PPI plot
-    if(tmp.anno$isoform_PPI_a != "" && tmp.anno$isoform_PPI_b != "") {
-      in.transcript.id <- str_split(tmp.anno$exon_inclusion_transcript_id, ",")[[1]]
-      ex.transcript.id <- str_split(tmp.anno$exon_exclusion_transcript_id, ",")[[1]]
-  
-      ppi.transcript.list <- str_split(tmp.anno$isoform_PPI_a, ";")[[1]]
-      ppi.list <- str_split(tmp.anno$isoform_PPI_b, ";")[[1]]
-  
-      ppi.node <- data.frame(node=in.transcript.id, type="exon inclusion transcript")
-      ppi.node <- rbind(ppi.node, data.frame(node=ex.transcript.id, type="exon exclusion transcript"))
-      ppi.relation <- data.frame()
-  
-      for(i in 1:length(ppi.transcript.list)) {
-        ppi.transcript <- ppi.transcript.list[i]
-        ppi.partner.list <- str_split(ppi.list[i], "/")[[1]]
-  
-        for(j in 1:length(ppi.partner.list)) {
-          ppi.partner <- toupper(ppi.partner.list[j])
-  
-          if(ppi.partner %in% ppi.node$node) {
-            next
-          }
-  
-          ppi.node <- rbind(ppi.node, data.frame(node=ppi.partner, type="gene"))
-          ppi.relation <- rbind(ppi.relation, data.frame(transcript_id=ppi.transcript, gene=ppi.partner))
-        }
-      }
-  
-      ppi.net <- graph_from_data_frame(d=ppi.relation, vertices=ppi.node, directed=FALSE)
-      #ggraph(ppi.net, layout="circle") + geom_edge_link(color="black") + geom_node_point(aes(color=type), size=5) + theme_void() + theme(legend.position="bottom", legend.text = element_text(size=16), legend.title=element_blank(), legend.margin=margin(b=5))
-      ggraph(ppi.net, layout="circle") + geom_edge_link(color="black") + geom_node_point(aes(color=type), size=5) + geom_node_text(aes(label=name), size=6, vjust=2) + theme_void() + theme(legend.position="bottom", legend.text = element_text(size=14), legend.title=element_blank(), legend.margin=margin(b=5))
-    }
+    
+    result.file.name <- paste0(result.dir, "/", str_replace_all(as.id, ":", "_"), ".png")
+    
+    png(file=result.file.name, width=1280, height=1024)
+    as.track
+    dev.off()
   }
 }

@@ -23,10 +23,9 @@
 #'                                       result.dir=annotation.result.dir)
 
 asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {
-  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
-  
-  if(file.exists(data.dir) == FALSE) {
-    dir.create(data.dir)
+  if(result.dir == "") {
+    print("*** ERROR MESSAGE: No such output directory.")
+    return()
   }
   
   loaded.packages <- tolower((.packages()))
@@ -38,6 +37,16 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   if(("stringr" %in% loaded.packages) == FALSE) {
     library(stringr)
   }
+  
+  if(file.exists(data.dir) == FALSE) {
+    dir.create(data.dir)
+  }
+  
+  if(!file.exists(result.dir)) {
+    dir.create(result.dir)
+  }
+  
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
 
@@ -55,18 +64,11 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   
   db.file.name <- paste0(data.dir, "/", gene.model, "_", genome.version, ".sqlite")
   
-  start.time <- Sys.time()
-  
   if(!file.exists(db.file.name)) {
     url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/sqlite/", gene.model, "_", genome.version, ".sqlite")
     download.file(url, db.file.name, method="auto", mode="wb", header=options(timeout=6000))
   }
   
-  end.time <- Sys.time()
-  
-  print("DB download time :")
-  print(end.time-start.time)
-
   db.connection <- dbConnect(SQLite(), dbname=db.file.name)
 
   as.result <- data.frame()
@@ -295,11 +297,8 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
   }
   
   #GSEA
-  #print(length(unique(annotation.result$gene_symbol)))
   mining_gsea(unique(annotation.result$gene_symbol), whole.gene, result.dir)
-  #mining_gsea(unique(annotation.result$gene_symbol), unique(gtf.data$gene_name))
-
+  
   dbDisconnect(db.connection)
   return(annotation.result)
-  #return(as.result)
 }

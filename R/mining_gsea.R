@@ -31,6 +31,11 @@
 
 
 mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
+  if(result.dir == "") {
+    print("*** ERROR MESSAGE: No such output directory.")
+    return()
+  }
+  
   loaded.packages <- tolower((.packages()))
   
   if(("epitools" %in% loaded.packages) == FALSE) {
@@ -43,6 +48,10 @@ mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
   
   if(("ggplot2" %in% loaded.packages) == FALSE) {
     library(ggplot2)
+  }
+  
+  if(!file.exists(result.dir)) {
+    dir.create(result.dir)
   }
   
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
@@ -92,7 +101,7 @@ mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
   result.data <- cbind(result.data, "log_CP"=(-log10(as.numeric(result.data$adjP))))
   result.data <- result.data[order(result.data$log_CP, decreasing=TRUE), ]
   
-  write.table(result.data, paste0(result.dir, "/GSEA_result.tsv"), col.names=TRUE, row.names=FALSE, sep="\t", quote=FALSE)
+  write.table(result.data[, c("pathway", "CP", "adjP", "log_CP")], paste0(result.dir, "/GSEA_result.tsv"), col.names=TRUE, row.names=FALSE, sep="\t", quote=FALSE)
   
   result.data <- result.data[1:7, ]
 
@@ -104,5 +113,7 @@ mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
   
   print(gsea.result.plot)
   
-  
+  png(file=paste0(result.dir, "/GSEA_result.png"), width=800, height=600)
+  gsea.result.plot
+  dev.off()
 }

@@ -48,7 +48,6 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
   }
   
   #"chr", "strand", "as_type", "upstream_exon", "splicing exon", "downstream exon", "gene_id", "gene_name", "P-value", "dPSI"
-
   if(as.type == "A3SS") {
     tmp.line <- rMATS.input[1, ]
 
@@ -219,10 +218,7 @@ rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
     return()
   }
 
-  #converting.result <- converting.result[, 1:9]
-
   colnames(converting.result) <- c("chr", "strand", "as_type", "upstream_exon", "splicing_exon", "downstream_exon", "gene_name", "P-value", "dPSI", "as_id", "gene_id")
-  #colnames(converting.result) <- c("chr", "strand", "as_type", "upstream_exon", "splicing_exon", "downstream_exon", "gene_name", "P-value", "dPSI")
-
+  
   return(converting.result)
 }
