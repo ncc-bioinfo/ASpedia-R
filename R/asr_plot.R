@@ -45,7 +45,10 @@
 
 
 asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl", genome.version="GRCh38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
-  if(annotation.result == "") {
+  if(class(annotation.result) == "character" && annotation.result == "") {
+    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    return()
+  } else if(is.null(nrow(annotation.result)) == TRUE || nrow(annotation.result) == 0) {
     print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
     return()
   }

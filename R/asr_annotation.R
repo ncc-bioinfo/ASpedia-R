@@ -23,7 +23,10 @@
 #'                                       result.dir=annotation.result.dir)
 
 asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {
-  if(converter.result == "") {
+  if(class(converter.result) == "character" && converter.result == "") {
+    print("*** ERROR MESSAGE: Input converter result is empty. Please check input converter result.")
+    return()
+  } else if(is.null(nrow(converter.result)) == TRUE || nrow(converter.result) == 0) {
     print("*** ERROR MESSAGE: Input converter result is empty. Please check input converter result.")
     return()
   }

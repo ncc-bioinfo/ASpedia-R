@@ -26,7 +26,10 @@
 #'             result.dir=ppi.result.dir)
 
 asr_plot_ppi <- function(annotation.result="", gene.name="", as.id="", result.dir="") {
-  if(annotation.result == "") {
+  if(class(annotation.result) == "character" && annotation.result == "") {
+    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    return()
+  } else if(is.null(nrow(annotation.result)) == TRUE || nrow(annotation.result) == 0) {
     print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
     return()
   }
