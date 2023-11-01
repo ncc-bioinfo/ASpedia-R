@@ -4,7 +4,12 @@
 \alias{spliceR.converter}
 \title{Generate ASpedia-R input format from spliceR result.}
 \usage{
-spliceR.converter(spliceR.result, pvalue.cutoff, gene.model, genome.version)
+spliceR.converter(
+  spliceR.result = "",
+  pvalue.cutoff = 0.05,
+  gene.model = "Ensembl",
+  genome.version = "GRCh38"
+)
 }
 \arguments{
 \item{spliceR.result}{name of spliceR result file.}

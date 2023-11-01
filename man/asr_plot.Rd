@@ -5,10 +5,10 @@
 \title{visualization of annotation result}
 \usage{
 asr_plot(
-  annotation.result,
+  annotation.result = "",
   gtf.file.name = "",
   gene.model = "Ensembl",
-  genome.version = "hg38",
+  genome.version = "GRCh38",
   gene.name = "",
   as.id = "",
   heights.list = "",

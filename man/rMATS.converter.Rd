@@ -4,7 +4,12 @@
 \alias{rMATS.converter}
 \title{Generate ASpedia-R input format from rMATS result.}
 \usage{
-rMATS.converter(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
+rMATS.converter(
+  rMATS.result = "",
+  as.type = "",
+  pvalue.cutoff = 0.05,
+  dpsi.cutoff = 0.1
+)
 }
 \arguments{
 \item{rMATS.result}{name of rMATS result file.}

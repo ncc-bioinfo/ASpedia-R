@@ -21,7 +21,7 @@
 #' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=“spliceR”,
 #'                                          gene.model=“Ensembl”, genome.version=“GRCh38”)
 
-spliceR.converter <- function(spliceR.result, pvalue.cutoff, gene.model, genome.version) {
+spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model="Ensembl", genome.version="GRCh38") {
   if(file.exists(spliceR.result) == FALSE) {
     print(paste0("*** ERROR MESSAGE: No such input file. ", spliceR.result))
     return()

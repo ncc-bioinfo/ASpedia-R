@@ -22,7 +22,12 @@
 #' annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”,
 #'                                       result.dir=annotation.result.dir)
 
-asr_annotation <- function(converter.result, gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {
+asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {
+  if(converter.result == "") {
+    print("*** ERROR MESSAGE: Input converter result is empty. Please check input converter result.")
+    return()
+  }
+  
   if(result.dir == "") {
     print("*** ERROR MESSAGE: No such output directory.")
     return()

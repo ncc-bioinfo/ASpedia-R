@@ -4,7 +4,12 @@
 \alias{asr_plot_ppi}
 \title{visualization of PPI network}
 \usage{
-asr_plot_ppi(annotation.result, gene.name = "", as.id = "", result.dir = "")
+asr_plot_ppi(
+  annotation.result = "",
+  gene.name = "",
+  as.id = "",
+  result.dir = ""
+)
 }
 \arguments{
 \item{annotation.result}{asr_annotation function result.}

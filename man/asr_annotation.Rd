@@ -5,7 +5,7 @@
 \title{converting result mapping to ASDB}
 \usage{
 asr_annotation(
-  converter.result,
+  converter.result = "",
   gene.model = "Ensembl",
   genome.version = "GRCh38",
   gsea.gene.list = "",

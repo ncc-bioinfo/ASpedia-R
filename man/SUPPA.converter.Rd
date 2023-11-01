@@ -5,11 +5,11 @@
 \title{Generate ASpedia-R input format from SUPPA result.}
 \usage{
 SUPPA.converter(
-  SUPPA.result,
-  pvalue.cutoff,
-  dpsi.cutoff,
-  gtf.file.name,
-  ioe.file.name
+  SUPPA.result = "",
+  pvalue.cutoff = 0.05,
+  dpsi.cutoff = 0.1,
+  gtf.file.name = "",
+  ioe.file.name = ""
 )
 }
 \arguments{

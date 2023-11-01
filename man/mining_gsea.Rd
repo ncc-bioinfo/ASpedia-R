@@ -4,7 +4,7 @@
 \alias{mining_gsea}
 \title{gene enrichment test between annotation gene list and knowledge-based database gene list.}
 \usage{
-mining_gsea(annotation.gene.list, gsea.gene.list, result.dir)
+mining_gsea(annotation.gene.list = "", gsea.gene.list = "", result.dir = "")
 }
 \arguments{
 \item{annotation.gene.list}{gene list from asr_annotation function result}

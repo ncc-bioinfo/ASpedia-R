@@ -44,7 +44,17 @@
 #'           result.dir=plot.result.dir)
 
 
-asr_plot <- function(annotation.result, gtf.file.name="", gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
+asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl", genome.version="GRCh38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
+  if(annotation.result == "") {
+    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    return()
+  }
+  
+  if(gtf.file.name == "" || file.exists(gtf.file.name) == FALSE) {
+    print(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
+    return()
+  }
+  
   if(gene.name == "" && as.id == "") {
     print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
@@ -64,11 +74,6 @@ asr_plot <- function(annotation.result, gtf.file.name="", gene.model="Ensembl", 
       print("*** ERROR MESSAGE: Input heights list is wrong. Please check your input heights list.")
       return()
     }
-  }
-  
-  if(gtf.file.name == "" || file.exists(gtf.file.name) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
-    return()
   }
   
   loaded.packages <- tolower((.packages()))

@@ -21,9 +21,9 @@
 #' rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
 #'                                             as.type=“SE”)
 
-rMATS.converter <- function(rMATS.result, as.type, pvalue.cutoff, dpsi.cutoff)
+rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dpsi.cutoff=0.1)
 {
-  if(file.exists(rMATS.result) == FALSE) {
+  if(rMATS.result == "" || file.exists(rMATS.result) == FALSE) {
     print(paste0("*** ERROR MESSAGE: No such input file. ", rMATS.result))
     return()
   }

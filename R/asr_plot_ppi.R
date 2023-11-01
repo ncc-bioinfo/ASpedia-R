@@ -25,7 +25,12 @@
 #'             as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319",
 #'             result.dir=ppi.result.dir)
 
-asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="") {
+asr_plot_ppi <- function(annotation.result="", gene.name="", as.id="", result.dir="") {
+  if(annotation.result == "") {
+    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    return()
+  }
+  
   if(gene.name == "" && as.id == "") {
     print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()

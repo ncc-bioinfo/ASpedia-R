@@ -25,18 +25,18 @@
 #' suppa.converter.result <- SUPPA_converter(suppa.result.file, gtf.file=gtf.file.name,
 #'                                           ioe.file=suppa.ioe.file.name)
 
-SUPPA.converter <- function(SUPPA.result, pvalue.cutoff, dpsi.cutoff, gtf.file.name, ioe.file.name) {
-  if(file.exists(SUPPA.result) == FALSE) {
+SUPPA.converter <- function(SUPPA.result="", pvalue.cutoff=0.05, dpsi.cutoff=0.1, gtf.file.name="", ioe.file.name="") {
+  if(SUPPA.result == "" || file.exists(SUPPA.result) == FALSE) {
     print(paste0("*** ERROR MESSAGE: No such input file. ", SUPPA.result))
     return()
   }
 
-  if(file.exists(gtf.file.name) == FALSE) {
+  if(gtf.file.name == "" || file.exists(gtf.file.name) == FALSE) {
     print(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
     return()
   }
 
-  if(file.exists(ioe.file.name) == FALSE) {
+  if(ioe.file.name == "" || file.exists(ioe.file.name) == FALSE) {
     print(paste0("*** ERROR MESSAGE: No such .ioe file. ", ioe.file.name))
     return()
   }

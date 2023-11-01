@@ -30,7 +30,17 @@
 #' mining_gsea(annotation.gene.list, gsea.gene.list=test.gene.list, result.dir=gsea.result.dir)
 
 
-mining_gsea <- function(annotation.gene.list, gsea.gene.list, result.dir) {
+mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="") {
+  if(annotation.gene.list == "") {
+    print("*** ERROR MESSAGE: Input annotation gene list is empty. Please check input annotation gene list.")
+    return()
+  }
+  
+  if(gsea.gene.list == "") {
+    print("*** ERROR MESSAGE: Input reference gene list is empty. Please check input reference gene list.")
+    return()
+  }
+  
   if(result.dir == "") {
     print("*** ERROR MESSAGE: No such output directory.")
     return()
