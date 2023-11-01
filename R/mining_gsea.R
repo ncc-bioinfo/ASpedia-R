@@ -31,13 +31,29 @@
 
 
 mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="") {
-  if(annotation.gene.list == "") {
+  if(class(annotation.gene.list) == "NULL") {
     print("*** ERROR MESSAGE: Input annotation gene list is empty. Please check input annotation gene list.")
     return()
+  } else if(class(annotation.gene.list) == "character") {
+    if (length(annotation.gene.list) == 1 && annotation.gene.list[1] == "") {
+      print("*** ERROR MESSAGE: Input annotation gene list is empty. Please check input annotation gene list.")
+      return()
+    }
+  } else {
+    print("*** ERROR MESSAGE: Input annotation gene list is not character vector. Please check input annotation gene list.")
+  return()
   }
   
-  if(gsea.gene.list == "") {
+  if(class(gsea.gene.list) == "NULL") {
     print("*** ERROR MESSAGE: Input reference gene list is empty. Please check input reference gene list.")
+    return()
+  } else if(class(gsea.gene.list) == "character") {
+    if (length(gsea.gene.list) == 1 && gsea.gene.list[1] == "") {
+      print("*** ERROR MESSAGE: Input reference gene list is empty. Please check input reference gene list.")
+      return()
+    }
+  } else {
+    print("*** ERROR MESSAGE: Input reference gene list is not character vector. Please check input reference gene list.")
     return()
   }
   
