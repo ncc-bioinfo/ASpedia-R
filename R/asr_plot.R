@@ -103,7 +103,7 @@ asr_plot <- function(annotation.result, gtf.file.name="", gene.model="Ensembl", 
     dir.create(data.dir)
   }
   
-  db.file.name <- paste0("data/", gene.model, "_", genome.version, ".sqlite")
+  db.file.name <- paste0(data.dir, "/", gene.model, "_", genome.version, ".sqlite")
   
   if(!file.exists(db.file.name)) {
     url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/sqlite/", gene.model, "_", genome.version, ".sqlite")
