@@ -45,8 +45,8 @@
 
 
 asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl", genome.version="GRCh38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
-  if(class(annotation.result) == "character" && annotation.result == "") {
-    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+  if(class(annotation.result) != "data.frame") {
+    print("*** ERROR MESSAGE: Input annotation result is not data frame. Please check input annotation result.")
     return()
   } else if(is.null(nrow(annotation.result)) == TRUE || nrow(annotation.result) == 0) {
     print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
@@ -70,13 +70,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   
   if(!file.exists(result.dir)) {
     dir.create(result.dir)
-  }
-  
-  if(plot.data.list != "" && heigths.list != "") {
-    if((length(plot.data.list) + 2) != length(heights.list)) {
-      print("*** ERROR MESSAGE: Input heights list is wrong. Please check your input heights list.")
-      return()
-    }
   }
   
   loaded.packages <- tolower((.packages()))
@@ -143,39 +136,57 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   has.ptm <- FALSE
   has.rbp <- FALSE
   
-  if(plot.data.list == "") {
+  if(class(plot.data.list) == "character") {
+    if(length(plot.data.list) == 1 && plot.data.list[1] == "") {
+      has.conservation <- TRUE
+      has.repeats <- TRUE
+      has.nmd <- TRUE
+      has.domain <- TRUE
+      has.ptm <- TRUE
+      has.rbp <- TRUE
+    } else {
+      if("conservation" %in% tolower(plot.data.list)) {
+        has.conservation <- TRUE
+      }
+      
+      if("repeats" %in% tolower(plot.data.list)) {
+        has.repeats <- TRUE
+      }
+      
+      if("nmd" %in% tolower(plot.data.list)) {
+        has.nmd <- TRUE
+      }
+      
+      if("domain" %in% tolower(plot.data.list)) {
+        has.domain <- TRUE
+      }
+      
+      if("ptm" %in% tolower(plot.data.list)) {
+        has.ptm <- TRUE
+      }
+      
+      if("rbp" %in% tolower(plot.data.list)) {
+        has.rbp <- TRUE
+      }
+    }
+  } else {
     has.conservation <- TRUE
     has.repeats <- TRUE
     has.nmd <- TRUE
     has.domain <- TRUE
     has.ptm <- TRUE
     has.rbp <- TRUE
-  } else {
-    if("conservation" %in% tolower(plot.data.list)) {
-      has.conservation <- TRUE
-    }
-    
-    if("repeats" %in% tolower(plot.data.list)) {
-      has.repeats <- TRUE
-    }
-    
-    if("nmd" %in% tolower(plot.data.list)) {
-      has.nmd <- TRUE
-    }
-    
-    if("domain" %in% tolower(plot.data.list)) {
-      has.domain <- TRUE
-    }
-    
-    if("ptm" %in% tolower(plot.data.list)) {
-      has.ptm <- TRUE
-    }
-    
-    if("rbp" %in% tolower(plot.data.list)) {
-      has.rbp <- TRUE
+  }
+  
+  #check heights list
+  if(plot.data.list != "" && heigths.list != "") {
+    if((length(plot.data.list) + 2) != length(heights.list)) {
+      print("*** ERROR MESSAGE: Input heights list is wrong. Please check your input heights list.")
+      return()
     }
   }
   
+  #load GTF
   gtf.data <- import(gtf.file.name)
 
   #ideogram
