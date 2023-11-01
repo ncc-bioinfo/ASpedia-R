@@ -293,7 +293,7 @@ asr_annotation <- function(converter.result, gene.model="Ensembl", genome.versio
       annotation.result <- rbind(annotation.result, tmp.result)
     }
 
-    colnames(annotation.result) <- c("gene_symbol", "chr", "as_id", "as_description_id", "as_type", "strand", "gene_name", "locus_group", "location", "gene_id", "transcript_id", "exon_inclusion_transcript_id", "exon_exclusion_transcript_id", "GO_BP", "GO_CC", "GO_MF", "conservation_score", "dbSNP_variant", "COSMIC_variant", "SPIDEX_variant", "miRNA_binding_site", "repeat", "NMD", "COSMIC_NMD", "dbSNP_NMD", "protein_domain", "protein_translational_modification", "RBP_splicing_factor", "RBP", "isoform_PPI_a", "isoform_PPI_b", "isoform_subcellular_localization_id", "isoform_subcellular_localization", "transmembrane")
+    colnames(annotation.result) <- c("gene_symbol", "chr", "as_id", "as_description_id", "as_type", "strand", "gene_name", "locus_group", "location", "gene_id", "transcript_id", "exon_inclusion_transcript_id", "exon_exclusion_transcript_id", "GO_BP", "GO_CC", "GO_MF", "conservation_score", "dbSNP_variant", "COSMIC_variant", "SPIDEX_variant", "miRNA_binding_site", "repeats", "NMD", "COSMIC_NMD", "dbSNP_NMD", "protein_domain", "protein_translational_modification", "RBP_splicing_factor", "RBP", "isoform_PPI_a", "isoform_PPI_b", "isoform_subcellular_localization_id", "isoform_subcellular_localization", "transmembrane")
   }
   
   write.table(annotation.result, paste0(result.dir, "/annotation_result.tsv"), sep="\t", col.names=TRUE, row.names=FALSE, quote=FALSE)
