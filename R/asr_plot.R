@@ -90,14 +90,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     library(stringr)
   }
   
-  if(("ggraph" %in% loaded.packages) == FALSE) {
-    library(ggraph)
-  }
-  
-  if(("igraph" %in% loaded.packages) == FALSE) {
-    library(igraph)
-  }
-  
   data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
   
   if(file.exists(data.dir) == FALSE) {
@@ -190,7 +182,17 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   gtf.data <- import(gtf.file.name)
 
   #ideogram
-  ideo.plot <- Ideogram(genome=genome.version)
+  ideo.genome.version <- ""
+  
+  if(genome.version == "GRCh38") {
+    ideo.genome.version <- "hg38"
+  }else if (genome.version == "GRCh19") {
+    ideo.genome.version <- "hg19"
+  }else {
+    ideo.genome.version <- genome.version
+  }
+  
+  ideo.plot <- Ideogram(genome=ideo.genome.version)
   
   for(anno.index in 1:nrow(annotation.result)) {
     tmp.anno <- annotation.result[anno.index, ]
