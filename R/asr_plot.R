@@ -59,8 +59,8 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
     dir.create(result.dir)
   }
   
-  if(plot.data != "" && heigths.list != "") {
-    if((length(plot.data) + 2) != length(heights.list)) {
+  if(plot.data.list != "" && heigths.list != "") {
+    if((length(plot.data.list) + 2) != length(heights.list)) {
       print("*** ERROR MESSAGE: Input heights list is wrong. Please check your input heights list.")
       return()
     }
