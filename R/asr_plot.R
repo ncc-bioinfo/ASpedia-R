@@ -44,7 +44,7 @@
 #'           result.dir=plot.result.dir)
 
 
-asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
+asr_plot <- function(annotation.result, gtf.file.name="", gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
   if(gene.name == "" && as.id == "") {
     print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
@@ -95,11 +95,6 @@ asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", gen
   
   if(("igraph" %in% loaded.packages) == FALSE) {
     library(igraph)
-  }
-  
-  if(!file.exists(gene.list.file.name)) {
-    url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
-    download.file(url, gene.list.file.name, method="auto")
   }
   
   db.file.name <- paste0("data/", gene.model, "_", genome.version, ".sqlite")
