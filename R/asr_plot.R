@@ -97,7 +97,19 @@ asr_plot <- function(annotation.result, gtf.file.name="", gene.model="Ensembl", 
     library(igraph)
   }
   
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
+  
+  if(file.exists(data.dir) == FALSE) {
+    dir.create(data.dir)
+  }
+  
   db.file.name <- paste0("data/", gene.model, "_", genome.version, ".sqlite")
+  
+  if(!file.exists(db.file.name)) {
+    url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/sqlite/", gene.model, "_", genome.version, ".sqlite")
+    download.file(url, db.file.name, method="auto", mode="wb", header=options(timeout=6000))
+  }
+  
   db.connection <- dbConnect(SQLite(), dbname=db.file.name)
   
   #annotation result filtered by gene name or as ID
@@ -816,4 +828,6 @@ asr_plot <- function(annotation.result, gtf.file.name="", gene.model="Ensembl", 
     print(as.track)
     dev.off()
   }
+  
+  dbDisconnect(db.connection)
 }
