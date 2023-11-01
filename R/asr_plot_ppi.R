@@ -27,7 +27,7 @@
 
 asr_plot_ppi <- function(annotation.result, gene.name="", as.id="", result.dir="") {
   if(gene.name == "" && as.id == "") {
-    print("*** ERROR MESSAGE: Input gene name or AS ID is not found. We required gene name or AS ID")
+    print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
   }
   

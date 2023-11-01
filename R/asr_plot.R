@@ -46,7 +46,7 @@
 
 asr_plot <- function(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="hg38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
   if(gene.name == "" && as.id == "") {
-    print("*** ERROR MESSAGE: Input gene name or AS ID is not found. We required gene name or AS ID")
+    print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
   }
   
