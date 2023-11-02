@@ -534,7 +534,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   
     #gene plot
     print(class(gene.data))
-    gene.plot.data <- GnomeicRanges::split(gene.data, gene.data$transcript_id)
+    gene.plot.data <- GenomicRanges::split(gene.data, gene.data$transcript_id)
     print(gene.plot.data)
     gene.text.position <- mean(exon.region)
     gene.plot <- autoplot(object=gene.plot.data, label.color="black", aes(fill=exon_type)) + scale_fill_manual(values=c("exon"="#619CFF", "as_exon"="#F8766D")) + ylab(paste0("Gene\n(", gene.id, ",", gene.name, ")")) + xlim(exon.region) + guides(y="none")
