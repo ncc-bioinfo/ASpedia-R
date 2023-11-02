@@ -219,7 +219,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   
     #gene plot
     transcript.id.list <- c(str_split(tmp.anno$exon_inclusion_transcript_id, ",")[[1]], str_split(tmp.anno$exon_exclusion_transcript_id, ",")[[1]])
-    gene.data <- gtf.data[gtf.data$transcript_id %in% transcript.id.list & gtf.data$type == "exon", c("type", "gene_id", "gene_name", "transcript_id", "transcript_biotype", "exon_number", "exon_id", "protein_id")]
+    gene.data <- gtf.data[gtf.data$transcript_id %in% transcript.id.list & (gtf.data$type == "exon" | gtf.data$type == "CDS" | gtf.data$type == "intron"), c("type", "gene_id", "gene_name", "transcript_id", "transcript_biotype", "exon_number", "exon_id", "protein_id")]
     gene.data$exon_type <- "exon"
   
     if(as.type == "A3SS") {
