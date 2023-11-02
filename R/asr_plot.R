@@ -58,7 +58,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     return()
   }
   
-  if((class(gene.name) =! "character" || (class(gene.name) == "character" && gene.name[1] == "")) && (class(as.id) =! "character" || (class(as.id) == "character" && as.id[1] == ""))) {
+  if((class(gene.name) != "character" || (class(gene.name) == "character" && gene.name[1] == "")) && (class(as.id) != "character" || (class(as.id) == "character" && as.id[1] == ""))) {
     print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
   }
