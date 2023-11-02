@@ -789,26 +789,26 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       for(repeats.index in 1:length(tmp.repeats.data.list)){
         tmp.repeats <- tmp.repeats.data.list[repeats.index]
         tmp.repeats.length <- length(tmp.repeats)
-        tmp.repeats.list <- str_split(tmp.repeats, ",")
+        tmp.repeats.list <- str_split(tmp.repeats, ",")[[1]]
         repeats.start <- ""
         repeats.end <- ""
         repeats.name <- ""
         
         if(length(tmp.repeats.list) == 3) {
-          tmp.repeats.position <- str_split(str_split(tmp.repeats.[3], ":")[[1]][2], "-")[[1]]
+          tmp.repeats.position <- str_split(str_split(tmp.repeats.list[3], ":")[[1]][2], "-")[[1]]
           repeats.start <- as.numeric(tmp.repeats.position[1])
           repeats.end <- as.numeric(tmp.repeats.position[2])
           repeats.name <- paste0(tmp.repeats.list[1], ",", tmp.repeats.list[2])
         } else if(length(tmp.repeats.list) == 2) {
-          tmp.repeats.position <- str_split(str_split(tmp.repeats.[2], ":")[[1]][2], "-")[[1]]
+          tmp.repeats.position <- str_split(str_split(tmp.repeats.list[2], ":")[[1]][2], "-")[[1]]
           repeats.start <- as.numeric(tmp.repeats.position[1])
           repeats.end <- as.numeric(tmp.repeats.position[2])
           repeats.name <- tmp.repeats.list[1]
         }
         
-        rbind(repeats.data, data.frame(xmin=repeats.start, xmax=repeats.end, ymin=(repeats.index - 1), ymax=(repeats.index - 1 + 0.5), repeats_name=repeats.name))
+        repeats.data <- rbind(repeats.data, data.frame(xmin=repeats.start, xmax=repeats.end, ymin=(repeats.index - 1), ymax=(repeats.index - 1 + 0.5), repeats_name=repeats.name))
         
-        if(repeat.start < exon.region[1]) {
+        if(repeats.start < exon.region[1]) {
           repeats.text.data <- rbind(repeats.text.data, data.frame(x=exon.region[1], y=(repeats.index - 1 + 0.6), repeats_name=repeats.name))
         } else {
           repeats.text.data <- rbind(repeats.text.data, data.frame(x=repeats.start, y=(repeats.index - 1 + 0.6), repeats_name=repeats.name))
