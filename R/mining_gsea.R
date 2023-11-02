@@ -32,7 +32,7 @@
 
 mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="") {
   if(class(annotation.gene.list) == "NULL") {
-    print("*** ERROR MESSAGE: Input annotation gene list is empty. Please check input annotation gene list.")
+    print("*** ERROR MESSAGE: Input annotation gene list is empty vector. Please check input annotation gene list.")
     return()
   } else if(class(annotation.gene.list) != "character") {
     print("*** ERROR MESSAGE: Input annotation gene list is not character vector. Please check input annotation gene list.")

@@ -49,7 +49,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     print("*** ERROR MESSAGE: Input annotation result is not data frame. Please check input annotation result.")
     return()
   } else if(is.null(nrow(annotation.result)) == TRUE || nrow(annotation.result) == 0) {
-    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    print("*** ERROR MESSAGE: Input annotation result has 0 row. Please check input annotation result.")
     return()
   }
   
@@ -58,7 +58,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     return()
   }
   
-  if(gene.name == "" && as.id == "") {
+  if((class(gene.name) =! "character" || (class(gene.name) == "character" && gene.name[1] == "")) && (class(as.id) =! "character" || (class(as.id) == "character" && as.id[1] == ""))) {
     print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
   }
@@ -106,13 +106,13 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   db.connection <- dbConnect(SQLite(), dbname=db.file.name)
   
   #annotation result filtered by gene name or as ID
-  if(gene.name != "") {
+  if(gene.name[1] != "") {
     if(length(gene.name == 1)) {
       annotation.result <- annotation.result[annotation.result$gene_symbol == gene.name, ]
     } else {
       annotation.result <- annotation.result[annotation.result$gene_symbol %in% gene.name, ]
     }
-  } else if(as.id != "") {
+  } else if(as.id[1] != "") {
     if(length(as.id) == 1) {
       annotation.result <- annotation.result[annotation.result$as_id == as.id] 
     } else {
@@ -171,7 +171,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   }
   
   #check heights list
-  if(plot.data.list != "" && heigths.list != "") {
+  if((class(plot.data.list) == "character" && plot.data.list[1] != "") && (class(heigths.list) == "character" && heigths.list[1] != "")) {
     if((length(plot.data.list) + 2) != length(heights.list)) {
       print("*** ERROR MESSAGE: Input heights list is wrong. Please check your input heights list.")
       return()
@@ -757,7 +757,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       nmd.stop.plot <- ggplot() + geom_dotplot(data=nmd.stop.plot.data, mapping=aes(x=x, y=y), binaxis="y", stackdir="center", dotsize=2, fill="#9590FF") + xlim(exon.region) + guides(y="none") + ylab("NMD COSMIC") + ylim(1, max(nmd.stop.plot.data$y) + 0.5)
     }
     
-    if(tmp.anno$COSMIC_NMD && has.nmd == TRUE) {
+    if(tmp.anno$COSMIC_NMD != "" && has.nmd == TRUE) {
       nmd.cosmic <- as.data.frame(matrix(unlist(str_split(str_split(tmp.anno$COSMIC_NMD, ";")[[1]], ":")), ncol=2, byrow=TRUE))
       colnames(nmd.cosmic) <- c("chr", "position")
       nmd.cosmic <- unique(nmd.cosmic)
@@ -768,7 +768,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       nmd.cosmic.plot <- ggplot() + geom_dotplot(data=nmd.cosmic.plot.data, mapping=aes(x=x, y=y), binaxis="y", stackdir="center", dotsize=2, fill="#9590FF") + xlim(exon.region) + guides(y="none") + ylab("NMD COSMIC") + ylim(1, max(nmd.cosmic.plot.data$y) + 0.5)
     }
     
-    if(tmp.anno$dbSNP_NMD && has.nmd == TRUE) {
+    if(tmp.anno$dbSNP_NMD != "" && has.nmd == TRUE) {
       nmd.dbsnp <- as.data.frame(matrix(unlist(str_split(str_split(tmp.anno$dbSNP_NMD, ";")[[1]], ":")), ncol=2, byrow=TRUE))
       colnames(nmd.dbsnp) <- c("chr", "position")
       nmd.dbsnp <- unique(nmd.dbsnp)

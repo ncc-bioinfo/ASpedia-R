@@ -60,7 +60,9 @@ asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.ver
   
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
 
-  if(gsea.gene.list == "") {
+  if(class(gsea.gene.list) == "character" && gsea.gene.list[1] != "") {
+    whole.gene <- gava.gene.list
+  } else {
     if(!file.exists(gene.list.file.name)) {
       url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
       download.file(url, gene.list.file.name, method="auto")
@@ -68,8 +70,6 @@ asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.ver
     
     gene.list <- read.table(gene.list.file.name, stringsAsFactors=FALSE, header=FALSE)
     whole.gene <- unique(gene.list$V1)
-  } else {
-    whole.gene <- gava.gene.list
   }
   
   db.file.name <- paste0(data.dir, "/", gene.model, "_", genome.version, ".sqlite")
