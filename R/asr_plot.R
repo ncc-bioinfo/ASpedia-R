@@ -561,7 +561,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       #as.track@heights <- c(1, 4)
       as.track@heights <- c(4)
     }
-  
+    
+    print("gene.plot done")
   
     #conservation
     if((tmp.anno$conservation_score != "") && (has.conservation == TRUE)) {
@@ -593,6 +594,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         as.track@heights <- c(prev.track.height, 1)
       }
     }
+    
+    print("conservation done")
   
     #protein domain
     if((tmp.anno$protein_domain != "") && (has.domain == TRUE)) {
@@ -678,6 +681,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         as.track@heights <- c(prev.track.height, 1)
       }
     }
+    
+    print("protein domain done")
   
     #PTM
     if((tmp.anno$protein_translational_modification != "") && has.ptm == TRUE){
@@ -748,6 +753,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       }
     }
     
+    print("PTM done")
+    
     #NMD
     nmd.stop.plot <- ""
     nmd.cosmic.plot <- ""
@@ -785,6 +792,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       
       nmd.dbsnp.plot <- ggplot() + geom_dotplot(data=nmd.dbsnp.plot.data, mapping=aes(x=x, y=y), binaxis="y", stackdir="center", dotsize=2, fill="#9590FF") + xlim(exon.region) + guides(y="none") + ylab("NMD COSMIC") + ylim(1, max(nmd.dbsnp.plot.data$y) + 0.5)
     }
+    
+    print("NMD done")
     
     #repeats
     if((tmp.anno$repeats != "") && (has.repeats == TRUE)) {
@@ -840,6 +849,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       as.track <- as.track + repeats.track
       as.track@heights <- c(prev.track.height, 1)
     }
+    
+    print("repeats done")
     
     #RBP
     if(tmp.anno$RBP != "" && has.rbp == TRUE){
@@ -911,6 +922,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       }
     }
     
+    print("rbp done")
     
     as.track <- as.track + theme_tracks_sunset(bg="white") + theme(legend.position="none", axis.title.y=element_text(angle=0, vjust=0.5))
     
