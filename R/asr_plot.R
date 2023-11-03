@@ -217,8 +217,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       exon.region <- c(as.numeric(as.id.split[length(as.id.split)]), as.numeric(as.id.split[2]))
     }
     
-    print(as.id)
-  
     #ideogram
     #ideo.plot@subchr <- as.chr
     #ideo.plot@zoom.region <- exon.region
@@ -562,8 +560,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       as.track@heights <- c(4)
     }
     
-    print("gene.plot done")
-  
     #conservation
     if((tmp.anno$conservation_score != "") && (has.conservation == TRUE)) {
       conservation.query <- paste0("select conservation_raw from as_data where as_id='", as.id , "' and as_type='", as.type, "'")
@@ -595,8 +591,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       }
     }
     
-    print("conservation done")
-  
     #protein domain
     if((tmp.anno$protein_domain != "") && (has.domain == TRUE)) {
       tmp.anno$protein_domain <- str_replace_all(tmp.anno$protein_domain, ", ", " ")
@@ -623,8 +617,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   
       domain.data <- domain.data[domain.data$transcript_id %in% transcript.id.list, ]
       
-      print(domain.data)
-      
       if(nrow(domain.data) > 0) {
         pfam.id.list <- unique(domain.data$pfam_id)
         domain.plot.data <- data.frame()
@@ -639,8 +631,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     
           for(i in 1:length(domain.plot.region)) {
             tmp.domain.region <- domain.plot.region[i]
-            print(tmp.domain.region)
-            
+
             domain.plot.data <- rbind(domain.plot.data, data.frame(xmin=start(tmp.domain.region), xmax=end(tmp.domain.region), ymin=(i - 1), ymax=(i - 1 + 0.5), domain_type="domain"))
             as.inter <- IRanges::intersect(tmp.domain.region, as.region)
             exon.inter <- IRanges::intersect(tmp.domain.region, as.exon.region)
@@ -676,9 +667,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         domain.text.data$x <- as.numeric(domain.text.data$x)
         domain.text.data$y <- as.numeric(domain.text.data$y)
         
-        print(domain.plot.data)
-        print(domain.text.data)
-    
         domain.plot <- ggplot() + geom_rect(data=domain.plot.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=domain_type)) + geom_text(data=domain.text.data, mapping=aes(x=x, y=y, label=domain_desc), hjust=0, vjust=0) + scale_fill_manual(values=c("domain"="#CAC7ED", "exon"="#9590FF", "as"=I("pink"))) + xlim(exon.region) + ylim(0, max(domain.plot.data$ymax) + 0.5) + ylab("Protein domain") + guides(y="none")
         domain.track <- tracks(domain.plot)
     
@@ -688,8 +676,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       }
     }
     
-    print("protein domain done")
-  
     #PTM
     if((tmp.anno$protein_translational_modification != "") && has.ptm == TRUE){
       ptm.data <- as.data.frame(matrix(unlist(str_split(str_split(tmp.anno$protein_translational_modification, ";")[[1]], ",")), ncol=3, byrow=TRUE))
@@ -759,8 +745,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       }
     }
     
-    print("PTM done")
-    
     #NMD
     nmd.stop.plot <- ""
     nmd.cosmic.plot <- ""
@@ -798,8 +782,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       
       nmd.dbsnp.plot <- ggplot() + geom_dotplot(data=nmd.dbsnp.plot.data, mapping=aes(x=x, y=y), binaxis="y", stackdir="center", dotsize=2, fill="#9590FF") + xlim(exon.region) + guides(y="none") + ylab("NMD COSMIC") + ylim(1, max(nmd.dbsnp.plot.data$y) + 0.5)
     }
-    
-    print("NMD done")
     
     #repeats
     if((tmp.anno$repeats != "") && (has.repeats == TRUE)) {
@@ -855,8 +837,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       as.track <- as.track + repeats.track
       as.track@heights <- c(prev.track.height, 1)
     }
-    
-    print("repeats done")
     
     #RBP
     if(tmp.anno$RBP != "" && has.rbp == TRUE){
@@ -927,8 +907,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         as.track@heights <- c(prev.track.height, 4, 2)
       }
     }
-    
-    print("rbp done")
     
     as.track <- as.track + theme_tracks_sunset(bg="white") + theme(legend.position="none", axis.title.y=element_text(angle=0, vjust=0.5))
     
