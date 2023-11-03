@@ -639,6 +639,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     
           for(i in 1:length(domain.plot.region)) {
             tmp.domain.region <- domain.plot.region[i]
+            print(tmp.domain.region)
     
             domain.plot.data <- rbind(domain.plot.data, c(start(tmp.domain.region), end(tmp.domain.region), (i - 1), (i - 1 + 0.5), "domain"))
             as.inter <- intersect(tmp.domain.region, as.region)
