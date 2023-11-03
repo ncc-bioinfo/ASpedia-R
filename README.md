@@ -1,52 +1,65 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ASpedia-R
+# ASpediaR
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of ASpediaR is to …
+ASpedia-R is an application to explore the comprehensive multi-omics
+profile of human splicing event regions. Our database covers various
+sequence features encompassing DNA, RNA, and protein located in spliced
+exonic regions. To interrogate sequence features existing around
+splicing events, our package provides the retrieval system to search
+sequence features from AS event profile.
 
-## Installation
+Our package has the convenience to explore the sequence profile from
+differential alternative splicing (AS) analysis results to detect the
+number of AS candidates. Especially, our package embedded the converter
+for three representative DAS programs rMATS, SUPPA, and spliceR.
+Furthermore, the user could easily generate ASpedia-R input format to
+follow splicing ID rule.
 
-You can install the development version of ASpediaR from
-[GitHub](https://github.com/) with:
+## Workflow Summary
 
-``` r
-# install.packages("devtools")
-devtools::install_github("ncc-bioinfo/ASpediaR")
-```
+<img src="man/figures/workflow.png" width="611" style="display: block; margin: auto;" />
 
-## Example
+Our application operates to follow these steps.
 
-This is a basic example which shows you how to solve a common problem:
+1.  To prepare an input file (differential AS analysis result) to
+    include the profile of multiple AS events (the genomic coordinates
+    of exon regions).
+2.  To convert an input file to using our splice ID format. 2-1. To
+    convert unformatted other results, the user should generate AS event
+    IDs to follow our AS event ID rule. User guide document presented
+    code example.
 
-``` r
-#library(ASpediaR)
-## basic example code
-```
+<img src="man/figures/AS_ID_rules.png" width="70%" style="display: block; margin: auto;" />
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+3.  To annotate multi-omics profile via querying AS events.
+4.  To visualize the result for each AS event or to perform AS gene set
+    enrichment analysis referring our knowledge-based database
+    (Computational and Structural Biotechnology Journal 2023 [doi:
+    10.1016/j.csbj.2023.02.052](https://doi.org/10.1016/j.csbj.2023.02.052)).
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+## Usage
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+ASpedia-R is an R package to require installation, and simply executable
+to proceed several steps. Specific usage is described in our user guide
+document.
 
-You can also embed plots, for example:
+## Support
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+For further information or help, don’t hesitate to get in touch on our
+team ([Daijin Hyung](mailto:daejin0709@ncc.re.kr), [Charny
+Park](mailto:charn78@ncc.re.kr)).
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+## Citation
+
+Original and updated database of this application was published in
+Nucleic Acids Research 2017 doi:
+[10.1093/nar/gkx1014](https://doi.org/10.1093/nar/gkx1014), and
+Computational and Structural Biotechnology Journal 2023 doi:
+[10.1016/j.csbj.2023.02.052](https://doi.org/10.1016/j.csbj.2023.02.052).
+
+This application is preparing the publication.
