@@ -216,6 +216,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     } else if(as.strand == "-") {
       exon.region <- c(as.numeric(as.id.split[length(as.id.split)]), as.numeric(as.id.split[2]))
     }
+    
+    print(as.id)
   
     #ideogram
     #ideo.plot@subchr <- as.chr
@@ -545,6 +547,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     #as.track <- tracks(ideo.plot, gene.plot)
     as.track <- tracks(gene.plot)
   
+    
     if(length(transcript.id.list) <= 4) {
       #as.track@heights <- c(1, 1)
       as.track@heights <- c(1)
