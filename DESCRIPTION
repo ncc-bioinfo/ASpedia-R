@@ -12,9 +12,6 @@ LazyData: true
 Depends:
   R(>= 4.2)
 Imports: 
-    BSgenome.Hsapiens.UCSC.hg18,
-    BSgenome.Hsapiens.UCSC.hg19,
-    BSgenome.Hsapiens.UCSC.hg38,
     epitools,
     ggbio,
     ggraph,
