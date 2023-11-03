@@ -34,7 +34,7 @@ Our application operates to follow these steps.
     IDs to follow our AS event ID rule. User guide document presented
     code example.
 
-<img src="man/figures/AS_ID_rules.png" width="70%" style="display: block; margin: auto;" align="center" />
+<img src="man/figures/AS_ID_rules.png" width="70%" style="display: block; margin: auto; align-content='center'" />
 
 3)  To annotate multi-omics profile via querying AS events.
 4)  To visualize the result for each AS event or to perform AS gene set
