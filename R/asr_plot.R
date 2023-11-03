@@ -674,6 +674,9 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     
         domain.text.data$x <- as.numeric(domain.text.data$x)
         domain.text.data$y <- as.numeric(domain.text.data$y)
+        
+        print(domain.plot.data)
+        print(domain.text.data)
     
         domain.plot <- ggplot() + geom_rect(data=domain.plot.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=domain_type)) + geom_text(data=domain.text.data, mapping=aes(x=x, y=y, label=domain_desc), hjust=0, vjust=0) + scale_fill_manual(values=c("domain"="#CAC7ED", "exon"="#9590FF", "as"=I("pink"))) + xlim(exon.region) + ylim(0, max(domain.plot.data$ymax) + 0.5) + ylab("Protein domain") + guides(y="none")
         domain.track <- tracks(domain.plot)
