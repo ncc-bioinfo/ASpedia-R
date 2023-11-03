@@ -836,7 +836,56 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     
     #RBP
     if(tmp.anno$RBP != "" && has.rbp == TRUE){
+      rbp.data <- as.data.frame(matrix(unlist(str_split(str_split(tmp.anno$RBP, ";")[[1]], ",")), ncol=8, byrow=TRUE))
+      colnames(rbp.data) <- c("target", "chr", "peak_start", "peak_end", "pvalue", "read_count", "cell_line", "rpkm")
+      rbp.target.list <- unique(rbp.data$target)
+      rbp.plot.data <- data.frame()
+      target.index <- 0
       
+      for(rbp.target in rbp.target.list) {
+        rbp.target.data <- rbp.data[rbp.data$target == rbp.target, ]
+        rbp.target.range <- IRanges(start=as.numeric(rbp.target.data$peak_start), end=as.numeric(rbp.target.data$peak_end))
+        rbp.target.range.reduce <- reduce(rbp.target.range)
+        
+        for(range.index in 1:length(rbp.target.range.reduce)) {
+          rbp.plot.data <- rbind(rbp.plot.data, data.frame(target=rbp.target, peak_start=start(rbp.target.range.reduce[range.index]), peak_end=end(rbp.target.range.reduce[range.index]), ymin=target.index, ymax=target.index + 0.5))
+        }
+        
+        target.index <- target.index + 1
+      }
+      
+      rbp.plot <- ggplot(rbp.plot.data, aes(x=peak_start, y=ymin, name=target)) + geom_segment(aes(xend=peak_end, yend=ymin, color=target), linewidth=4) + ylab("RNA binding protein") + guides(y="none")
+      rbp.plot.build <- ggplot_build(rbp.plot)
+      rbp.plot.raw.data <- rbp.plot.build$data[[1]]
+      
+      rbp.legend.data <- data.frame()
+      rbp.legend.target.list <- unique(rbp.plot.raw.data$name)
+      
+      legend.start <- exon.region[1]
+      legend.end <- exon.region[2]
+      total.legend <- length(rbp.legend.target.list)
+      legend.element.by.line <- 7
+      legend.element.width <- as.integer((legend.end - legend.start + 1) / legend.element.by.line)
+      legend.element.index <- 1
+      legend.element.y <- as.integer(total.legend / (legend.element.by.line - 1)) + 1
+      
+      for(rbp.legend.target in rbp.legend.target.list) {
+        rbp.legend.color <- unique(rbp.plot.raw.data[rbp.plot.raw.data$name == rbp.legend.target, "colour"])
+        legend.element.position <- legend.element.index %% (legend.element.by.line - 1)
+        
+        if(legend.element.position == 1 && legend.element.index != 1) {
+          legend.element.y <- legend.element.y - 1
+        }
+        
+        legend.element.x.start <- legend.start + ((legend.element.position - 1) * legend.element.width)
+        legend.element.x.end <- legend.start + ((legend.element.position - 1) * legend.element.width) + as.integer(legend.element.width / 3)
+        
+        rbp.legend.data <- rbind(rbp.legend.data, data.frame(target=rbp.legend.target, x=legend.element.x.start, xend=legend.element.x.end, y=legend.element.y, legend_color=rbp.legend.color))
+        
+        legend.element.index <- legend.element.index + 1
+      }
+      
+      rbp.legend.plot <- ggplot(rbp.legend.data, aes(x=x, y=y)) + geom_segment(aes(xend=xend, yend=y, color=legend_color), linewidth=4) + geom_text(aes(x=xend, label=target, color=legend_color), size=3, vjust=0.5, hjust=-0.1) + guides(y="none")
     }
     
     
