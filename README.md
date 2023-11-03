@@ -22,22 +22,22 @@ follow splicing ID rule.
 
 ## Workflow Summary
 
-<img src="man/figures/workflow.png" width="611" style="display: block; margin: auto;" />
+<img src="man/figures/workflow.png" width="611" style="display: block; margin: auto;" align="center"/>
 
 Our application operates to follow these steps.
 
-1.  To prepare an input file (differential AS analysis result) to
+1)  To prepare an input file (differential AS analysis result) to
     include the profile of multiple AS events (the genomic coordinates
     of exon regions).
-2.  To convert an input file to using our splice ID format. 2-1. To
-    convert unformatted other results, the user should generate AS event
+2)  To convert an input file to using our splice ID format.
+    2-1) To convert unformatted other results, the user should generate AS event
     IDs to follow our AS event ID rule. User guide document presented
     code example.
 
 <img src="man/figures/AS_ID_rules.png" width="70%" style="display: block; margin: auto;" />
 
-3.  To annotate multi-omics profile via querying AS events.
-4.  To visualize the result for each AS event or to perform AS gene set
+3)  To annotate multi-omics profile via querying AS events.
+4)  To visualize the result for each AS event or to perform AS gene set
     enrichment analysis referring our knowledge-based database
     (Computational and Structural Biotechnology Journal 2023 [doi:
     10.1016/j.csbj.2023.02.052](https://doi.org/10.1016/j.csbj.2023.02.052)).
