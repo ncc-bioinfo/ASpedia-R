@@ -623,6 +623,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   
       domain.data <- domain.data[domain.data$transcript_id %in% transcript.id.list, ]
       
+      print(domain.data)
+      
       if(nrow(domain.data) > 0) {
         pfam.id.list <- unique(domain.data$pfam_id)
         domain.plot.data <- data.frame()
