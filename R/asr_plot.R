@@ -217,7 +217,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     #ideo.plot@subchr <- as.chr
     #ideo.plot@zoom.region <- exon.region
   
-    #gene plot
+    #gene plot data
     transcript.id.list <- c(str_split(tmp.anno$exon_inclusion_transcript_id, ",")[[1]], str_split(tmp.anno$exon_exclusion_transcript_id, ",")[[1]])
     gene.data <- gtf.data[gtf.data$transcript_id %in% transcript.id.list & (gtf.data$type == "exon" | gtf.data$type == "CDS" | gtf.data$type == "intron"), c("type", "gene_id", "gene_name", "transcript_id", "transcript_biotype", "exon_number", "exon_id", "protein_id")]
     gene.data$exon_type <- "exon"
@@ -826,7 +826,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       repeats.text.data$x <- as.numeric(repeats.text.data$x)
       repeats.text.data$y <- as.numeric(repeats.text.data$y)
         
-      repeats.plot <- ggplot() + geom_rect(data=repeats.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=I("pink"))) + geom_text(data=repeats.text.data, mapping=aes(x=x, y=y, label=repeats_name), hjust=0, vjust=1) + ylab("Repeats") + guides(y="none") + xlim(exon.region) + ylim(0, (max(repeats.data$ymax) + 0.5))
+      repeats.plot <- ggplot() + geom_rect(data=repeats.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=I("pink"))) + geom_text(data=repeats.text.data, mapping=aes(x=x, y=y, label=repeats_name), hjust=0, vjust=0.5) + ylab("Repeats") + guides(y="none") + xlim(exon.region) + ylim(0, (max(repeats.data$ymax) + 0.5))
       repeats.track <- tracks(repeats.plot)
         
       prev.track.height <- as.track@heights
@@ -854,7 +854,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         target.index <- target.index + 1
       }
       
-      rbp.plot <- ggplot(rbp.plot.data, aes(x=peak_start, y=ymin, name=target)) + geom_segment(aes(xend=peak_end, yend=ymin, color=target), linewidth=4) + ylab("RNA binding protein") + guides(y="none") + xlim(exon.region) + ylim(0, max(rbp.plot.data$y) + 1)
+      rbp.plot <- ggplot(rbp.plot.data, aes(x=peak_start, y=ymin, name=target)) + geom_segment(aes(xend=peak_end, yend=ymin, color=target), linewidth=4) + ylab("RNA binding protein") + guides(y="none") + xlim(exon.region) + ylim(0, max(rbp.plot.data$ymax) + 1)
       rbp.plot.build <- ggplot_build(rbp.plot)
       rbp.plot.raw.data <- rbp.plot.build$data[[1]]
       
@@ -886,6 +886,22 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       }
       
       rbp.legend.plot <- ggplot(rbp.legend.data, aes(x=x, y=y)) + geom_segment(aes(xend=xend, yend=y, color=legend_color), linewidth=4) + geom_text(aes(x=xend, label=target, color=legend_color), size=3, vjust=0.5, hjust=-0.1) + guides(y="none") + xlim(exon.region) + ylim(0, max(rbp.legend.data$y) + 1)
+      
+      rbp.track <- tracks(rbp.plot)
+      rbp.legend.track <- tracks(rbp.legend.plot)
+      
+      prev.track.height <- as.track@heights
+      as.track <- as.track + rbp.track + rbp.legend.track
+      
+      if(length(rbp.target.list) <= 6) {
+        as.track@heights <- c(prev.track.height, 1, 1)
+      }else if(length(rbp.target.list) <= 12) {
+        as.track@heights <- c(prev.track.height, 2, 1)
+      }else if(length(rbp.target.list) <= 18) {
+        as.track@heights <- c(prev.track.height, 3, 2)
+      }else {
+        as.track@heights <- c(prev.track.height, 4, 2)
+      }
     }
     
     
