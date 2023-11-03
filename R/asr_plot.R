@@ -826,7 +826,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       repeats.text.data$x <- as.numeric(repeats.text.data$x)
       repeats.text.data$y <- as.numeric(repeats.text.data$y)
         
-      repeats.plot <- ggplot() + geom_rect(data=repeats.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=I("pink"))) + geom_text(data=repeats.text.data, mapping=aes(x=x, y=y, label=repeats_name), hjust=0, vjust=0) + ylab("Repeats") + guides(y="none")
+      repeats.plot <- ggplot() + geom_rect(data=repeats.data, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=I("pink"))) + geom_text(data=repeats.text.data, mapping=aes(x=x, y=y, label=repeats_name), hjust=0, vjust=0) + ylab("Repeats") + guides(y="none") + xlim(exon.region) + ylim(1, max(repeats.data$ymax) + 0.5)
       repeats.track <- tracks(repeats.plot)
         
       prev.track.height <- as.track@heights
@@ -854,7 +854,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         target.index <- target.index + 1
       }
       
-      rbp.plot <- ggplot(rbp.plot.data, aes(x=peak_start, y=ymin, name=target)) + geom_segment(aes(xend=peak_end, yend=ymin, color=target), linewidth=4) + ylab("RNA binding protein") + guides(y="none")
+      rbp.plot <- ggplot(rbp.plot.data, aes(x=peak_start, y=ymin, name=target)) + geom_segment(aes(xend=peak_end, yend=ymin, color=target), linewidth=4) + ylab("RNA binding protein") + guides(y="none") + xlim(exon.region) + ylim(1, max(rbp.plot.data$y) + 1)
       rbp.plot.build <- ggplot_build(rbp.plot)
       rbp.plot.raw.data <- rbp.plot.build$data[[1]]
       
@@ -885,7 +885,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
         legend.element.index <- legend.element.index + 1
       }
       
-      rbp.legend.plot <- ggplot(rbp.legend.data, aes(x=x, y=y)) + geom_segment(aes(xend=xend, yend=y, color=legend_color), linewidth=4) + geom_text(aes(x=xend, label=target, color=legend_color), size=3, vjust=0.5, hjust=-0.1) + guides(y="none")
+      rbp.legend.plot <- ggplot(rbp.legend.data, aes(x=x, y=y)) + geom_segment(aes(xend=xend, yend=y, color=legend_color), linewidth=4) + geom_text(aes(x=xend, label=target, color=legend_color), size=3, vjust=0.5, hjust=-0.1) + guides(y="none") + xlim(exon.region) + ylim(1, max(rbp.legend.data$y) + 1)
     }
     
     
