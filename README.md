@@ -22,7 +22,7 @@ follow splicing ID rule.
 
 ## Workflow Summary
 
-<img src="man/figures/workflow.png" width="611" style="display: block; margin: auto;" align="middle" />
+<img src="man/figures/workflow.png" width="80%" style="display: block; margin: auto;" align="middle" />
 
 Our application operates to follow these steps.
 
