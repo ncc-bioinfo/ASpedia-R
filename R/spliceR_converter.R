@@ -47,6 +47,7 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   spliceR.input <- read.table(spliceR.result, header=TRUE, stringsAsFactor=FALSE, sep="\t")
   spliceR.input <- spliceR.input[spliceR.input$spliceR.iso_p_value < pvalue.cutoff, ]
+  spliceR.input[is.na(spliceR.input)] <- ""
   #spliceR.input <- spliceR.input[spliceR.input$spliceR.iso_p_value < pvalue.cutoff & abs(spliceR.input$spliceR.dIF) > dif.cutoff, ]
 
   total.a3ss.count <- 0
