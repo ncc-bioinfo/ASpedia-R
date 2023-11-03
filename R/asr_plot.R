@@ -639,28 +639,27 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     
           for(i in 1:length(domain.plot.region)) {
             tmp.domain.region <- domain.plot.region[i]
-            print(tmp.domain.region)
-    
-            domain.plot.data <- rbind(domain.plot.data, c(start(tmp.domain.region), end(tmp.domain.region), (i - 1), (i - 1 + 0.5), "domain"))
+            
+            domain.plot.data <- rbind(domain.plot.data, data.frame(xmin=start(tmp.domain.region), xmax=end(tmp.domain.region), ymin=(i - 1), ymax=(i - 1 + 0.5), domain_type="domain"))
             as.inter <- intersect(tmp.domain.region, as.region)
             exon.inter <- intersect(tmp.domain.region, as.exon.region)
     
             if(length(as.inter) > 0) {
               for(j in 1:length(as.inter)) {
-                domain.plot.data <- rbind(domain.plot.data, c(start(as.inter[j]), end(as.inter[j]), (i - 1), (i - 1 + 0.5), "as"))
+                domain.plot.data <- rbind(domain.plot.data, data.frame(xmin=start(as.inter[j]), xmax=end(as.inter[j]), ymin=(i - 1), ymax=(i - 1 + 0.5), domain_type="as"))
               }
             }
     
             if(length(exon.inter) > 0) {
               for(j in 1:length(exon.inter)) {
-                domain.plot.data <- rbind(domain.plot.data, c(start(exon.inter[j]), end(exon.inter[j]), (i - 1), (i - 1 + 0.5), "exon"))
+                domain.plot.data <- rbind(domain.plot.data, data.frame(xmin=start(exon.inter[j]), xmax=end(exon.inter[j]), ymin=(i - 1), ymax=(i - 1 + 0.5), domain_type="exon"))
               }
             }
     
             if(start(tmp.domain.region) < exon.region[1]) {
-              domain.text.data <- rbind(domain.text.data, c(exon.region[1], (i - 1 + 0.6), pfam.desc))
+              domain.text.data <- rbind(domain.text.data, data.frame(x=exon.region[1], y=(i - 1 + 0.6), domain_desc=pfam.desc))
             } else {
-              domain.text.data <- rbind(domain.text.data, c(start(tmp.domain.region), (i - 1 + 0.6), pfam.desc))
+              domain.text.data <- rbind(domain.text.data, data.frame(x=start(tmp.domain.region), y=(i - 1 + 0.6), domain_desc=pfam.desc))
             }
           }
         }
