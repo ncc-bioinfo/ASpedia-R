@@ -171,7 +171,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   }
   
   #check heights list
-  has.heights.list < FALSE
+  has.heights.list <- FALSE
   
   if((class(plot.data.list) == "character" && plot.data.list[1] != "") && (class(heigths.list) == "numeric")) {
     if((length(plot.data.list) + 2) != length(heights.list)) {
