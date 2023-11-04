@@ -114,9 +114,9 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     }
   } else if(as.id[1] != "") {
     if(length(as.id) == 1) {
-      annotation.result <- annotation.result[annotation.result$as_id == as.id] 
+      annotation.result <- annotation.result[annotation.result$as_id == as.id, ] 
     } else {
-      annotation.result <- annotation.result[annotation.result$as_id %in% as.id]
+      annotation.result <- annotation.result[annotation.result$as_id %in% as.id, ]
     }
   }
   
@@ -173,7 +173,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   #check heights list
   has.heights.list <- FALSE
   
-  if((class(list.of.plot) == "character" && list.of.plot[1] != "") && (class(heigths.list) == "numeric")) {
+  if((class(list.of.plot) == "character" && list.of.plot[1] != "") && (class(heights.list) == "numeric")) {
     if((length(list.of.plot) + 2) != length(heights.list)) {
       print("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
       return()
