@@ -16,7 +16,7 @@
 #' list of AS ID to be visualization.
 #' @param heights.list
 #' positive integer vectors for track heights include height of ideogram and gene track.
-#' @param plot.data.list 
+#' @param list.of.plot 
 #' list of DNA or RNA feature to be visualization. choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, or “RBP”.
 #' @param result.dir
 #' directory where plots(.png files) are saved
@@ -44,7 +44,7 @@
 #'           result.dir=plot.result.dir)
 
 
-asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl", genome.version="GRCh38", gene.name="", as.id="", heights.list="", plot.data.list="", result.dir="") {
+asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl", genome.version="GRCh38", gene.name="", as.id="", heights.list="", list.of.plot="", result.dir="") {
   if(class(annotation.result) != "data.frame") {
     print("*** ERROR MESSAGE: Input annotation result is not data frame. Please check input annotation result.")
     return()
@@ -128,8 +128,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   has.ptm <- FALSE
   has.rbp <- FALSE
   
-  if(class(plot.data.list) == "character") {
-    if(length(plot.data.list) == 1 && plot.data.list[1] == "") {
+  if(class(list.of.plot) == "character") {
+    if(length(list.of.plot) == 1 && list.of.plot[1] == "") {
       has.conservation <- TRUE
       has.repeats <- TRUE
       has.nmd <- TRUE
@@ -137,27 +137,27 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       has.ptm <- TRUE
       has.rbp <- TRUE
     } else {
-      if("conservation" %in% tolower(plot.data.list)) {
+      if("conservation" %in% tolower(list.of.plot)) {
         has.conservation <- TRUE
       }
       
-      if("repeats" %in% tolower(plot.data.list)) {
+      if("repeats" %in% tolower(list.of.plot)) {
         has.repeats <- TRUE
       }
       
-      if("nmd" %in% tolower(plot.data.list)) {
+      if("nmd" %in% tolower(list.of.plot)) {
         has.nmd <- TRUE
       }
       
-      if("domain" %in% tolower(plot.data.list)) {
+      if("domain" %in% tolower(list.of.plot)) {
         has.domain <- TRUE
       }
       
-      if("ptm" %in% tolower(plot.data.list)) {
+      if("ptm" %in% tolower(list.of.plot)) {
         has.ptm <- TRUE
       }
       
-      if("rbp" %in% tolower(plot.data.list)) {
+      if("rbp" %in% tolower(list.of.plot)) {
         has.rbp <- TRUE
       }
     }
@@ -173,8 +173,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   #check heights list
   has.heights.list <- FALSE
   
-  if((class(plot.data.list) == "character" && plot.data.list[1] != "") && (class(heigths.list) == "numeric")) {
-    if((length(plot.data.list) + 2) != length(heights.list)) {
+  if((class(list.of.plot) == "character" && list.of.plot[1] != "") && (class(heigths.list) == "numeric")) {
+    if((length(list.of.plot) + 2) != length(heights.list)) {
       print("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
       return()
     } else {

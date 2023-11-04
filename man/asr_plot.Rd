@@ -12,7 +12,7 @@ asr_plot(
   gene.name = "",
   as.id = "",
   heights.list = "",
-  plot.data.list = "",
+  list.of.plot = "",
   result.dir = ""
 )
 }
@@ -31,7 +31,7 @@ asr_plot(
 
 \item{heights.list}{positive integer vectors for track heights include height of ideogram and gene track.}
 
-\item{plot.data.list}{list of DNA or RNA feature to be visualization. choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, or “RBP”.}
+\item{list.of.plot}{list of DNA or RNA feature to be visualization. choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, or “RBP”.}
 
 \item{result.dir}{directory where plots(.png files) are saved}
 }
