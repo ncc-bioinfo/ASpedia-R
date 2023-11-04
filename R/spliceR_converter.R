@@ -257,19 +257,22 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   a3ss.inter.result <- as.data.frame(bed_intersect(a3ss.as, a3ss.exon.list))
   colnames(a3ss.inter.result) <- inter.colname
-
-  a3ss.as.result <- a3ss.inter.result[a3ss.inter.result$asdb.start <= a3ss.inter.result$spliceR.start & a3ss.inter.result$asdb.end >= a3ss.inter.result$spliceR.end, ]
-
-  a3ss.as.result <- a3ss.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  a3ss.asid <- a3ss.as.result$asdb.asid
-  a3ss.asid.list <- as.data.frame(t(as.data.frame((str_split(a3ss.asid, ":")))))
-  a3ss.upstream.exon <- paste0(a3ss.asid.list$V2, "-", a3ss.asid.list$V3)
-  a3ss.splicing.exon <- paste0(a3ss.asid.list$V4, "-", a3ss.asid.list$V6)
-  a3ss.downstream.exon <- paste0(a3ss.asid.list$V5, "-", a3ss.asid.list$V6)
-
-  a3ss.result <- data.frame(chr=a3ss.as.result$asdb.chr, strand=a3ss.as.result$asdb.strand, as_type=a3ss.as.result$asdb.as_type, upstream_exon=a3ss.upstream.exon, splicing_exon=a3ss.splicing.exon, downstream_exon=a3ss.downstream.exon, gene_name=a3ss.as.result$spliceR.gene, pvalue=a3ss.as.result$spliceR.iso.pvalue, dIF=a3ss.as.result$spliceR.dIF, as_id=a3ss.as.result$asdb.asid)
-
-
+  
+  a3ss.result <- data.frame()
+  
+  if(nrow(a3ss.inter.result) > 0) {
+    a3ss.as.result <- a3ss.inter.result[a3ss.inter.result$asdb.start <= a3ss.inter.result$spliceR.start & a3ss.inter.result$asdb.end >= a3ss.inter.result$spliceR.end, ]
+    
+    a3ss.as.result <- a3ss.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    a3ss.asid <- a3ss.as.result$asdb.asid
+    a3ss.asid.list <- as.data.frame(t(as.data.frame((str_split(a3ss.asid, ":")))))
+    a3ss.upstream.exon <- paste0(a3ss.asid.list$V2, "-", a3ss.asid.list$V3)
+    a3ss.splicing.exon <- paste0(a3ss.asid.list$V4, "-", a3ss.asid.list$V6)
+    a3ss.downstream.exon <- paste0(a3ss.asid.list$V5, "-", a3ss.asid.list$V6)
+    
+    a3ss.result <- data.frame(chr=a3ss.as.result$asdb.chr, strand=a3ss.as.result$asdb.strand, as_type=a3ss.as.result$asdb.as_type, upstream_exon=a3ss.upstream.exon, splicing_exon=a3ss.splicing.exon, downstream_exon=a3ss.downstream.exon, gene_name=a3ss.as.result$spliceR.gene, pvalue=a3ss.as.result$spliceR.iso.pvalue, dIF=a3ss.as.result$spliceR.dIF, as_id=a3ss.as.result$asdb.asid)
+  }
+  
   #A5SS
   colnames(a5ss.as) <- asdb.inter.colname
   a5ss.as$start <- as.numeric(a5ss.as$start)
@@ -281,17 +284,21 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   a5ss.inter.result <- as.data.frame(bed_intersect(a5ss.as, a5ss.exon.list))
   colnames(a5ss.inter.result) <- inter.colname
-
-  a5ss.as.result <- a5ss.inter.result[a5ss.inter.result$asdb.start <= a5ss.inter.result$spliceR.start & a5ss.inter.result$asdb.end >= a5ss.inter.result$spliceR.end,]
-
-  a5ss.as.result <- a5ss.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  a5ss.asid <- a5ss.as.result$asdb.asid
-  a5ss.asid.list <- as.data.frame(t(as.data.frame((str_split(a5ss.asid, ":")))))
-  a5ss.upstream.exon <- paste0(a5ss.asid.list$V2, "-", a5ss.asid.list$V3)
-  a5ss.splicing.exon <- paste0(a5ss.asid.list$V2, "-", a5ss.asid.list$V4)
-  a5ss.downstream.exon <- paste0(a5ss.asid.list$V5, "-", a5ss.asid.list$V6)
-
-  a5ss.result <- data.frame(chr=a5ss.as.result$asdb.chr, strand=a5ss.as.result$asdb.strand, as_type=a5ss.as.result$asdb.as_type, upstream_exon=a5ss.upstream.exon, splicing_exon=a5ss.splicing.exon, downstream_exon=a5ss.downstream.exon, gene_name=a5ss.as.result$spliceR.gene, pvalue=a5ss.as.result$spliceR.iso.pvalue, dIF=a5ss.as.result$spliceR.dIF, as_id=a5ss.as.result$asdb.asid)
+  
+  a5ss.result <- data.frame()
+  
+  if(nrow(a5ss.inter.result) > 0) {
+    a5ss.as.result <- a5ss.inter.result[a5ss.inter.result$asdb.start <= a5ss.inter.result$spliceR.start & a5ss.inter.result$asdb.end >= a5ss.inter.result$spliceR.end,]
+  
+    a5ss.as.result <- a5ss.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    a5ss.asid <- a5ss.as.result$asdb.asid
+    a5ss.asid.list <- as.data.frame(t(as.data.frame((str_split(a5ss.asid, ":")))))
+    a5ss.upstream.exon <- paste0(a5ss.asid.list$V2, "-", a5ss.asid.list$V3)
+    a5ss.splicing.exon <- paste0(a5ss.asid.list$V2, "-", a5ss.asid.list$V4)
+    a5ss.downstream.exon <- paste0(a5ss.asid.list$V5, "-", a5ss.asid.list$V6)
+  
+    a5ss.result <- data.frame(chr=a5ss.as.result$asdb.chr, strand=a5ss.as.result$asdb.strand, as_type=a5ss.as.result$asdb.as_type, upstream_exon=a5ss.upstream.exon, splicing_exon=a5ss.splicing.exon, downstream_exon=a5ss.downstream.exon, gene_name=a5ss.as.result$spliceR.gene, pvalue=a5ss.as.result$spliceR.iso.pvalue, dIF=a5ss.as.result$spliceR.dIF, as_id=a5ss.as.result$asdb.asid)
+  }
 
   #SE
   colnames(se.as) <- asdb.inter.colname
@@ -304,17 +311,21 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   se.inter.result <- as.data.frame(bed_intersect(se.as, se.exon.list))
   colnames(se.inter.result) <- inter.colname
-
-  se.as.result <- se.inter.result[se.inter.result$asdb.start == se.inter.result$spliceR.start & se.inter.result$asdb.end == se.inter.result$spliceR.end,]
-
-  se.as.result <- se.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  se.asid <- se.as.result$asdb.asid
-  se.asid.list <- as.data.frame(t(as.data.frame((str_split(se.asid, ":")))))
-  se.upstream.exon <- paste0(se.asid.list$V2, "-", se.asid.list$V3)
-  se.splicing.exon <- paste0(se.asid.list$V4, "-", se.asid.list$V5)
-  se.downstream.exon <- paste0(se.asid.list$V6, "-", se.asid.list$V7)
-
-  se.result <- data.frame(chr=se.as.result$asdb.chr, strand=se.as.result$asdb.strand, as_type=se.as.result$asdb.as_type, upstream_exon=se.upstream.exon, splicing_exon=se.splicing.exon, downstream_exon=se.downstream.exon, gene_name=se.as.result$spliceR.gene, pvalue=se.as.result$spliceR.iso.pvalue, dIF=se.as.result$spliceR.dIF, as_id=se.as.result$asdb.asid)
+  
+  se.result <- data.frame()
+  
+  if(nrow(se.inter.result) > 0) {
+    se.as.result <- se.inter.result[se.inter.result$asdb.start == se.inter.result$spliceR.start & se.inter.result$asdb.end == se.inter.result$spliceR.end,]
+  
+    se.as.result <- se.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    se.asid <- se.as.result$asdb.asid
+    se.asid.list <- as.data.frame(t(as.data.frame((str_split(se.asid, ":")))))
+    se.upstream.exon <- paste0(se.asid.list$V2, "-", se.asid.list$V3)
+    se.splicing.exon <- paste0(se.asid.list$V4, "-", se.asid.list$V5)
+    se.downstream.exon <- paste0(se.asid.list$V6, "-", se.asid.list$V7)
+  
+    se.result <- data.frame(chr=se.as.result$asdb.chr, strand=se.as.result$asdb.strand, as_type=se.as.result$asdb.as_type, upstream_exon=se.upstream.exon, splicing_exon=se.splicing.exon, downstream_exon=se.downstream.exon, gene_name=se.as.result$spliceR.gene, pvalue=se.as.result$spliceR.iso.pvalue, dIF=se.as.result$spliceR.dIF, as_id=se.as.result$asdb.asid)
+  }
 
   #MXE
   colnames(mxe.as) <- asdb.inter.colname
@@ -327,17 +338,21 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   mxe.inter.result <- as.data.frame(bed_intersect(mxe.as, mxe.exon.list))
   colnames(mxe.inter.result) <- inter.colname
-
-  mxe.as.result <- mxe.inter.result[mxe.inter.result$asdb.start == mxe.inter.result$spliceR.start & mxe.inter.result$asdb.end == mxe.inter.result$spliceR.end,]
-
-  mxe.as.result <- mxe.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  mxe.asid <- mxe.as.result$asdb.asid
-  mxe.asid.list <- as.data.frame(t(as.data.frame((str_split(mxe.asid, ":")))))
-  mxe.upstream.exon <- paste0(mxe.asid.list$V2, "-", mxe.asid.list$V3)
-  mxe.splicing.exon <- paste0(mxe.asid.list$V4, "-", mxe.asid.list$V5, ";", mxe.asid.list$V6, "-", mxe.asid.list$V7)
-  mxe.downstream.exon <- paste0(mxe.asid.list$V8, "-", mxe.asid.list$V9)
-
-  mxe.result <- data.frame(chr=mxe.as.result$asdb.chr, strand=mxe.as.result$asdb.strand, as_type=mxe.as.result$asdb.as_type, upstream_exon=mxe.upstream.exon, splicing_exon=mxe.splicing.exon, downstream_exon=mxe.downstream.exon, gene_name=mxe.as.result$spliceR.gene, pvalue=mxe.as.result$spliceR.iso.pvalue, dIF=mxe.as.result$spliceR.dIF, as_id=mxe.as.result$asdb.asid)
+  
+  mxe.result <- data.frame()
+  
+  if(nrow(mxe.inter.result) > 0) {
+    mxe.as.result <- mxe.inter.result[mxe.inter.result$asdb.start == mxe.inter.result$spliceR.start & mxe.inter.result$asdb.end == mxe.inter.result$spliceR.end,]
+  
+    mxe.as.result <- mxe.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    mxe.asid <- mxe.as.result$asdb.asid
+    mxe.asid.list <- as.data.frame(t(as.data.frame((str_split(mxe.asid, ":")))))
+    mxe.upstream.exon <- paste0(mxe.asid.list$V2, "-", mxe.asid.list$V3)
+    mxe.splicing.exon <- paste0(mxe.asid.list$V4, "-", mxe.asid.list$V5, ";", mxe.asid.list$V6, "-", mxe.asid.list$V7)
+    mxe.downstream.exon <- paste0(mxe.asid.list$V8, "-", mxe.asid.list$V9)
+  
+    mxe.result <- data.frame(chr=mxe.as.result$asdb.chr, strand=mxe.as.result$asdb.strand, as_type=mxe.as.result$asdb.as_type, upstream_exon=mxe.upstream.exon, splicing_exon=mxe.splicing.exon, downstream_exon=mxe.downstream.exon, gene_name=mxe.as.result$spliceR.gene, pvalue=mxe.as.result$spliceR.iso.pvalue, dIF=mxe.as.result$spliceR.dIF, as_id=mxe.as.result$asdb.asid)
+  }
 
   #RI
   colnames(ri.as) <- asdb.inter.colname
@@ -350,17 +365,21 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   ri.inter.result <- as.data.frame(bed_intersect(ri.as, ri.exon.list))
   colnames(ri.inter.result) <- inter.colname
-
-  ri.as.result <- ri.inter.result[ri.inter.result$asdb.start <= ri.inter.result$spliceR.start & ri.inter.result$asdb.end >= ri.inter.result$spliceR.end,]
-
-  ri.as.result <- ri.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  ri.asid <- ri.as.result$asdb.asid
-  ri.asid.list <- as.data.frame(t(as.data.frame((str_split(ri.asid, ":")))))
-  ri.upstream.exon <- paste0(ri.asid.list$V2, "-", ri.asid.list$V3)
-  ri.splicing.exon <- paste0(ri.asid.list$V3, "-", ri.asid.list$V4)
-  ri.downstream.exon <- paste0(ri.asid.list$V4, "-", ri.asid.list$V5)
-
-  ri.result <- data.frame(chr=ri.as.result$asdb.chr, strand=ri.as.result$asdb.strand, as_type=ri.as.result$asdb.as_type, upstream_exon=ri.upstream.exon, splicing_exon=ri.splicing.exon, downstream_exon=ri.downstream.exon, gene_name=ri.as.result$spliceR.gene, pvalue=ri.as.result$spliceR.iso.pvalue, dIF=ri.as.result$spliceR.dIF, as_id=ri.as.result$asdb.asid)
+  
+  ri.result <- data.frame()
+  
+  if(nrow(ri.inter.result) > 0) {
+    ri.as.result <- ri.inter.result[ri.inter.result$asdb.start <= ri.inter.result$spliceR.start & ri.inter.result$asdb.end >= ri.inter.result$spliceR.end,]
+  
+    ri.as.result <- ri.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    ri.asid <- ri.as.result$asdb.asid
+    ri.asid.list <- as.data.frame(t(as.data.frame((str_split(ri.asid, ":")))))
+    ri.upstream.exon <- paste0(ri.asid.list$V2, "-", ri.asid.list$V3)
+    ri.splicing.exon <- paste0(ri.asid.list$V3, "-", ri.asid.list$V4)
+    ri.downstream.exon <- paste0(ri.asid.list$V4, "-", ri.asid.list$V5)
+  
+    ri.result <- data.frame(chr=ri.as.result$asdb.chr, strand=ri.as.result$asdb.strand, as_type=ri.as.result$asdb.as_type, upstream_exon=ri.upstream.exon, splicing_exon=ri.splicing.exon, downstream_exon=ri.downstream.exon, gene_name=ri.as.result$spliceR.gene, pvalue=ri.as.result$spliceR.iso.pvalue, dIF=ri.as.result$spliceR.dIF, as_id=ri.as.result$asdb.asid)
+  }
 
   #AF
   colnames(af.as) <- asdb.inter.colname
@@ -373,17 +392,21 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   af.inter.result <- as.data.frame(bed_intersect(af.as, af.exon.list))
   colnames(af.inter.result) <- inter.colname
-
-  af.as.result <- af.inter.result[af.inter.result$asdb.start == af.inter.result$spliceR.start & af.inter.result$asdb.end == af.inter.result$spliceR.end,]
-
-  af.as.result <- af.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  af.asid <- af.as.result$asdb.asid
-  af.asid.list <- as.data.frame(t(as.data.frame((str_split(af.asid, ":")))))
-  af.upstream.exon <- paste0(af.asid.list$V2, "-", af.asid.list$V3)
-  af.splicing.exon <- paste0(af.asid.list$V4, "-", af.asid.list$V5)
-  af.downstream.exon <- paste0(af.asid.list$V6, "-", af.asid.list$V7)
-
-  af.result <- data.frame(chr=af.as.result$asdb.chr, strand=af.as.result$asdb.strand, as_type=af.as.result$asdb.as_type, upstream_exon=af.upstream.exon, splicing_exon=af.splicing.exon, downstream_exon=af.downstream.exon, gene_name=af.as.result$spliceR.gene, pvalue=af.as.result$spliceR.iso.pvalue, dIF=af.as.result$spliceR.dIF, as_id=af.as.result$asdb.asid)
+  
+  af.result <- data.frame()
+  
+  if(nrow(af.inter.result) > 0) {
+    af.as.result <- af.inter.result[af.inter.result$asdb.start == af.inter.result$spliceR.start & af.inter.result$asdb.end == af.inter.result$spliceR.end,]
+  
+    af.as.result <- af.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    af.asid <- af.as.result$asdb.asid
+    af.asid.list <- as.data.frame(t(as.data.frame((str_split(af.asid, ":")))))
+    af.upstream.exon <- paste0(af.asid.list$V2, "-", af.asid.list$V3)
+    af.splicing.exon <- paste0(af.asid.list$V4, "-", af.asid.list$V5)
+    af.downstream.exon <- paste0(af.asid.list$V6, "-", af.asid.list$V7)
+  
+    af.result <- data.frame(chr=af.as.result$asdb.chr, strand=af.as.result$asdb.strand, as_type=af.as.result$asdb.as_type, upstream_exon=af.upstream.exon, splicing_exon=af.splicing.exon, downstream_exon=af.downstream.exon, gene_name=af.as.result$spliceR.gene, pvalue=af.as.result$spliceR.iso.pvalue, dIF=af.as.result$spliceR.dIF, as_id=af.as.result$asdb.asid)
+  }
 
   #AL
   colnames(al.as) <- asdb.inter.colname
@@ -396,17 +419,21 @@ spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model=
 
   al.inter.result <- as.data.frame(bed_intersect(al.as, al.exon.list))
   colnames(al.inter.result) <- inter.colname
-
-  al.as.result <- al.inter.result[al.inter.result$asdb.start == al.inter.result$spliceR.start & al.inter.result$asdb.end == al.inter.result$spliceR.end,]
-
-  al.as.result <- al.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
-  al.asid <- al.as.result$asdb.asid
-  al.asid.list <- as.data.frame(t(as.data.frame((str_split(al.asid, ":")))))
-  al.upstream.exon <- paste0(al.asid.list$V2, "-", al.asid.list$V3)
-  al.splicing.exon <- paste0(al.asid.list$V4, "-", al.asid.list$V5)
-  al.downstream.exon <- paste0(al.asid.list$V6, "-", al.asid.list$V7)
-
-  al.result <- data.frame(chr=al.as.result$asdb.chr, strand=al.as.result$asdb.strand, as_type=al.as.result$asdb.as_type, upstream_exon=al.upstream.exon, splicing_exon=al.splicing.exon, downstream_exon=al.downstream.exon, gene_name=al.as.result$spliceR.gene, pvalue=al.as.result$spliceR.iso.pvalue, dIF=al.as.result$spliceR.dIF, as_id=al.as.result$asdb.asid)
+  
+  al.result <- data.frame()
+  
+  if(nrow(al.inter.result) > 0) {
+    al.as.result <- al.inter.result[al.inter.result$asdb.start == al.inter.result$spliceR.start & al.inter.result$asdb.end == al.inter.result$spliceR.end,]
+  
+    al.as.result <- al.as.result[, c("asdb.chr", "asdb.strand", "asdb.as_type", "spliceR.gene", "spliceR.iso.pvalue", "spliceR.dIF", "asdb.asid")]
+    al.asid <- al.as.result$asdb.asid
+    al.asid.list <- as.data.frame(t(as.data.frame((str_split(al.asid, ":")))))
+    al.upstream.exon <- paste0(al.asid.list$V2, "-", al.asid.list$V3)
+    al.splicing.exon <- paste0(al.asid.list$V4, "-", al.asid.list$V5)
+    al.downstream.exon <- paste0(al.asid.list$V6, "-", al.asid.list$V7)
+  
+    al.result <- data.frame(chr=al.as.result$asdb.chr, strand=al.as.result$asdb.strand, as_type=al.as.result$asdb.as_type, upstream_exon=al.upstream.exon, splicing_exon=al.splicing.exon, downstream_exon=al.downstream.exon, gene_name=al.as.result$spliceR.gene, pvalue=al.as.result$spliceR.iso.pvalue, dIF=al.as.result$spliceR.dIF, as_id=al.as.result$asdb.asid)
+  }
 
   result.data <- rbind(a3ss.result, a5ss.result, se.result, mxe.result, ri.result, af.result, al.result)
 
