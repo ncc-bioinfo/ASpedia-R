@@ -71,9 +71,9 @@ asr_plot_ppi <- function(annotation.result="", gene.name="", as.id="", result.di
     }
   } else if(as.id != "") {
     if(length(as.id) == 1) {
-      annotation.result <- annotation.result[annotation.result$as_id == as.id] 
+      annotation.result <- annotation.result[annotation.result$as_id == as.id, ] 
     } else {
-      annotation.result <- annotation.result[annotation.result$as_id %in% as.id]
+      annotation.result <- annotation.result[annotation.result$as_id %in% as.id, ]
     }
   }
   
