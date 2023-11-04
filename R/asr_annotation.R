@@ -18,8 +18,9 @@
 #' @export
 #'
 #' @examples
-#' annotation.result.dir <- system.file(“extdata/annotation_result”, package=“ASpediaR”)
-#' annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”,
+#' annotation.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), 
+#'                                   “/annotation_result”)
+#' annotation.result <- asr_annotation(rmats.convert.result, “Ensembl”, “GRCh38”,
 #'                                       result.dir=annotation.result.dir)
 
 asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {

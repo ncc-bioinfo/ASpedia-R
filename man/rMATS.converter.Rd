@@ -28,6 +28,6 @@ rMSTS result convert to ASpedia-R input format.
 }
 \examples{
 rmats.result.file.name <- system.file(“extdata”, “rMATS_test.txt”, package=“ASpediaR”)
-rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
+rmats.convert.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
                                             as.type=“SE”)
 }

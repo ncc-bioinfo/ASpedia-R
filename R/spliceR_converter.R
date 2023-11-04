@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' spliceR.result.file <- system.file(“extdata”, “spliceR_test.txt”, package=“ASpediaR”)
-#' splilcer.converter.result <- spliceR_converter(spliceR.result.file, program=“spliceR”,
+#' splilcer.convert.result <- spliceR_converter(spliceR.result.file, program=“spliceR”,
 #'                                          gene.model=“Ensembl”, genome.version=“GRCh38”)
 
 spliceR.converter <- function(spliceR.result="", pvalue.cutoff=0.05, gene.model="Ensembl", genome.version="GRCh38") {

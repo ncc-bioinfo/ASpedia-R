@@ -33,6 +33,6 @@ SUPPA result convert to ASpedia-R input format.
 suppa.result.file <- system.file(“extdata”, “SUPPA_test.txt”, package=“ASpediaR”)
 gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
 suppa.ioe.file.name <- system.file(“extdata”, “SUPPA_test.ioe”, package=“ASpediaR”)
-suppa.converter.result <- SUPPA_converter(suppa.result.file, gtf.file=gtf.file.name,
+suppa.convert.result <- SUPPA_converter(suppa.result.file, gtf.file=gtf.file.name,
                                           ioe.file=suppa.ioe.file.name)
 }

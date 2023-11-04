@@ -40,7 +40,7 @@ DNA and RNA features in result of asr_annotation function to be visualize.
 }
 \examples{
 gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
-plot.result.dir <- system.file(“extdata/plot_result”, package=“ASpediaR”)
+plot.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/plot_result”)
 
 ##using gene name
 asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",

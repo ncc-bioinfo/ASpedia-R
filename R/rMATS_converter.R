@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' rmats.result.file.name <- system.file(“extdata”, “rMATS_test.txt”, package=“ASpediaR”)
-#' rmats.converter.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
+#' rmats.convert.result <- rMATS_converter(rmats.result.file.name, program=“rMATS”,
 #'                                             as.type=“SE”)
 
 rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dpsi.cutoff=0.1)

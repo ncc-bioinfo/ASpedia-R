@@ -31,7 +31,8 @@ DNA and RNA annotation related to aliternative splicing from ASpedia DB(ASDB) ad
 knowledge-based database gene list
 }
 \examples{
-annotation.result.dir <- system.file(“extdata/annotation_result”, package=“ASpediaR”)
-annotation.result <- asr_annotation(rmats.converter.result, “Ensembl”, “GRCh38”,
+annotation.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), 
+                                  “/annotation_result”)
+annotation.result <- asr_annotation(rmats.convert.result, “Ensembl”, “GRCh38”,
                                       result.dir=annotation.result.dir)
 }

@@ -31,18 +31,18 @@
 #' @examples 
 #' ## rMATS
 #' das.file.name <- system.file(“extdata” “rMATS_test.txt”, package=“ASpediaR”)
-#' rmats.converter.result <- asr_converter(das.file.name, program=“rMATS”, as.type=“SE”)
+#' rmats.convert.result <- asr_converter(das.file.name, program=“rMATS”, as.type=“SE”)
 #' 
 #' ##SUPPA
 #' das.file.name <- system.file(“extdata”, “SUPPA_test.txt”, package=“ASpediaR”)
 #' gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
 #' ioe.file.name <- system.file(“extdata”, “SUPPA_test.ioe”, package=“ASpediaR”)
-#' suppa.converter.result <- asr_converter(das.file.name, program=“SUPPA”,
+#' suppa.convert.result <- asr_converter(das.file.name, program=“SUPPA”,
 #'                                         gtf.file=gtf.file.name, ioe.file=ioe.file.name)
 #' 
 #' ##spliceR
 #' das.file.name <- system.file(“extdata”, “spliceR_test.txt”, package=“ASpediaR”)
-#' splilcer.converter.result <- asr_converter(das.file.name, program=“spliceR”,
+#' splilcer.convert.result <- asr_converter(das.file.name, program=“spliceR”,
 #'                                           gene.model=“Ensembl”, genome.version=“GRCh38”)
 
 asr_converter <- function(das.analysis.result="", program="", pvalue.cutoff=0.05, dpsi.cutoff=0.1, gene.model="Ensembl", genome.version="GRCh38", as.type="", gtf.file.name="", ioe.file.name="") {

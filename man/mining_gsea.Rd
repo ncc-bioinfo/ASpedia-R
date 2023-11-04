@@ -23,13 +23,13 @@ gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASped
 gtf.data <- import(gtf.file.name)
 gtf.gene.list <- unique(gtf.data$gene_name)
 annotation.gene.list <- unique(annotation.result$gene_symbol)
-gsea.result.dir <- system.file(“extdata/gsea_result”, package=“ASpediaR”)
+gsea.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/gsea_result”)
 mining_gsea(annotation.gene.list, gsea.gene.list=reference.gene.list,
               result.dir=gsea.result.dir)
 
 ## reference gene list from user input
 test.gene.list.file.name <- system.file(“extdata”, “test_whole_gene.txt”, package=“ASpediaR”)
 test.gene.list <- read.table(test.gene.list.file.name, header=FALSE, stringsAsFactors=FALSE)
-gsea.result.dir <- system.file(“extdata/gsea_result”, package=“ASpediaR”)
+gsea.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/gsea_result”)
 mining_gsea(annotation.gene.list, gsea.gene.list=test.gene.list, result.dir=gsea.result.dir)
 }
