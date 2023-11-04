@@ -30,7 +30,7 @@ Our application operates to follow these steps.
     include the profile of multiple AS events (the genomic coordinates
     of exon regions).
 2)  To convert an input file to using our splice ID format.<br/>
-   2-1)  To convert unformatted other results, the user should generate AS event
+   2-1.  To convert unformatted other results, the user should generate AS event
     IDs to follow our AS event ID rule. User guide document presented
     code example.
 
