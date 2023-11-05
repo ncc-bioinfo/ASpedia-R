@@ -1,12 +1,14 @@
 Package: ASpediaR
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: ASpedia-R interrogates sequence features for human AS event analysis.
+Version: 1.0.0
+Author: Daijin Hyung, Charny Park
+Maintainer: Daijin Hyung <daejin0709@ncc.re.kr>, Charny Park <charn78@ncc.re.kr>
+Description: ASpedia-R is an application to explore the comprehensive multi-omics profile of human splicing event regions.
+            Our database covers various sequence features encompassing DNA, RNA, and protein located in spliced exonic regions.
+            To interrogate sequence features existing around splicing events, 
+            our package provides the retrieval system to search sequence features from AS event profile.
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Depends:
