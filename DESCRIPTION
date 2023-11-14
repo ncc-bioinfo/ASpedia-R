@@ -15,11 +15,12 @@ Depends:
   R(>= 4.2)
 Imports: 
     epitools,
-    ggbio,
     ggraph,
     igraph,
     RSQLite,
-    rtracklayer,
     stringr,
     valr
+Suggests:
+    ggbio,
+    rtracklayer,
 RoxygenNote: 7.2.3
