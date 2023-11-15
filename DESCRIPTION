@@ -23,7 +23,4 @@ Imports:
     RSQLite,
     stringr,
     valr
-Suggests:
-    ggbio,
-    rtracklayer,
 RoxygenNote: 7.2.3
