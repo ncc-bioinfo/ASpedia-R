@@ -311,7 +311,7 @@ asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.ver
   
   #GSEA
   #mining_gsea(unique(annotation.result$gene_symbol), whole.gene, result.dir)
-  mining_gsea(unique(annotation.result$gene_symbol), gene.model=gene.model, genome.version=genome.version, result.dir)
+  mining_gsea(unique(annotation.result$gene_symbol), gene.model=gene.model, genome.version=genome.version, result.dir=result.dir)
   
   dbDisconnect(db.connection)
   return(annotation.result)
