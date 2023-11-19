@@ -16,7 +16,9 @@
 #' @export
 #'
 #' @examples
-#' ## reference gene list from GTF
+#' ## gene model and genome version
+#' annotation.gene.list <- unique(annotation.result$gene_symbol)
+#' gsea.result.dir <- paste0(system.file("extdata", package="ASpediaR"), "/gsea_result")
 #' mining_gsea(annotation.gene.list, gene.model="Ensembl", genome.version="GRCh38",
 #'               result.dir=gsea.result.dir)
 #' 
