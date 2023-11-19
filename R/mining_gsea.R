@@ -8,19 +8,16 @@
 #' gene list from reference
 #' @param result.dir
 #' directory where GSEA result(.tsv and .png file) are saved
-#' 
+#' @param gene.model
+#' gene model of reference. One of Refseq, Ensembl, or GENCODE. 
+#' @param genome.version 
+#' genome version of reference. One of hg18, GRCh19, or GRCh38.
 #' @return
 #' @export
 #'
 #' @examples
 #' ## reference gene list from GTF
-#' library(rtracklayer)
-#' gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
-#' gtf.data <- import(gtf.file.name)
-#' gtf.gene.list <- unique(gtf.data$gene_name)
-#' annotation.gene.list <- unique(annotation.result$gene_symbol)
-#' gsea.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/gsea_result”)
-#' mining_gsea(annotation.gene.list, gsea.gene.list=reference.gene.list,
+#' mining_gsea(annotation.gene.list, gene.model="Ensembl", genome.version="GRCh38",
 #'               result.dir=gsea.result.dir)
 #' 
 #' ## reference gene list from user input
@@ -30,7 +27,13 @@
 #' mining_gsea(annotation.gene.list, gsea.gene.list=test.gene.list, result.dir=gsea.result.dir)
 
 
-mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="") {
+mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", gene.model="", genome.version="", result.dir="") {
+  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
+  
+  if(file.exists(data.dir) == FALSE) {
+    dir.create(data.dir)
+  }
+  
   if(class(annotation.gene.list) == "NULL") {
     print("*** ERROR MESSAGE: Input annotation gene list is empty vector. Please check input annotation gene list.")
     return()
@@ -44,17 +47,33 @@ mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="
     }
   }
   
-  if(class(gsea.gene.list) == "NULL") {
-    print("*** ERROR MESSAGE: Input reference gene list is empty. Please check input reference gene list.")
-    return()
-  } else if(class(gsea.gene.list) != "character") {
-    print("*** ERROR MESSAGE: Input reference gene list is not character vector. Please check input reference gene list.")
-    return()
-  } else {
-    if (length(gsea.gene.list) == 1 && gsea.gene.list[1] == "") {
-      print("*** ERROR MESSAGE: Input reference gene list is empty. Please check input reference gene list.")
+  reference.gene.list <- ""
+  
+  if(gene.model == "" || genome.version == ""){
+    if(class(gsea.gene.list) == "NULL") {
+      print("*** ERROR MESSAGE: Input gene model, genome version and reference gene list is empty. Please check your input. reference gene list or gene model and genome version are required.")
       return()
+    } else if(class(gsea.gene.list) != "character") {
+      print("*** ERROR MESSAGE: Input reference gene list is not character vector. Please check input reference gene list.")
+      return()
+    } else {
+      if (length(gsea.gene.list) == 1 && gsea.gene.list[1] == "") {
+        print("*** ERROR MESSAGE: Input gene model, genome version and reference gene list is empty. Please check your input. reference gene list or gene model and genome version are required.")
+        return()
+      } else {
+        reference.gene.list <- gsea.gene.list
+      }
     }
+  } else {
+    reference.gene.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
+    
+    if(!file.exists(reference.gene.list.file.name)) {
+      url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
+      download.file(url, reference.gene.list.file.name, method="auto")
+    }
+    
+    reference.gene.list <- read.table(reference.gene.list.file.name, stringsAsFactors=FALSE, header=FALSE)
+    reference.gene.list <- unique(reference.gene.list$V1)
   }
   
   if(result.dir == "") {
@@ -78,12 +97,6 @@ mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="
   
   if(("ggplot2" %in% loaded.packages) == FALSE) {
     library(ggplot2)
-  }
-  
-  data.dir <- paste0(.libPaths()[1], "/ASpediaR/data")
-  
-  if(file.exists(data.dir) == FALSE) {
-    dir.create(data.dir)
   }
   
   db.file.name <- paste0(data.dir, "/mining.sqlite")
@@ -114,7 +127,7 @@ mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", result.dir="
     split_pathway <- (str_split(pathway, "_")[[1]])
     mining.pathway <- paste(split_pathway[2:length(split_pathway)], collapse="_")
 
-    stat_CP <- chisq.test(t(contigency_table(mining.gene, annotation.gene.list, gsea.gene.list)))$p.value
+    stat_CP <- chisq.test(t(contigency_table(mining.gene, annotation.gene.list, reference.gene.list)))$p.value
 
     result.data <- rbind(result.data, c(pathway, mining.pathway, stat_CP))
   }

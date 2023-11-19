@@ -62,7 +62,7 @@ asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.ver
   gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
 
   if(class(gsea.gene.list) == "character" && gsea.gene.list[1] != "") {
-    whole.gene <- gava.gene.list
+    whole.gene <- gsea.gene.list
   } else {
     if(!file.exists(gene.list.file.name)) {
       url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
@@ -310,7 +310,8 @@ asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.ver
   write.table(annotation.result, paste0(result.dir, "/annotation_result.tsv"), sep="\t", col.names=TRUE, row.names=FALSE, quote=FALSE)
   
   #GSEA
-  mining_gsea(unique(annotation.result$gene_symbol), whole.gene, result.dir)
+  #mining_gsea(unique(annotation.result$gene_symbol), whole.gene, result.dir)
+  mining_gsea(unique(annotation.result$gene_symbol), gene.modle=gene.model, genome.version=genome.version, result.dir)
   
   dbDisconnect(db.connection)
   return(annotation.result)
