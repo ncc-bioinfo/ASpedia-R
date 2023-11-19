@@ -67,7 +67,7 @@ mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", gene.model="
       }
     }
   } else {
-    reference.gene.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
+    reference.gene.list.file.name <- paste0(data.dir, "/", gene.model, ".", genome.version, ".gene.txt")
     
     if(!file.exists(reference.gene.list.file.name)) {
       url =  paste0("http://combio.hanyang.ac.kr/aspedia_v2/data/gene_list/", gene.model, ".", genome.version, ".gene.txt")
