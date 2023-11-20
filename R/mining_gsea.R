@@ -78,8 +78,6 @@ mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", gene.model="
     reference.gene.list <- unique(reference.gene.list$V1)
   }
   
-  print(reference.gene.list)
-  
   if(result.dir == "") {
     print("*** ERROR MESSAGE: No such output directory.")
     return()
