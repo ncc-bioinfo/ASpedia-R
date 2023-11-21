@@ -16,7 +16,7 @@ Depends:
 biocViews:
 Imports:
     ggbio,
-    rtracklayer,
+    rtracklayer (>= 1.62.0),
     epitools,
     ggraph,
     igraph,
