@@ -27,17 +27,17 @@
 
 SUPPA.converter <- function(SUPPA.result="", pvalue.cutoff=0.05, dpsi.cutoff=0.1, gtf.file.name="", ioe.file.name="") {
   if(SUPPA.result == "" || file.exists(SUPPA.result) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such input file. ", SUPPA.result))
+    message(paste0("*** ERROR MESSAGE: No such input file. ", SUPPA.result))
     return()
   }
 
   if(gtf.file.name == "" || file.exists(gtf.file.name) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
+    message(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
     return()
   }
 
   if(ioe.file.name == "" || file.exists(ioe.file.name) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such .ioe file. ", ioe.file.name))
+    message(paste0("*** ERROR MESSAGE: No such .ioe file. ", ioe.file.name))
     return()
   }
   
@@ -86,10 +86,10 @@ SUPPA.converter <- function(SUPPA.result="", pvalue.cutoff=0.05, dpsi.cutoff=0.1
     {
       as.gene.id <- strsplit(tmp.gene.id.list[1], split="[.]")[[1]][1]
       as.gene.name <- unique(gtf.data[gtf.data$gene_id == as.gene.id, "gene_name"])
-    }else
-    {
-      print(tmp.gene.id.list)
-    }
+    }#else
+    #{
+    #  message(tmp.gene.id.list)
+    #}
 
     event.id <- tmp.event.id.list[2]
     c(as.gene.id, as.gene.name, event.id) })
@@ -441,7 +441,7 @@ SUPPA.converter <- function(SUPPA.result="", pvalue.cutoff=0.05, dpsi.cutoff=0.1
         }
 
         if (length(tmp.upstream.exon) > 1 | length(tmp.splicing.exon) > 1 | length(tmp.downstream.exon) > 1) {
-          print(tmp.as.id)
+          message(tmp.as.id)
         }
 
         as.id.result <- rbind(as.id.result, data.frame(as_id = tmp.as.id, tid_set = tid.set, upstream_exon=tmp.upstream.exon, splicing_exon=tmp.splicing.exon, downstream_exon=tmp.downstream.exon))

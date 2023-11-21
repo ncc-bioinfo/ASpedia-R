@@ -46,25 +46,25 @@
 
 asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl", genome.version="GRCh38", gene.name="", as.id="", heights.list="", list.of.plot="", result.dir="") {
   if(class(annotation.result) != "data.frame") {
-    print("*** ERROR MESSAGE: Input annotation result is not data frame. Please check input annotation result.")
+    message("*** ERROR MESSAGE: Input annotation result is not data frame. Please check input annotation result.")
     return()
   } else if(is.null(nrow(annotation.result)) == TRUE || nrow(annotation.result) == 0) {
-    print("*** ERROR MESSAGE: Input annotation result has 0 row. Please check input annotation result.")
+    message("*** ERROR MESSAGE: Input annotation result has 0 row. Please check input annotation result.")
     return()
   }
   
   if(gtf.file.name == "" || file.exists(gtf.file.name) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
+    message(paste0("*** ERROR MESSAGE: No such gtf file. ", gtf.file.name))
     return()
   }
   
   if((class(gene.name) != "character" || (class(gene.name) == "character" && gene.name[1] == "")) && (class(as.id) != "character" || (class(as.id) == "character" && as.id[1] == ""))) {
-    print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
+    message("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
   }
   
   if(result.dir == "") {
-    print("*** ERROR MESSAGE: No such output directory.")
+    message("*** ERROR MESSAGE: No such output directory.")
     return()
   }
   
@@ -174,11 +174,20 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   has.heights.list <- FALSE
   
   if((class(list.of.plot) == "character" && list.of.plot[1] != "") && (class(heights.list) == "numeric")) {
-    if((length(list.of.plot) + 2) != length(heights.list)) {
-      print("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
-      return()
+    if("rbp" %in% tolower(list.of.plot)) {
+      if((length(list.of.plot) + 3) != length(heights.list)) {
+        message("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
+        return()
+      } else {
+        has.heights.list <- TRUE
+      }
     } else {
-      has.heights.list <- TRUE
+      if((length(list.of.plot) + 2) != length(heights.list)) {
+        message("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
+        return()
+      } else {
+        has.heights.list <- TRUE
+      }
     }
   }
   

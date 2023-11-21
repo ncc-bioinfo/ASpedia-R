@@ -59,7 +59,7 @@ asr_converter <- function(das.analysis.result="", program="", pvalue.cutoff=0.05
 
     return(converter.result)
   } else {
-    print("ERROR : Input program name is wrong. Please check program option. We currently support rMATS, SUPPA, or spliceR.")
+    message("ERROR : Input program name is wrong. Please check program option. We currently support rMATS, SUPPA, or spliceR.")
     return()
   }
 }

@@ -129,7 +129,7 @@ mining_gsea <- function(annotation.gene.list="", gsea.gene.list="", gene.model="
     split_pathway <- (str_split(pathway, "_")[[1]])
     mining.pathway <- paste(split_pathway[2:length(split_pathway)], collapse="_")
 
-    stat_CP <- chisq.test(t(contigency_table(mining.gene, annotation.gene.list, reference.gene.list)))$p.value
+    suppressWarnings(stat_CP <- chisq.test(t(contigency_table(mining.gene, annotation.gene.list, reference.gene.list)))$p.value)
 
     result.data <- rbind(result.data, c(pathway, mining.pathway, stat_CP))
   }

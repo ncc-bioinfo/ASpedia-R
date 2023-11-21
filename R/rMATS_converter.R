@@ -24,7 +24,7 @@
 rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dpsi.cutoff=0.1)
 {
   if(rMATS.result == "" || file.exists(rMATS.result) == FALSE) {
-    print(paste0("*** ERROR MESSAGE: No such input file. ", rMATS.result))
+    message(paste0("*** ERROR MESSAGE: No such input file. ", rMATS.result))
     return()
   }
 
@@ -32,12 +32,12 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
 
   if(nrow(rMATS.input) == 0)
   {
-    print("*** ERROR MESSAGE: Input file is empty. Please check input file.")
+    message("*** ERROR MESSAGE: Input file is empty. Please check input file.")
     return()
   }
   
   if(as.type == "" || (tolower(as.type) != "a3ss" && tolower(as.type) != "a5ss" && tolower(as.type) != "se" && tolower(as.type) != "mxe" && tolower(as.type) != "ri")) {
-    print("*** ERROR MESSAGE: Input AS type is wrong. Please check AS.type option. We only support A5SS, A3SS, SE, MXE, RI.")
+    message("*** ERROR MESSAGE: Input AS type is wrong. Please check AS.type option. We only support A5SS, A3SS, SE, MXE, RI.")
     return()
   }
   
@@ -52,7 +52,7 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
     tmp.line <- rMATS.input[1, ]
 
     if(length(tmp.line) != 23) {
-      print("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
+      message("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
       return()
     }
 
@@ -84,7 +84,7 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
     tmp.line <- rMATS.input[1, ]
 
     if(length(tmp.line) != 23) {
-      print("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
+      message("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
       return()
     }
 
@@ -116,7 +116,7 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
     tmp.line <- rMATS.input[1, ]
 
     if(length(tmp.line) != 23) {
-      print("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
+      message("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
       return()
     }
 
@@ -148,7 +148,7 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
     tmp.line <- rMATS.input[1, ]
 
     if(length(tmp.line) != 25) {
-      print("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
+      message("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
       return()
     }
 
@@ -180,7 +180,7 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
     tmp.line <- rMATS.input[1, ]
 
     if(length(tmp.line) != 23) {
-      print("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
+      message("*** ERROR MESSAGE: Input file format is wrong. Please check input file.")
       return()
     }
 
@@ -209,7 +209,7 @@ rMATS.converter <- function(rMATS.result="", as.type="", pvalue.cutoff=0.05, dps
 
     converting.result <- rbind(plus.strand.result, minus.strand.result)
   } else {
-    print("*** ERROR MESSAGE: Input AS type is wrong. Please check AS_type option. We only support A5SS, A3SS, SE, MXE, or RI.")
+    message("*** ERROR MESSAGE: Input AS type is wrong. Please check AS_type option. We only support A5SS, A3SS, SE, MXE, or RI.")
     return()
   }
 

@@ -27,20 +27,20 @@
 
 asr_plot_ppi <- function(annotation.result="", gene.name="", as.id="", result.dir="") {
   if(class(annotation.result) == "character" && annotation.result == "") {
-    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    message("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
     return()
   } else if(is.null(nrow(annotation.result)) == TRUE || nrow(annotation.result) == 0) {
-    print("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
+    message("*** ERROR MESSAGE: Input annotation result is empty. Please check input annotation result.")
     return()
   }
   
   if(gene.name == "" && as.id == "") {
-    print("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
+    message("*** ERROR MESSAGE: Input gene name or AS ID is required. Please check input gene name or AS ID")
     return()
   }
   
   if(result.dir == "") {
-    print("*** ERROR MESSAGE: No such output directory.")
+    message("*** ERROR MESSAGE: No such output directory.")
     return()
   }
   

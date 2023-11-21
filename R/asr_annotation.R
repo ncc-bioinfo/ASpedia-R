@@ -25,17 +25,17 @@
 
 asr_annotation <- function(converter.result="", gene.model="Ensembl", genome.version="GRCh38", gsea.gene.list="", result.dir="") {
   if(class(converter.result) != "data.frame") {
-    print("*** ERROR MESSAGE: Input converter result is not data frame. Please check input converter result.")
+    message("*** ERROR MESSAGE: Input converter result is not data frame. Please check input converter result.")
     return()
   } else {
     if(is.null(nrow(converter.result)) == TRUE || nrow(converter.result) == 0) {
-      print("*** ERROR MESSAGE: Input converter result is empty. Please check input converter result.")
+      message("*** ERROR MESSAGE: Input converter result is empty. Please check input converter result.")
       return()
     }
   }
   
   if(result.dir == "") {
-    print("*** ERROR MESSAGE: No such output directory.")
+    message("*** ERROR MESSAGE: No such output directory.")
     return()
   }
   
