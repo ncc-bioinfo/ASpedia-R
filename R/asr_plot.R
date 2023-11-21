@@ -174,21 +174,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   has.heights.list <- FALSE
   
   if((class(list.of.plot) == "character" && list.of.plot[1] != "") && (class(heights.list) == "numeric")) {
-    if("rbp" %in% tolower(list.of.plot)) {
-      if((length(list.of.plot) + 3) != length(heights.list)) {
-        message("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
-        return()
-      } else {
-        has.heights.list <- TRUE
-      }
-    } else {
-      if((length(list.of.plot) + 2) != length(heights.list)) {
-        message("*** ERROR MESSAGE: Input plot data list and heights list is not matched. Please check your input heights list or heights list.")
-        return()
-      } else {
-        has.heights.list <- TRUE
-      }
-    }
+    has.heights.list <- TRUE
   }
   
   #load GTF
