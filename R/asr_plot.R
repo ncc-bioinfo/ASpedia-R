@@ -185,7 +185,7 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
   #load GTF
   gtf.data <- import(gtf.file.name)
 
-  #ideogram
+  #ideogram initialize
   ideo.genome.version <- ""
   
   if(genome.version == "GRCh38") {
@@ -196,7 +196,36 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     ideo.genome.version <- genome.version
   }
   
-  #ideo.plot <- Ideogram(genome=ideo.genome.version)
+  ideo.session <- rtracklayer::browserSession()
+  
+  message("Loading ideogram...")
+  tryres <- try(ideo.query <- rtracklayer::ucscTableQuery(ideo.session, table="cytoBand", genome=ideo.genome.version))
+  
+  if(!inherits(tryres, "try-error")) {
+    #rtracklayer::tableName(query) <- "cytoBand"
+    ideo.data <- rtracklayer::getTable(ideo.query)
+    ideo.range <- GRanges(seqnames = ideo.data$chrom, IRanges(start = ideo.data$chromStart, end = ideo.data$chromEnd))
+    values(ideo.range) <- ideo.data[, c("name", "gieStain")]
+    
+    message("Loading ranges...")
+    ideo.range.r <- rtracklayer::GRangesForUCSCGenome(ideo.genome.version)
+    suppressWarnings(seqlengths(ideo.range) <- seqlengths(ideo.range.r)[names(seqlengths(ideo.range))])
+    ideo.range <- trim(ideo.range)
+  } else {
+    message("cytoBand informatin is not available, only get ranges.")
+    message("Loading ranges...")
+    ideo.range <- rtracklayer::GRangesForUCSCGenome(ideo.genome.version)
+  }
+  
+  message("Done")
+  
+  ideo.range <- sort(ideo.range)
+  
+  if(length(ideo.range) == 1) {
+    ideo.range <- ideo.range[[1]]
+  }
+  
+  ideo.plot <- Ideogram(obj=ideo.range)
   
   for(anno.index in 1:nrow(annotation.result)) {
     tmp.anno <- annotation.result[anno.index, ]
@@ -217,9 +246,9 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
       exon.region <- c(as.numeric(as.id.split[length(as.id.split)]), as.numeric(as.id.split[2]))
     }
     
-    #ideogram
-    #ideo.plot@subchr <- as.chr
-    #ideo.plot@zoom.region <- exon.region
+    #ideogram plot
+    ideo.plot@subchr <- as.chr
+    ideo.plot@zoom.region <- exon.region
   
     #gene plot data
     transcript.id.list <- c(str_split(tmp.anno$exon_inclusion_transcript_id, ",")[[1]], str_split(tmp.anno$exon_exclusion_transcript_id, ",")[[1]])
@@ -542,22 +571,16 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     gene.plot <- autoplot(gene.plot.data, label.color="black", aes(fill=exon_type)) + scale_fill_manual(values=c("exon"="#619CFF", "as_exon"="#F8766D")) + ylab(paste0("Gene\n(", gene.id, ",", gene.name, ")")) + xlim(exon.region) + guides(y="none")
     gene.plot@ggplot$layers[[length(gene.plot@ggplot$layers)]]$data$midpoint <- gene.text.position
   
-    #as.track <- tracks(ideo.plot, gene.plot)
-    as.track <- tracks(gene.plot)
-  
+    as.track <- tracks(ideo.plot, gene.plot)
     
     if(length(transcript.id.list) <= 4) {
-      #as.track@heights <- c(1, 1)
-      as.track@heights <- c(1)
+      as.track@heights <- c(1, 1)
     }else if(length(transcript.id.list) <= 6) {
-      #as.track@heights <- c(1, 2)
-      as.track@heights <- c(2)
+      as.track@heights <- c(1, 2)
     }else if(length(transcript.id.list) <= 8) {
-      #as.track@heights <- c(1, 3)
-      as.track@heights <- c(3)
+      as.track@heights <- c(1, 3)
     }else {
-      #as.track@heights <- c(1, 4)
-      as.track@heights <- c(4)
+      as.track@heights <- c(1, 4)
     }
     
     #conservation
