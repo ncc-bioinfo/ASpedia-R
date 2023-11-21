@@ -39,7 +39,7 @@
 #' 
 #' ##track lists and track heights are change
 #' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
-#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 1, 1, 2),
+#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 1, 1, 1, 1),
 #'           list.of.plot=c(“conservation”, "domain", "PTM", "repeats", “RBP”), 
 #'           result.dir=plot.result.dir)
 
@@ -943,6 +943,8 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     as.track <- as.track + theme_tracks_sunset(bg="white") + theme(legend.position="none", axis.title.y=element_text(angle=0, vjust=0.5))
     
     if(has.heights.list == TRUE) {
+      print(as.track@heights)
+      print(heights.list)
       as.track@heights <- heights.list
     }
     
