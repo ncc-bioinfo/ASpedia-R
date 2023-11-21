@@ -24,7 +24,7 @@ asr_plot_ppi(
 If asr_annotation function result has protein protein interaction(PPI) information, we provide PPI network plot.
 }
 \examples{
-ppi.result.dir <- system.file(“extdata/ppi_result”, package=“ASpediaR”)
+ppi.result.dir <- system.file("extdata/ppi_result", package="ASpediaR")
 
 ##using gene name
 asr_plot_ppi(annotation.result, gene.name="FGFR2", result.dir=ppi.result.dir)

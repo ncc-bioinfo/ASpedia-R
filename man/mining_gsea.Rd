@@ -4,12 +4,22 @@
 \alias{mining_gsea}
 \title{gene enrichment test between annotation gene list and knowledge-based database gene list.}
 \usage{
-mining_gsea(annotation.gene.list = "", gsea.gene.list = "", result.dir = "")
+mining_gsea(
+  annotation.gene.list = "",
+  gsea.gene.list = "",
+  gene.model = "",
+  genome.version = "",
+  result.dir = ""
+)
 }
 \arguments{
 \item{annotation.gene.list}{gene list from asr_annotation function result}
 
 \item{gsea.gene.list}{gene list from reference}
+
+\item{gene.model}{gene model of reference. One of Refseq, Ensembl, or GENCODE.}
+
+\item{genome.version}{genome version of reference. One of hg18, GRCh19, or GRCh38.}
 
 \item{result.dir}{directory where GSEA result(.tsv and .png file) are saved}
 }
@@ -17,19 +27,15 @@ mining_gsea(annotation.gene.list = "", gsea.gene.list = "", result.dir = "")
 Gene enrichment test result are provided to tsv and plot format between annotation gene list and knowledge-based database gene list.
 }
 \examples{
-## reference gene list from GTF
-library(rtracklayer)
-gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
-gtf.data <- import(gtf.file.name)
-gtf.gene.list <- unique(gtf.data$gene_name)
+## gene model and genome version
 annotation.gene.list <- unique(annotation.result$gene_symbol)
-gsea.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/gsea_result”)
-mining_gsea(annotation.gene.list, gsea.gene.list=reference.gene.list,
+gsea.result.dir <- paste0(system.file("extdata", package="ASpediaR"), "/gsea_result")
+mining_gsea(annotation.gene.list, gene.model="Ensembl", genome.version="GRCh38",
               result.dir=gsea.result.dir)
 
 ## reference gene list from user input
-test.gene.list.file.name <- system.file(“extdata”, “test_whole_gene.txt”, package=“ASpediaR”)
-test.gene.list <- read.table(test.gene.list.file.name, header=FALSE, stringsAsFactors=FALSE)
-gsea.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/gsea_result”)
+test.gene.list.file.name <- system.file("extdata", "test_whole_gene.txt", package="ASpediaR")
+test.gene.list <- unique(read.table(test.gene.list.file.name, header=FALSE, stringsAsFactors=FALSE)$V1)
+gsea.result.dir <- paste0(system.file("extdata", package="ASpediaR"), "/gsea_result")
 mining_gsea(annotation.gene.list, gsea.gene.list=test.gene.list, result.dir=gsea.result.dir)
 }

@@ -43,18 +43,18 @@ result of DAS analysis tools convert to ASpedia-R input format.
 }
 \examples{
 ## rMATS
-das.file.name <- system.file(“extdata” “rMATS_test.txt”, package=“ASpediaR”)
-rmats.convert.result <- asr_converter(das.file.name, program=“rMATS”, as.type=“SE”)
+das.file.name <- system.file("extdata" "rMATS_test.txt", package="ASpediaR")
+rmats.convert.result <- asr_converter(das.file.name, program="rMATS", as.type="SE")
 
 ##SUPPA
-das.file.name <- system.file(“extdata”, “SUPPA_test.txt”, package=“ASpediaR”)
-gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
-ioe.file.name <- system.file(“extdata”, “SUPPA_test.ioe”, package=“ASpediaR”)
-suppa.convert.result <- asr_converter(das.file.name, program=“SUPPA”,
+das.file.name <- system.file("extdata", "SUPPA_test.txt", package="ASpediaR")
+gtf.file.name <- system.file("extdata", "test_gtf.gtf", package="ASpediaR")
+ioe.file.name <- system.file("extdata", "SUPPA_test.ioe", package="ASpediaR")
+suppa.convert.result <- asr_converter(das.file.name, program="SUPPA",
                                         gtf.file=gtf.file.name, ioe.file=ioe.file.name)
 
 ##spliceR
-das.file.name <- system.file(“extdata”, “spliceR_test.txt”, package=“ASpediaR”)
-splilcer.convert.result <- asr_converter(das.file.name, program=“spliceR”,
-                                          gene.model=“Ensembl”, genome.version=“GRCh38”)
+das.file.name <- system.file("extdata", "spliceR_test.txt", package="ASpediaR")
+splilcer.convert.result <- asr_converter(das.file.name, program="spliceR",
+                                          gene.model="Ensembl", genome.version="GRCh38")
 }

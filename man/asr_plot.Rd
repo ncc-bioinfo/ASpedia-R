@@ -31,7 +31,7 @@ asr_plot(
 
 \item{heights.list}{positive integer vectors for track heights include height of ideogram and gene track.}
 
-\item{list.of.plot}{list of DNA or RNA feature to be visualization. choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, or “RBP”.}
+\item{list.of.plot}{list of DNA or RNA feature to be visualization. choose from "conservation", "NMD", "repeats", "domain", "PTM", or "RBP".}
 
 \item{result.dir}{directory where plots(.png files) are saved}
 }
@@ -39,21 +39,21 @@ asr_plot(
 DNA and RNA features in result of asr_annotation function to be visualize.
 }
 \examples{
-gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
-plot.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/plot_result”)
+gtf.file.name <- system.file("extdata", "test_gtf.gtf", package="ASpediaR")
+plot.result.dir <- paste0(system.file("extdata", package="ASpediaR"), "/plot_result")
 
 ##using gene name
 asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
           gene.name="FGFR2", result.dir=plot.result.dir)
 
 ##using AS ID
-asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
-          as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319",
+asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38", 
+          as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319", 
           result.dir=plot.result.dir)
 
 ##track lists and track heights are change
-asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
-          gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 1, 1, 2),
-          list.of.plot=c(“conservation”, "domain", "PTM", "repeats", “RBP”), 
+asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38", 
+          as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319", 
+          heights.list=c(1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1), list.of.plot=c("conservation", "domain", "PTM", "repeats", "RBP"), 
           result.dir=plot.result.dir)
 }
