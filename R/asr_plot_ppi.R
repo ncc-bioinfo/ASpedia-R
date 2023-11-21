@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' ppi.result.dir <- system.file(“extdata/ppi_result”, package=“ASpediaR”)
+#' ppi.result.dir <- system.file("extdata/ppi_result", package="ASpediaR")
 #' 
 #' ##using gene name
 #' asr_plot_ppi(annotation.result, gene.name="FGFR2", result.dir=ppi.result.dir)
@@ -122,7 +122,7 @@ asr_plot_ppi <- function(annotation.result="", gene.name="", as.id="", result.di
       print(ppi.plot)
       dev.off()
     } else {
-      print(paste0(gene.name, "\t", as.id, " has not PPI."))
+      message(paste0(gene.name, "\t", as.id, " has not PPI."))
     }
   }
 }

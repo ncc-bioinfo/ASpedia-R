@@ -17,7 +17,7 @@
 #' @param heights.list
 #' positive integer vectors for track heights include height of ideogram and gene track.
 #' @param list.of.plot 
-#' list of DNA or RNA feature to be visualization. choose from “conservation”, “NMD”, “repeats”, “domain”, “PTM”, or “RBP”.
+#' list of DNA or RNA feature to be visualization. choose from "conservation", "NMD", "repeats", "domain", "PTM", or "RBP".
 #' @param result.dir
 #' directory where plots(.png files) are saved
 #'
@@ -25,22 +25,22 @@
 #' @export
 #'
 #' @examples
-#' gtf.file.name <- system.file(“extdata”, “test_gtf.gtf”, package=“ASpediaR”)
-#' plot.result.dir <- paste0(system.file(“extdata”, package=“ASpediaR”), “/plot_result”)
+#' gtf.file.name <- system.file("extdata", "test_gtf.gtf", package="ASpediaR")
+#' plot.result.dir <- paste0(system.file("extdata", package="ASpediaR"), "/plot_result")
 #' 
 #' ##using gene name
 #' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
 #'           gene.name="FGFR2", result.dir=plot.result.dir)
 #'
 #' ##using AS ID
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
-#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319",
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38", 
+#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319", 
 #'           result.dir=plot.result.dir)
 #' 
 #' ##track lists and track heights are change
-#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38",
-#'           gene.name="FGFR2", heights.list=c(1, 2, 2, 1, 1, 1, 1, 1),
-#'           list.of.plot=c(“conservation”, "domain", "PTM", "repeats", “RBP”), 
+#' asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38", 
+#'           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319", 
+#'           heights.list=c(1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1), list.of.plot=c("conservation", "domain", "PTM", "repeats", "RBP"), 
 #'           result.dir=plot.result.dir)
 
 
@@ -929,8 +929,6 @@ asr_plot <- function(annotation.result="", gtf.file.name="", gene.model="Ensembl
     as.track <- as.track + theme_tracks_sunset(bg="white") + theme(legend.position="none", axis.title.y=element_text(angle=0, vjust=0.5))
     
     if(has.heights.list == TRUE) {
-      print(as.track@heights)
-      print(heights.list)
       as.track@heights <- heights.list
     }
     
