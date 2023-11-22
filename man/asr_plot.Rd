@@ -54,6 +54,7 @@ asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version=
 ##track lists and track heights are change
 asr_plot(annotation.result, gtf.file.name, gene.model="Ensembl", genome.version="GRCh38", 
           as.id="chr10:121520169:121519979:121518829:121518682:121517463:121517319", 
-          heights.list=c(1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1), list.of.plot=c("conservation", "domain", "PTM", "repeats", "RBP"), 
+          heights.list=c(1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1), 
+          list.of.plot=c("conservation", "domain", "PTM", "repeats", "RBP"), 
           result.dir=plot.result.dir)
 }

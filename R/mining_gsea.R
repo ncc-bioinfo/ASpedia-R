@@ -24,7 +24,8 @@
 #' 
 #' ## reference gene list from user input
 #' test.gene.list.file.name <- system.file("extdata", "test_whole_gene.txt", package="ASpediaR")
-#' test.gene.list <- unique(read.table(test.gene.list.file.name, header=FALSE, stringsAsFactors=FALSE)$V1)
+#' test.gene.list <- unique(read.table(test.gene.list.file.name, header=FALSE, 
+#'                           stringsAsFactors=FALSE)$V1)
 #' gsea.result.dir <- paste0(system.file("extdata", package="ASpediaR"), "/gsea_result")
 #' mining_gsea(annotation.gene.list, gsea.gene.list=test.gene.list, result.dir=gsea.result.dir)
 
